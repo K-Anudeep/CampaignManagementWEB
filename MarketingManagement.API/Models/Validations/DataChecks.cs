@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DatabaseLayer.Repositories;
-using Entities;
-using System.ComponentModel.DataAnnotations;
+using MarketingManagement.API.Models.Repositories;
+using MarketingManagement.API.Models.Entities;
 using System.Text.RegularExpressions;
 
 namespace BusinessLayer.Validations
@@ -77,13 +72,15 @@ namespace BusinessLayer.Validations
             Leads check = leadsRepo.GetALead(leadID);
             if (check != null)
             {
-                bool check1 = leadsRepo.CheckLead(leadID);
-                if (check1 == true)
+                var check1 = leadsRepo.GetALead(leadID);
+                if (check1 != null)
                 {
                     return true;
                 }
                 else
+                {
                     return false;
+                }
             }
             else
             {
@@ -141,7 +138,7 @@ namespace BusinessLayer.Validations
 
         public bool PhoneNoCheck(string phone)
         {
-            if(Regex.IsMatch(phone.ToString(), @"^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$"))
+            if(Regex.IsMatch(phone, @"^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$"))
             {
                 return true;
             }
