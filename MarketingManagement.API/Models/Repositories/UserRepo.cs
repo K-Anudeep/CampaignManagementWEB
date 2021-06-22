@@ -35,7 +35,7 @@ namespace MarketingManagement.API.Models.Repositories
             }
             else
             {
-                throw new Exception("Failed to Add User");
+                throw new Exception("User does not exist");
             }
         }
 
