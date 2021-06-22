@@ -11,6 +11,6 @@ namespace MarketingManagement.API.Models.Repositories.Interfaces
 
         Products OneProduct(int pId);
 
-        void DeleteProduct(int pId);
+        bool DeleteProduct(int pId);
     }
 }
