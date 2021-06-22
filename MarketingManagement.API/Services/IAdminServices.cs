@@ -10,33 +10,33 @@ namespace MarketingManagement.API.Services
 
         List<Products> ViewProducts();
 
-        Products OneProduct(int pId);
+        Products OneProduct(int productId);
 
-        bool DeleteProduct(int pId);
+        bool DeleteProduct(int productId);
 
         //CAMPAIGN
 
         bool AddCampaign(Campaigns campaigns);
 
-        bool CloseCampagin(int cId);
+        bool CloseCampagin(int campaignId);
 
-        Campaigns OneCampaign(int cId);
+        Campaigns OneCampaign(int campaignId);
 
         //USERS
 
         bool AddUser(Users users);
 
-        List<Users> DisplayUsers();
+        IEnumerable<Users> DisplayUsers();
 
-        bool DiscontinueUser();
+        bool DiscontinueUser(int userId);
 
-        Users OneUser();
+        Users OneUser(int userId);
 
         //Reports
 
-        List<Leads> ViewLeadByCampaign(int cId);
+        List<Leads> ViewLeadByCampaign(int campaignId);
 
-        List<Campaigns> ViewCampaingByExecutive();
+        List<Campaigns> ViewCampaingByExecutive(int executiveId);
 
     }
 }
