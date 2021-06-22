@@ -5,14 +5,14 @@ namespace MarketingManagement.API.Models.Repositories.Interfaces
 {
     public interface ILeadsRepo
     {
-        bool AddLeads(Leads leads);
+        void AddLeads(Leads leads);
 
         List<Leads> ViewLeadsToExec();
 
         List<Leads> ViewLeadsByCampaign(int cId);
 
-        Leads GetALead(int leadID);
+        void GetALead(int leadID);
 
-        bool FollowLead(int leadID, string newStatus);
+        void FollowLead(int leadID, string newStatus);
     }
 }
