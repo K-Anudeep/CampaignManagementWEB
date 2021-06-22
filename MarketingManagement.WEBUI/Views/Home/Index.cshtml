@@ -1,4 +1,4 @@
-﻿
+﻿@model Users
 @{
     ViewData["Title"] = "UserLogin";
     Layout = "~/Views/Shared/LoginLayout.cshtml";
@@ -13,9 +13,9 @@
         <form asp-action="Index">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="UserID" class="control-label">User ID</label>
-                <input asp-for="UserID" class="form-control" />
-                <span asp-validation-for="UserID" class="text-danger"></span>
+                <label asp-for="UserId" class="control-label">User ID</label>
+                <input asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label">Password</label>
@@ -23,8 +23,26 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-primary" />
+                <br />
+                <input type="submit" value="Login" class="btn btn-primary" id="loginbtn"/>
             </div>
         </form>
     </div>   
 </div>
+<script type="text/javascript">
+    $("#loginbtn").click(function(){
+        let UserId = $("#UserId").val()
+        let Password = $("#Password").val()
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:5000/User/Login",
+            data: JSON.stringify({"UserId": UserId, "Password": Password}),
+            success: function (){
+                location.href = "User/Index"
+                },
+                error: function (){
+                    alert('Error')
+                    }
+            })
+        })
+</script>
