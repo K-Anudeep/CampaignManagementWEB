@@ -5,7 +5,7 @@ namespace MarketingManagement.API.Models.Repositories.Interfaces
 {
     public interface ISalesRepo
     {
-        void CreateSales(Sales sales);
+        bool CreateSales(Sales sales);
 
         List<Sales> ViewSales();
     }
