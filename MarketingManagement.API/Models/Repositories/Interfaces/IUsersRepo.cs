@@ -5,9 +5,9 @@ namespace MarketingManagement.API.Models.Repositories.Interfaces
 {
     public interface IUsersRepo
     {
-        bool AddUsers(Users user);
+        void AddUsers(Users user);
 
-        List<Users> DisplayUsers();
+        IEnumerable<Users> DisplayUsers();
 
         Users OneUser(int uId);
 

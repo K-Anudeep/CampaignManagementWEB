@@ -1,29 +1,54 @@
 ﻿using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.Models.Repositories.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using MarketingManagement.API.DataContext;
+using System;
 
 namespace MarketingManagement.API.Models.Repositories
 {
     public class UserRepo : IUsersRepo
     {
-        public bool AddUsers(Users user)
+        private readonly MarketingMgmtDBContext _context;
+
+        public UserRepo(MarketingMgmtDBContext context)
         {
-            throw new System.NotImplementedException();
+            _context = context;
+        }
+
+        public void AddUsers(Users user)
+        {
+            user.Discontinued = 0;
+            _context.Add(user);
+            _context.SaveChanges();
         }
 
         public bool DiscontinueUser(int uId)
         {
-            throw new System.NotImplementedException();
+            var user = _context.Users.SingleOrDefault(u => u.UserID == uId);
+            if(user != null)
+            {
+                user.Discontinued = 1;
+                _context.SaveChanges();
+                return true;
+            }
+            else
+            {
+                throw new Exception("Failed to Add User");
+            }
         }
 
-        public List<Users> DisplayUsers()
+        public IEnumerable<Users> DisplayUsers()
         {
-            throw new System.NotImplementedException();
+            //Gets List of All Users
+            return _context.Users.ToList();
         }
 
         public Users OneUser(int uId)
         {
-            throw new System.NotImplementedException();
+            //Gets User by uId
+            return _context.Users.Find(uId);
         }
     }
 }
