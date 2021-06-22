@@ -7,12 +7,14 @@ namespace MarketingManagement.API.Models.Repositories.Interfaces
 {
     interface IGenericRepo<T> where T: class
     {
-        T AddRecord(T records);
+        void AddRecord(T records);
 
         T GetRecord(object value);
 
         IEnumerable<T> GetAllRecords();
 
-        T UpdateRecord(object value);
+        void DeleteRecord(object value);
+
+        bool UpdateRecord(T value);
     }
 }

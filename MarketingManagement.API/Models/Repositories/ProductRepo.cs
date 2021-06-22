@@ -1,11 +1,7 @@
-using System;
 using System.Collections.Generic;
 using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.Models.Repositories.Interfaces;
-using System.Data;
-using DatabaseLayer.DBException;
 using MarketingManagement.API.DataContext;
-using System;
 using System.Linq;
 
 namespace MarketingManagement.API.Models.Repositories
@@ -20,16 +16,14 @@ namespace MarketingManagement.API.Models.Repositories
         }
 
         public void AddProducts(Products products)
-        {
-          
+        {          
             _context.Products.Add(products);
             _context.SaveChanges();
         }
 
-        public bool DeleteProduct(int pId)
-        {
-            
-            _context.Remove(pId);
+        public bool DeleteProduct(int productId)
+        {            
+            _context.Remove(productId);
             _context.SaveChanges();
             return true;
         }
@@ -39,9 +33,9 @@ namespace MarketingManagement.API.Models.Repositories
             return _context.Products.ToList();
         }
 
-        public Products OneProduct(int pId)
+        public Products OneProduct(int productId)
         {
-            return _context.Products.Find(pId);
+            return _context.Products.Find(productId);
         }
     }
 }
