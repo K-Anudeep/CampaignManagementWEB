@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MarketingManagement.API.DataContext;
 using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.Models.Validations;
-using MarketingManagement.API.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace MarketingManagement.API.Controllers
 {
@@ -29,13 +26,17 @@ namespace MarketingManagement.API.Controllers
             if(validation != null)
             {
                 //Check for Admin or Executive
-                Users Check = _accessCheck.AdminCheck(loginId);
+                Users Check = _accessCheck.AdminCheck(validation.UserID);
                 if(Check.IsAdmin == 1)
                 {
+                    HttpContext.Session.SetInt32("UserId", validation.UserID);
+                    HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
                     return Content("Admin");
                 }
                 else
                 {
+                    HttpContext.Session.SetInt32("UserId", validation.UserID);
+                    HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
                     return Content("Executive");
                 }
             }
