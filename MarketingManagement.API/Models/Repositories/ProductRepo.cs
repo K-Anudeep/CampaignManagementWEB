@@ -4,29 +4,44 @@ using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.Models.Repositories.Interfaces;
 using System.Data;
 using DatabaseLayer.DBException;
+using MarketingManagement.API.DataContext;
+using System;
+using System.Linq;
 
 namespace MarketingManagement.API.Models.Repositories
 {
     public class ProductRepo : IProductsRepo
     {
-        public bool AddProducts(Products products)
+        private readonly MarketingMgmtDBContext _context;
+
+        public ProductRepo(MarketingMgmtDBContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        public void AddProducts(Products products)
+        {
+          
+            _context.Products.Add(products);
+            _context.SaveChanges();
         }
 
         public bool DeleteProduct(int pId)
         {
-            throw new NotImplementedException();
+            
+            _context.Remove(pId);
+            _context.SaveChanges();
+            return true;
         }
 
         public List<Products> DisplayProducts()
         {
-            throw new NotImplementedException();
+            return _context.Products.ToList();
         }
 
         public Products OneProduct(int pId)
         {
-            throw new NotImplementedException();
+            return _context.Products.Find(pId);
         }
     }
 }
