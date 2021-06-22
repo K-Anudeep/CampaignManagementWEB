@@ -8,17 +8,17 @@ namespace MarketingManagement.API.Services
         //PRODUCTS
         bool AddProducts(Products products);
 
-        List<Products> ViewProducts();
+        IEnumerable<Products> GetAllProducts();
 
         Products OneProduct(int productId);
 
-        bool DeleteProduct(int productId);
+        void DeleteProduct(int productId);
 
         //CAMPAIGN
 
         bool AddCampaign(Campaigns campaigns);
 
-        bool CloseCampagin(int campaignId);
+        bool CloseCampagin(Campaigns campaigns);
 
         Campaigns OneCampaign(int campaignId);
 
@@ -34,9 +34,9 @@ namespace MarketingManagement.API.Services
 
         //Reports
 
-        List<Leads> ViewLeadByCampaign(int campaignId);
+        IEnumerable<Leads> ViewLeadByCampaign(int campaignId);
 
-        List<Campaigns> ViewCampaingByExecutive(int executiveId);
+        IEnumerable<Campaigns> ViewCampaingByExecutive();
 
     }
 }
