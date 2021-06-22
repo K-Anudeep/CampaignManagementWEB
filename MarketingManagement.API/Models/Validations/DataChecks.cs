@@ -16,10 +16,10 @@
 //        {
 //            if (campaignsRepo.OneCampaign(cId) != null)
 //            {
-//                if(campaignsRepo.CampaignStatusCheck(cId))
+//                if (campaignsRepo.CampaignStatusCheck(cId))
 //                {
 //                    return true;
-//                }    
+//                }
 //                else
 //                {
 //                    return false;
@@ -138,7 +138,7 @@
 
 //        public bool PhoneNoCheck(string phone)
 //        {
-//            if(Regex.IsMatch(phone, @"^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$"))
+//            if (Regex.IsMatch(phone, @"^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$"))
 //            {
 //                return true;
 //            }

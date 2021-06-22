@@ -22,9 +22,9 @@ namespace MarketingManagement.API.Models.Validations
                                     && a.Password.Equals(password)).FirstOrDefault();
         }
 
-        public Users AdminCheck(string loginId)
+        public Users AdminCheck(int userId)
         {
-            return _context.Users.SingleOrDefault(s => s.LoginID == loginId);
+            return _context.Users.SingleOrDefault(s => s.UserID == userId);
         }
     }
 }
