@@ -19,7 +19,9 @@ namespace MarketingManagement.API.Models.Repositories
 
         public bool AddCampaign(Campaigns campaign)
         {
-            throw new NotImplementedException();
+            _context.Campaigns.Add(campaign);
+            _context.SaveChanges();
+            return true;
         }
 
         public bool CampaignStatusCheck(int campaignId)
@@ -40,7 +42,8 @@ namespace MarketingManagement.API.Models.Repositories
 
         public IEnumerable<Campaigns> ViewAllCampaigns()
         {
-            throw new NotImplementedException();
+            return _context.Campaigns.ToList();
+
         }
 
         //Used by Executive to view his Campaigns
