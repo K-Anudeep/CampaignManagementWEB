@@ -33,11 +33,15 @@ namespace MarketingManagement.API.Controllers
                     HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
                     return Content("Admin");
                 }
-                else
+                else if(Check.IsAdmin == 0)
                 {
                     HttpContext.Session.SetInt32("UserId", validation.UserID);
                     HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
                     return Content("Executive");
+                }
+                else
+                {
+                    return BadRequest("Empty or Wrong Creds");
                 }
             }
             else

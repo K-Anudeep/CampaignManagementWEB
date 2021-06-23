@@ -47,7 +47,7 @@ namespace MarketingManagement.WEBUI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Startpage}/{action=UserLogin}/{id?}");
             });
         }
     }
