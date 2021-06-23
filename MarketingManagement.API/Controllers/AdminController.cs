@@ -26,6 +26,15 @@ namespace MarketingManagement.API.Controllers
             accessCheck = new AccessCheck(context);
         }
 
+        //LOGOUT
+        [Route("Logout")]
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return Content("Logged Out!");
+        }
+
         //USERS
 
         //Add User

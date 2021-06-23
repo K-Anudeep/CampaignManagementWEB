@@ -26,6 +26,15 @@ namespace MarketingManagement.API.Controllers
             _dataChecks = new DataChecks(context);
         }
 
+        //LOGOUT
+        [Route("Logout")]
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return Content("Logged Out!");
+        }
+
         // POST: api/Executive/Leads/Add
         [Route("Leads/Add")]
         [HttpPost]
