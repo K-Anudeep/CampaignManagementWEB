@@ -32,9 +32,9 @@ namespace MarketingManagement.API.Models.Repositories
             throw new NotImplementedException();
         }
 
-        public Campaigns OneCampaign(int cId)
+        public Campaigns OneCampaign(int campaignId)
         {
-            throw new NotImplementedException();
+            return _context.Campaigns.Find(campaignId);
         }
 
         public IEnumerable<Campaigns> ViewAllCampaigns()
