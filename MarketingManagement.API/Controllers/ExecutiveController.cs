@@ -36,6 +36,9 @@ namespace MarketingManagement.API.Controllers
                 //Checks if Campaign ID exists
                 if (!_dataChecks.CheckCampaign(leads.CampaignID))
                     throw new Exception("Campaign ID given does not exist!");
+                //Check if Camapaign is Open or Close
+                if (!_dataChecks.CampaignStatusCheck(leads.CampaignID))
+                    throw new Exception("Given Campaign is Closed! Cannot create new Lead.");
                 //Checks if Product ID exists
                 if (!_dataChecks.CheckProduct(leads.ProductID))
                     throw new Exception("Product ID given does not exist!");
@@ -44,7 +47,7 @@ namespace MarketingManagement.API.Controllers
 
                 _executive.AddLeads(leads);
 
-                return CreatedAtAction("GetLeads", new { id = leads.LeadID }, leads);
+                return CreatedAtAction("GetOneLead", new { id = leads.LeadID }, leads);
             }
             catch(Exception ex)
             {
@@ -75,7 +78,7 @@ namespace MarketingManagement.API.Controllers
             return Content($"Lead {leadId} Updated with {leadStatus}");
         }
 
-        // GET: api/Executive
+        // GET: api/Executive/Leads/GetLeadsByMe
         [Route("Leads/GetLeadsByMe")]
         [HttpGet]
         public ActionResult<IEnumerable<Leads>> GetLeadsByMe()
@@ -86,8 +89,9 @@ namespace MarketingManagement.API.Controllers
         }
 
         //INTERNAL USE ONLY
+        [Route("Leads/GetOneLead")]
         [HttpGet]
-        public async Task<ActionResult<Leads>> GetLeads(int id)
+        public async Task<ActionResult<Leads>> GetOneLead(int id)
         {
             var leads = await _context.Leads.FindAsync(id);
 
@@ -102,6 +106,68 @@ namespace MarketingManagement.API.Controllers
         private bool LeadsExists(int id)
         {
             return _context.Leads.Any(e => e.LeadID == id);
+        }
+
+        //SALES
+        // POST: api/Executive/Sales/Add
+        [Route("Sales/Add")]
+        [HttpPost]
+        public ActionResult<Sales> CreateSales([Bind("LeadID, ShippingAddress, BillingAddress, CreatedON, PaymentMode")] Sales sales)
+        {
+            try
+            {
+                //Checks if Lead ID exists
+                if (!LeadsExists(sales.LeadID))
+                    throw new Exception("Campaign ID given does not exist!");
+                //Checks if Lead Status is Won
+                if (!_dataChecks.CheckLeadStatus(sales.LeadID))
+                    throw new Exception("Sale Orders can only be created for Leads that have 'Won'");
+
+                _executive.AddSales(sales);
+
+                return CreatedAtAction("GetOneSale", new { orderId = sales.OrderID }, sales);
+            }
+            catch (Exception ex)
+            {
+                return Content(ex.Message);
+            }
+        }
+
+        // GET: api/Executive/Sales/GetSales
+        [Route("Sales/GetSales")]
+        [HttpGet]
+        public ActionResult<IEnumerable<Leads>> GetSales()
+        {
+            //Get all sales
+            var sales = _executive.ViewSales();
+            return Ok(sales);
+        }
+
+        //INTERNAL USE ONLY
+        [Route("Sales/GetOneSale")]
+        [HttpGet]
+        public async Task<ActionResult<Leads>> GetOneSale(int orderId)
+        {
+            var leads = await _context.Leads.FindAsync(orderId);
+
+            if (leads == null)
+            {
+                return NotFound();
+            }
+
+            return leads;
+        }
+
+        //CAMPAIGNS
+
+        //GET: api/Executive/Campaigns/AssignedToMe
+        [Route("Campaigns/AssignedToMe")]
+        [HttpGet]
+        public ActionResult<IEnumerable<Campaigns>> GetCampaignAsgnToMe()
+        {
+            var currentUser = Convert.ToInt32(HttpContext.Session.GetInt32("UserId"));
+            var campaigns = _executive.ViewCampaignsAssigned(currentUser);
+            return Ok(campaigns);
         }
     }
 }

@@ -22,9 +22,10 @@ namespace MarketingManagement.API.Models.Repositories
             throw new NotImplementedException();
         }
 
-        public bool CampaignStatusCheck(int cId)
+        public bool CampaignStatusCheck(int campaignId)
         {
-            throw new NotImplementedException();
+            var statusCheck = _context.Campaigns.Find(campaignId);
+            return statusCheck.IsOpen;
         }
 
         public bool CloseCampaign(int cId)
@@ -45,7 +46,7 @@ namespace MarketingManagement.API.Models.Repositories
         //Used by Executive to view his Campaigns
         public IEnumerable<Campaigns> ViewCampaignsByAssigned(int userId)
         {
-            throw new NotImplementedException();
+            return _context.Campaigns.Where(v => v.AssignedTo == userId);
         }
 
         //Used by Admin to view a specific Exec's campaigns

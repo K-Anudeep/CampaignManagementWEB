@@ -9,7 +9,6 @@ namespace MarketingManagement.API.Models.Validations
     public class DataChecks
     {
         CampaignsRepo campaignsRepo;
-        UserRepo userRepo;
         LeadsRepo leadsRepo;
         ProductRepo productRepo;
 
@@ -20,23 +19,9 @@ namespace MarketingManagement.API.Models.Validations
             productRepo = new ProductRepo(context);
         }
 
-        public bool CampaignStatusCheck(int cId)
+        public bool CampaignStatusCheck(int campaignId)
         {
-            if (campaignsRepo.OneCampaign(cId) != null)
-            {
-                if (campaignsRepo.CampaignStatusCheck(cId))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                throw new Exception("Error: No Campaign with that ID found.");
-            }
+            return campaignsRepo.CampaignStatusCheck(campaignId);
         }
 
         public bool CheckCampaign(int campaignId)
@@ -49,52 +34,44 @@ namespace MarketingManagement.API.Models.Validations
                 return false;
         }
 
-        //public bool CheckUser(int userID)
+        ////public bool CheckUser(int userID)
+        ////{
+        ////    Users check = userRepo.OneUser(userID);
+        ////    if (check != null)
+        ////    {
+        ////        return true;
+        ////    }
+        ////    else
+        ////    {
+        ////        return false;
+        ////    }
+        ////}
+
+        public bool CheckLeadStatus(int leadID)
+        {
+            return leadsRepo.LeadStatusCheck(leadID);
+        }
+
+        //public bool SalesLead(int leadID)
         //{
-        //    Users check = userRepo.OneUser(userID);
+        //    Leads check = leadsRepo.GetALead(leadID);
         //    if (check != null)
         //    {
-        //        return true;
+        //        var check1 = leadsRepo.GetALead(leadID);
+        //        if (check1 != null)
+        //        {
+        //            return true;
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
         //    }
         //    else
         //    {
         //        return false;
         //    }
         //}
-
-        public bool CheckLead(int leadID)
-        {
-            Leads check = leadsRepo.GetALead(leadID);
-            if (check != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public bool SalesLead(int leadID)
-        {
-            Leads check = leadsRepo.GetALead(leadID);
-            if (check != null)
-            {
-                var check1 = leadsRepo.GetALead(leadID);
-                if (check1 != null)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
 
         public bool CheckProduct(int productID)
         {
@@ -109,51 +86,51 @@ namespace MarketingManagement.API.Models.Validations
             }
         }
 
-        public bool AdminCheck(int userID)
-        {
-            //To check if user is Admin
-            Users check = userRepo.OneUser(userID);
-            if (check.IsAdmin == 1)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
+        //public bool AdminCheck(int userID)
+        //{
+        //    //To check if user is Admin
+        //    Users check = userRepo.OneUser(userID);
+        //    if (check.IsAdmin == 1)
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        return true;
+        //    }
+        //}
 
+        ////public bool EmailCheck(string email)
+        ////{
+        ////    var check = new EmailAddressAttribute();
+        ////    if (check.IsValid(email))
+        ////    {
+        ////        return true;
+        ////    }
+        ////    else
+        ////        return false;
+        ////}
         //public bool EmailCheck(string email)
         //{
-        //    var check = new EmailAddressAttribute();
-        //    if (check.IsValid(email))
+        //    string regexEmail = @"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$";
+        //    if (Regex.IsMatch(email.ToString(), regexEmail))
         //    {
         //        return true;
         //    }
         //    else
         //        return false;
         //}
-        public bool EmailCheck(string email)
-        {
-            string regexEmail = @"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$";
-            if (Regex.IsMatch(email.ToString(), regexEmail))
-            {
-                return true;
-            }
-            else
-                return false;
-        }
 
-        public bool PhoneNoCheck(string phone)
-        {
-            if (Regex.IsMatch(phone, @"^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //public bool PhoneNoCheck(string phone)
+        //{
+        //    if (Regex.IsMatch(phone, @"^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[6789]\d{9}$"))
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
     }
 }

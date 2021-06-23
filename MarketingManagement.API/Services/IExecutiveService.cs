@@ -20,6 +20,6 @@ namespace MarketingManagement.API.Services
 
         //CAMPAIGNS
 
-        IEnumerable<Campaigns> ViewCampaignsAssigned();
+        IEnumerable<Campaigns> ViewCampaignsAssigned(int campaignId);
     }
 }

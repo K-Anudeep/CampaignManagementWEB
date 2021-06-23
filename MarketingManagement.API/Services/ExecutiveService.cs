@@ -10,35 +10,33 @@ namespace MarketingManagement.API.Services
     {
         private readonly LeadsRepo _leadsRepo;
         private readonly CampaignsRepo _campaignsRepo;
-        private readonly GenericRepo<Sales> genericSalesRepo;
-        private readonly GenericRepo<Leads> genericLeadsRepo;
-        private readonly GenericRepo<Products> genericProductRepo;
-        private readonly GenericRepo<Campaigns> genericCampaignRepo;
+        private readonly GenericRepo<Sales> _genericSalesRepo;
+        private readonly GenericRepo<Leads> _genericLeadsRepo;
+        private readonly GenericRepo<Campaigns> _genericCampaignRepo;
 
         public ExecutiveService(MarketingMgmtDBContext context)
         {
-            //Generic Repo for Products
-            genericProductRepo = new GenericRepo<Products>(context);
             //Generic Repo for Campaigns
-            genericCampaignRepo = new GenericRepo<Campaigns>(context);
+            _genericCampaignRepo = new GenericRepo<Campaigns>(context);
             //Generic Repo for Leads
-            genericLeadsRepo = new GenericRepo<Leads>(context);
+            _genericLeadsRepo = new GenericRepo<Leads>(context);
             _leadsRepo = new LeadsRepo(context);
             //Direct Campaign Repo
             _campaignsRepo = new CampaignsRepo(context);
+            _genericSalesRepo = new GenericRepo<Sales>(context);
         }
 
         //LEADS
 
         public bool AddLeads(Leads leads)
         {
-            genericLeadsRepo.AddRecord(leads);
+            _genericLeadsRepo.AddRecord(leads);
             return true;
         }
 
         public bool FollowLead(Leads leads)
         {
-            genericLeadsRepo.UpdateRecord(leads);
+            _genericLeadsRepo.UpdateRecord(leads);
             return true;
         }
 
@@ -51,19 +49,20 @@ namespace MarketingManagement.API.Services
 
         public bool AddSales(Sales sales)
         {
-            throw new NotImplementedException();
+            _genericSalesRepo.AddRecord(sales);
+            return true;
         }
 
         public IEnumerable<Sales> ViewSales()
         {
-            throw new NotImplementedException();
+            return _genericSalesRepo.GetAllRecords();
         }
 
         //CAMPAIGNS
 
-        public IEnumerable<Campaigns> ViewCampaignsAssigned()
+        public IEnumerable<Campaigns> ViewCampaignsAssigned(int userId)
         {
-            throw new NotImplementedException();
+            return _campaignsRepo.ViewCampaignsByAssigned(userId);
         }
     }
 }

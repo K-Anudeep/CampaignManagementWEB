@@ -14,5 +14,7 @@ namespace MarketingManagement.API.Models.Repositories.Interfaces
         Leads GetALead(int leadID);
 
         void FollowLead(int leadID, string newStatus);
+
+        bool LeadStatusCheck(int leadID);
     }
 }

@@ -33,6 +33,15 @@ namespace MarketingManagement.API.Models.Repositories
             return _context.Leads.Find(leadID);
         }
 
+        public bool LeadStatusCheck(int leadID)
+        {
+            var statusCheck = _context.Leads.Find(leadID);
+            if (statusCheck.Status == "Won")
+                return true;
+            else
+                return false;
+        }
+
         public IEnumerable<Leads> ViewLeadsByCampaign(int campaignId)
         {
             var leads = _context.Leads.ToList();
