@@ -18,6 +18,7 @@ namespace MarketingManagement.API.Controllers
         private readonly MarketingMgmtDBContext _context;
         private readonly AdminServices _admin;
         private readonly AccessCheck accessCheck;
+
         public AdminController(MarketingMgmtDBContext context)
         {
             _context = context;
@@ -44,7 +45,7 @@ namespace MarketingManagement.API.Controllers
 
                     //Send User details to Repo for insertion to DB
                     _admin.AddUser(user);
-                    return Ok();
+                    return CreatedAtAction("GetOneUser", new { userId = user.UserID }, user);
                 }
                 else
                 {
@@ -78,14 +79,14 @@ namespace MarketingManagement.API.Controllers
         // GET: api/Admin/User/GetAll
         [Route("User/GetAll")]
         [HttpGet]
-        public ActionResult<IEnumerable<Users>> GetUsers()
+        public ActionResult<IEnumerable<Users>> GetAllUsers()
         {
             return _admin.DisplayUsers().ToList();
         }
 
         // GET: api/Admin/Users/5
         [HttpGet("User/GetOneUser/{userId}")]
-        public ActionResult<Users> GetUsers(int userId)
+        public ActionResult<Users> GetOneUser(int userId)
         {
             //Calls User repo to get a specific user by Id
             var users = _admin.OneUser(userId);
@@ -125,7 +126,7 @@ namespace MarketingManagement.API.Controllers
 
                     //Send User details to Repo for insertion to DB
                     if (_admin.AddProducts(products))
-                        return Ok();
+                        return CreatedAtAction("OneProduct", new { productId = products.ProductID}, products);
                     else
                         throw new Exception("Could not add Product");
                 }
@@ -233,7 +234,7 @@ namespace MarketingManagement.API.Controllers
 
                     //Send User details to Repo for insertion to DB
                     if (_admin.AddCampaign(campaigns))
-                        return Ok();
+                        return CreatedAtAction("OneCampaign", new { campaignId = campaigns.CampaignID }, campaigns);
                     else
                         throw new Exception("Could not add campaign");
                 }
@@ -269,7 +270,7 @@ namespace MarketingManagement.API.Controllers
             }
         }
 
-        //Discontinue User
+        //Close Campaign
         // PUT: api/Admin/Campaign/Close/{id}
         [Route("Campaign/Close/{campaignId}")]
         [HttpPut]
