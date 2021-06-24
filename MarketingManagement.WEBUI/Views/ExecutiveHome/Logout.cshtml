@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Logout";
+    Layout = "~/Views/Shared/LoginLayout.cshtml";
+}
+<h1>Good Bye!</h1>
+
+<h4></h4>
+<hr />
+<div class="text-center">
+    <h2>Logging you out...</h2>
+    <script type="text/javascript">
+        window.setTimeout(function () {
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:25733/api/Executive/Logout",
+                success: function (response) {
+                    window.location = "http://localhost:17131/Startpage/UserLogin"
+                },
+                error: function () {
+                    alert("Login Failed");
+                }
+            })
+        }, 5000);
+    </script>
+</div>

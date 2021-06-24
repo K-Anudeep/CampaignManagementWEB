@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace MarketingManagement.WEBUI.Controllers
 {
-    public class HomeController : Controller
+    public class ExecutiveHomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<ExecutiveHomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public ExecutiveHomeController(ILogger<ExecutiveHomeController> logger)
         {
             _logger = logger;
         }
@@ -24,6 +24,11 @@ namespace MarketingManagement.WEBUI.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Logout()
         {
             return View();
         }

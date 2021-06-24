@@ -7,14 +7,22 @@
     $(document).ready(function () {
 
         $("#loginbtn").click(function () {
-            let LoginId = $("#UserId").val()
-            let Password = $("#Password").val()
+            var credentials = {
+                "loginID": $('#UserId').val(),
+                "password": $('#Password').val()
+            };
             $.ajax({
                 type: "POST",
                 url: "http://localhost:25733/api/Users/Login",
-                data: { "LoginId": LoginId, "Password": Password },
-                success: function () {
-                    alert('Success')
+                data: JSON.stringify( credentials ),
+                contentType: "application/json",    
+                success: function (response) {
+                    if (response == "Admin") {
+                        window.location = "http://localhost:17131/AdminHome/Index"
+                    }
+                    else if (response == "Executive") {
+                        window.location = "http://localhost:17131/ExecutiveHome/Index"
+                    }
                 },
                 error: function () {
                     alert('Error')
@@ -30,7 +38,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="" method="post">
+        <form>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="UserId" class="control-label">User ID</label>
@@ -44,7 +52,7 @@
             </div>
             <div class="form-group">
                 <br />
-                <input type="submit" value="Login" class="btn btn-primary" id="loginbtn" />
+                <input type="button" value="Login" class="btn btn-primary" id="loginbtn" />
             </div>
         </form>
     </div>

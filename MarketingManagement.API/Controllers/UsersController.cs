@@ -19,8 +19,11 @@ namespace MarketingManagement.API.Controllers
         //POST: api/Users/Login
         [HttpPost]
         [Route("Login")]
-        public IActionResult UserValidation(string loginId, string password)
+        public IActionResult UserValidation(Users users)
         {
+            var loginId = users.LoginID;
+            var password = users.Password;
+
             // Validate a User with their given Credentials
             var validation = _accessCheck.Validation(loginId, password);
             if(validation != null)
@@ -30,12 +33,14 @@ namespace MarketingManagement.API.Controllers
                 if(Check.IsAdmin == 1)
                 {
                     HttpContext.Session.SetInt32("UserId", validation.UserID);
+                    HttpContext.Session.SetString("FullName", validation.FullName);
                     HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
                     return Content("Admin");
                 }
                 else if(Check.IsAdmin == 0)
                 {
                     HttpContext.Session.SetInt32("UserId", validation.UserID);
+                    HttpContext.Session.SetString("FullName", validation.FullName);
                     HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
                     return Content("Executive");
                 }
@@ -46,7 +51,7 @@ namespace MarketingManagement.API.Controllers
             }
             else
             {
-                return NotFound();
+                return BadRequest("Empty or Wrong Credentials");
             }
         }
     }

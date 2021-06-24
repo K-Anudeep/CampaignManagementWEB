@@ -1,12 +1,8 @@
 ﻿using MarketingManagement.WEBUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace MarketingManagement.WEBUI.Controllers
 {
     public class AdminHomeController : Controller
@@ -20,10 +16,16 @@ namespace MarketingManagement.WEBUI.Controllers
 
         public IActionResult Index()
         {
+            HttpContext.Session.GetString("FullName");
             return View();
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Logout()
         {
             return View();
         }
