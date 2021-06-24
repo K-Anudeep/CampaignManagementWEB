@@ -1,0 +1,104 @@
+﻿@model MarketingManagement.WEBUI.Models.UserDetails
+
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Views/AdminHome/_Layout.cshtml";
+}
+<script>
+    $(document).ready(function () {
+
+        $("#createbtn").click(function () {
+            var credentials = {
+                "FullName": $('#FullName').val(),
+                "LoginID": $('#LoginID').val(),
+                "Password": $('#Password').val(),
+                "ConfirmPassword": $('#ConfirmPassword').val(),
+                "DateOfJoin": $('#DateOfJoin').val(),
+                "Address": $('#Address').val(),
+                "IsAdmin": $("input[name='IsAdmin']:checked").val()
+            };
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:25733/api/Admin/User/Add",
+                data: JSON.stringify(credentials),
+                contentType: "application/json",
+                success: function (response) {
+                    alert("Success")
+                },
+                error: function () {
+                    alert('Error')
+                }
+            })
+        })
+    })
+</script>
+
+<h1>Create a new User</h1>
+
+<h4>Enter the following Details</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <fieldset>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="FullName" class="control-label">Full Name</label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label asp-for="LoginID" class="control-label">Login ID</label>
+                    <input asp-for="LoginID" class="form-control" />
+                    <span asp-validation-for="LoginID" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="control-label">Confirm your Password</label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label asp-for="DateOfJoin" class="control-label">Date of Joining</label>
+                    <input asp-for="DateOfJoin" class="form-control" />
+                    <span asp-validation-for="DateOfJoin" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label"></label>
+                    <textarea asp-for="Address" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <br />
+                <p>Type of User</p>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="IsAdmin" id="btnradio1" autocomplete="off" checked="" value="1">
+                    <label class="btn btn-outline-primary" for="btnradio1">Administrator</label>
+                    <input type="radio" class="btn-check" name="IsAdmin" id="btnradio2" autocomplete="off" checked="" value="0">
+                    <label class="btn btn-outline-primary" for="btnradio2">Marketing Executive</label>
+                </div>
+                <br />
+                <br />
+                <div class="form-group">
+                    <input type="button" value="Create" class="btn btn-primary" id="createbtn"/>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<br />
+<div>
+    <a asp-action="Index">Back to Home</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

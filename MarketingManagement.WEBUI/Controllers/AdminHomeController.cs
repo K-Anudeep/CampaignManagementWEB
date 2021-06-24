@@ -25,6 +25,12 @@ namespace MarketingManagement.WEBUI.Controllers
             return View();
         }
 
+        //Manage Users through here
+        public IActionResult Users()
+        {
+            return View();
+        }
+
         public IActionResult Logout()
         {
             return View();
