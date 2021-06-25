@@ -18,7 +18,7 @@ namespace MarketingManagement.WEBUI.Models
         [MaxLength(200)]
         public string Venue { get; set; }
 
-        [Required(ErrorMessage ="Please enter to which it is assigned ")]
+        [Required(ErrorMessage ="Please enter the assigned Executive")]
         public int AssignedTo { get; set; }
 
         [Required(ErrorMessage ="Please enter the start date")]

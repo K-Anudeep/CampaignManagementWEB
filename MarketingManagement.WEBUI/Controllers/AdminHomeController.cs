@@ -25,6 +25,8 @@ namespace MarketingManagement.WEBUI.Controllers
             return View();
         }
 
+        //USERS
+
         //Manage Users through here
         public IActionResult AddUsers()
         {
@@ -36,6 +38,13 @@ namespace MarketingManagement.WEBUI.Controllers
         {
             return View();
         }
+
+        public IActionResult OneUser()
+        {
+            return View();
+        }
+
+        //CAMPAIGNS
 
         public IActionResult AddCampaigns()
         {

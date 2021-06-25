@@ -26,7 +26,7 @@
                     alert("Success")
                 },
                 error: function () {
-                    alert('Error')
+                    document.getElementById("loginDiv").style.display = 'block'
                 }
             })
         })
@@ -87,8 +87,11 @@
                 </div>
                 <br />
                 <br />
+                <div class="alert alert-danger" id="loginDiv" style="display: none">
+                    Fill the details above!
+                </div>
                 <div class="form-group">
-                    <input type="button" value="Create" class="btn btn-primary" id="createbtn"/>
+                    <input type="button" value="Create" class="btn btn-primary" id="createbtn" />
                 </div>
             </fieldset>
         </form>

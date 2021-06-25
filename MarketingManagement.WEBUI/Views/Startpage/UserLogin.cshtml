@@ -5,7 +5,6 @@
 }
 <script>
     $(document).ready(function () {
-
         $("#loginbtn").click(function () {
             var credentials = {
                 "loginID": $('#UserId').val(),
@@ -25,7 +24,7 @@
                     }
                 },
                 error: function () {
-                    alert('Error')
+                    document.getElementById("loginDiv").style.display = 'block'
                 }
             })
         })
@@ -55,10 +54,10 @@
                 <br />
                 <input type="button" value="Login" class="btn btn-primary" id="loginbtn" />
             </div>
+            <br />
+            <div class="alert alert-danger" id="loginDiv" style="display: none">
+                Login Failed: Check your credentials and try again!
+            </div>
         </form>
-        <div class="alert alert-dismissible alert-danger">
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
-        </div>
     </div>
 </div>

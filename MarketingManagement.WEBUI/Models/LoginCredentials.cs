@@ -4,10 +4,10 @@ namespace MarketingManagement.WEBUI.Models
 {
     public class LoginCredentials
     {
-        [Required]
+        [Required(ErrorMessage ="Please enter the User ID")]
         public string UserId { get; set; }
         
-        [Required]
+        [Required(ErrorMessage ="Password should not be empty")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }

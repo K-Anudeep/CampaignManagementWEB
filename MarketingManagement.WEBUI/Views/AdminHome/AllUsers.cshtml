@@ -27,7 +27,7 @@
                     else {
                         var userType = "Marketing Executive"
                     }
-                    let row = '<tr><td>'
+                    let row = '<tr id="tabledata"><td class="userID">'
                         + item.userID + '</td><td>'
                         + item.fullName + '</td><td>'
                         + item.loginID + '</td><td>'
@@ -40,7 +40,7 @@
                 });
             }
         })
-    })
+    });
 </script>
 
 <h1>List of Users</h1>
@@ -59,3 +59,10 @@
         </tr>
     </thead>
 </table>
+<script>
+    $('#userTable').on("click", "tr", function () {
+        var userID = $(this).children('td.userID').text();
+        sessionStorage.setItem("userId",userID) ;
+        window.location = "http://localhost:17131/AdminHome/OneUser"
+    })
+</script>
