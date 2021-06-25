@@ -59,6 +59,30 @@ namespace MarketingManagement.WEBUI.Controllers
         {
             return View();
         }
+        public IActionResult AddProduct()
+        {
+            return View();
+        }
+        public IActionResult DeleteProduct()
+        {
+            return View();
+        }
+        public IActionResult ViewProduct()
+        {
+            return View();
+        }
+        public IActionResult OneProduct()
+        {
+            return View();
+        }
+        public IActionResult ViewLeadsByCampaign()
+        {
+            return View();
+        }
+        public IActionResult ViewLeadsByExecutive()
+        {
+            return View();
+        }
 
         public IActionResult Logout()
         {
