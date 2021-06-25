@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "AllUsers";
+    Layout = "~/Views/AdminHome/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:25733/api/Admin/User/GetAll",
+            dataType: 'json',
+            success: function (response) {
+                $.each(response, function (i, item) {
+                    console.log(response);
+                    const date = new Date(Date.parse(item.dateOfJoin));
+                    const options = { day: 'numeric', month: 'numeric', year: 'numeric' }
+                    if (item.discontinued == 1) {
+                        var disc = "Discontinued"
+                    }
+                    else {
+                        var disc = "On Job"
+                    }
+                    if (item.isAdmin == 1) {
+                        var userType = "Administrator"
+                    }
+                    else {
+                        var userType = "Marketing Executive"
+                    }
+                    let row = '<tr><td>'
+                        + item.userID + '</td><td>'
+                        + item.fullName + '</td><td>'
+                        + item.loginID + '</td><td>'
+                        + item.password + '</td><td>'
+                        + date.toLocaleDateString('en-IN', options) + '</td><td>'
+                        + item.address + '</td><td>'
+                        + disc + '</td><td>'
+                        + userType + '</td></tr>'
+                    $('#userTable').append(row);
+                });
+            }
+        })
+    })
+</script>
+
+<h1>List of Users</h1>
+
+<table class="table table-hover" id="userTable">
+    <thead>
+        <tr>
+            <th scope="col">userID</th>
+            <th scope="col">fullName</th>
+            <th scope="col">Login ID</th>
+            <th scope="col">Password</th>
+            <th scope="col">Joining Date</th>
+            <th scope="col">Address</th>
+            <th scope="col">Discontinued</th>
+            <th scope="col">Type of User</th>
+        </tr>
+    </thead>
+</table>

@@ -42,7 +42,7 @@ namespace MarketingManagement.API.Models.Repositories
         public IEnumerable<Users> DisplayUsers()
         {
             //Gets List of All Users
-            return _context.Users.ToList();
+            return _context.Users;
         }
 
         public Users OneUser(int uId)

@@ -11,12 +11,15 @@ namespace MarketingManagement.API.Services
         private readonly UserRepo userRepo;
         private readonly LeadsRepo _leadsRepo;
         private readonly CampaignsRepo _campaignsRepo;
+        private readonly GenericRepo<Users> genericUserRepo;
         private readonly GenericRepo<Products> genericProductRepo;
         private readonly GenericRepo<Campaigns> genericCampaignRepo;
 
         public AdminServices(MarketingMgmtDBContext context)
         {
+            //Users
             userRepo = new UserRepo(context);
+            genericUserRepo = new GenericRepo<Users>(context);
 
             //Generic Repo for Products
             genericProductRepo = new GenericRepo<Products>(context);
@@ -48,7 +51,7 @@ namespace MarketingManagement.API.Services
 
         public IEnumerable<Users> DisplayUsers()
         {
-            return userRepo.DisplayUsers();
+            return genericUserRepo.GetAllRecords();
         }
 
         //CAMPAIGNS

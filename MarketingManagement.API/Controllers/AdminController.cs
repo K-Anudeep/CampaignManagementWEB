@@ -87,10 +87,18 @@ namespace MarketingManagement.API.Controllers
 
         // GET: api/Admin/User/GetAll
         [Route("User/GetAll")]
-        [HttpGet]
+        [HttpPost]
         public ActionResult<IEnumerable<Users>> GetAllUsers()
         {
-            return _admin.DisplayUsers().ToList();
+            try
+            {
+                var users = _admin.DisplayUsers();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return Content(ex.Message);
+            }
         }
 
         // GET: api/Admin/Users/5

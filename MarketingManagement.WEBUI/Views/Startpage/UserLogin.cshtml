@@ -41,13 +41,13 @@
         <form>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group form-floating">
-                <input asp-for="UserId" class="form-control" id="UserId" placeholder="User ID"/>
+                <input asp-for="UserId" class="form-control" id="UserId" placeholder="User ID" />
                 <label asp-for="UserId" class="control-label" for="UserId">User ID</label>
                 <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
             <br />
             <div class="form-group form-floating">
-                <input asp-for="Password" class="form-control" id="Password" placeholder="Password"/>
+                <input asp-for="Password" class="form-control" id="Password" placeholder="Password" />
                 <label asp-for="Password" class="control-label" for="Password">Password</label>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
@@ -56,5 +56,9 @@
                 <input type="button" value="Login" class="btn btn-primary" id="loginbtn" />
             </div>
         </form>
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+        </div>
     </div>
 </div>

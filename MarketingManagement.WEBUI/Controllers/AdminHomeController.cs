@@ -26,7 +26,13 @@ namespace MarketingManagement.WEBUI.Controllers
         }
 
         //Manage Users through here
-        public IActionResult Users()
+        public IActionResult AddUsers()
+        {
+            return View();
+        }
+
+        //View All, One User or Discontinue User
+        public IActionResult AllUsers()
         {
             return View();
         }
