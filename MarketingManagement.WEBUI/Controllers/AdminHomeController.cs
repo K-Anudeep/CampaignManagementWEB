@@ -37,6 +37,20 @@ namespace MarketingManagement.WEBUI.Controllers
             return View();
         }
 
+        public IActionResult AddCampaigns()
+        {
+            return View();
+        }
+        public IActionResult CloseCampaign(int campaignId)
+        {
+            return View();
+        }
+         
+        public IActionResult OneCampaign (int campaignId)
+        {
+            return View();
+        }
+
         public IActionResult Logout()
         {
             return View();

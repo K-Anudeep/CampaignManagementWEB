@@ -1,0 +1,79 @@
+﻿@model MarketingManagement.WEBUI.Models.CampaignDetails
+
+@{
+    ViewData["Title"] = "AddCampaigns";
+    Layout = "~/Views/AdminHome/_Layout.cshtml";
+}
+<script>
+    $(document).ready(function () {
+
+        $("#createbtn").click(function () {
+            var credentials = {
+                "Name": $('#Name').val(),
+                "Venue": $('#Venue').val(),
+                "AssignedTo": $('#AssignedTo').val(),
+                "StartedOn": $('#StartedOn').val(),
+                "CompletedOn": $('#CompletedOn').val(),
+                
+            };
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:25733/api/Admin/Campaign/Add",
+                data: JSON.stringify(credentials),
+                contentType: "application/json",
+                success: function (response) {
+                    alert("Success")
+                },
+                error: function () {
+                    alert('Error')
+                }
+            })
+        })
+    })
+</script>
+
+<h1>Create a new campaign</h1>
+
+<h4>Enter the following details</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <fieldset>
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Name</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Venue" class="control-label">Venue</label>
+                    <input asp-for="Venue" class="form-control" />
+                    <span asp-validation-for="Venue" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AssignedTo" class="control-label">Assigned To</label>
+                    <input asp-for="AssignedTo" class="form-control" />
+                    <span asp-validation-for="AssignedTo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StartedOn" class="control-label">Started On</label>
+                    <input asp-for="StartedOn" class="form-control" />
+                    <span asp-validation-for="StartedOn" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CompletedOn" class="control-label">Completed On</label>
+                    <input asp-for="CompletedOn" class="form-control" />
+                    <span asp-validation-for="CompletedOn" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

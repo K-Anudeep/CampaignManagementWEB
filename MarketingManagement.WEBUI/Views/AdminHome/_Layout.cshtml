@@ -35,14 +35,30 @@
                                 <a class="dropdown-item" asp-controller="AdminHome" asp-action="AllUsers">List All Users</a>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="AdminHome" asp-action="Products">Products</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Products</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="AdminHome" asp-action="AddCampaigns">Add Products</a>
+                                <a class="dropdown-item" asp-controller="AdminHome" asp-action="CloseCampaign">Delete Product</a>
+                                <a class="dropdown-item" asp-controller="AdminHome" asp-action="OneCampaign">View Product</a>
+                                <a class="dropdown-item" asp-controller="AdminHome" asp-action="OneCampaign">One Product</a>
+
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="AdminHome" asp-action="Campaigns">Campaigns</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage Campaigns</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="AdminHome" asp-action="AddCampaigns">Add Campaigns</a>
+                                <a class="dropdown-item" asp-controller="AdminHome" asp-action="CloseCampaign">Close Campaign</a>
+                                <a class="dropdown-item" asp-controller="AdminHome" asp-action="OneCampaign">Search Campaign</a>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="AdminHome" asp-action="Reports">Reports</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="AdminHome" asp-action="AddUsers">View Lead By Campaign</a>
+                                <a class="dropdown-item" asp-controller="AdminHome" asp-action="AllUsers">View Campaign By Executive</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
