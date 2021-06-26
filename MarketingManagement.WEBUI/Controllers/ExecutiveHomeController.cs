@@ -22,15 +22,15 @@ namespace MarketingManagement.WEBUI.Controllers
         //Leads
         public IActionResult CreateLeads()
         {
-            return View();
+            return View(@"~/Views/ExecutiveHome/Leads/CreateLeads.cshtml");
         }
         public IActionResult FollowLead()
         {
-            return View();
+            return View(@"~/Views/ExecutiveHome/Leads/FollowLead.cshtml");
         }
-        public IActionResult GetLeadsByMe( int UserId)
+        public IActionResult GetLeadsByMe()
         {
-            return View();
+            return View(@"~/Views/ExecutiveHome/Leads/GetLeadsByMe.cshtml");
         }
 
         //Sales
