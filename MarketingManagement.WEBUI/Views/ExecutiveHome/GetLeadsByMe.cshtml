@@ -1,0 +1,84 @@
+﻿@model IEnumerable<MarketingManagement.WEBUI.Models.LeadsDetails>
+
+@{
+    ViewData["Title"] = "GetLeadsByMe";
+    Layout = "~/Views/ExecutiveHome/_Layout.cshtml";
+}
+
+<h1>Get Leads By Me</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LeadID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CampaignID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ConsumerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PreferredMoC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateApproached)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeadID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CampaignID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ConsumerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PreferredMoC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateApproached)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

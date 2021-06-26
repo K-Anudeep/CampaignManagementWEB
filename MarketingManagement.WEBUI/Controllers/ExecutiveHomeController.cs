@@ -22,7 +22,34 @@ namespace MarketingManagement.WEBUI.Controllers
         {
             return View();
         }
+        //Leads
+        public IActionResult CreateLeads()
+        {
+            return View();
+        }
+        public IActionResult FollowLead()
+        {
+            return View();
+        }
+        public IActionResult GetLeadsByMe()
+        {
+            return View();
+        }
 
+        //Sales
+        public IActionResult CreateSales()
+        {
+            return View();
+        }
+        public IActionResult ViewSales()
+        {
+            return View();
+        }
+        //Campaign
+        public IActionResult GetCampaignAsgnToMe()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
