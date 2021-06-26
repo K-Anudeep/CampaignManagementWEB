@@ -80,6 +80,7 @@ namespace MarketingManagement.WEBUI.Controllers
         {
             return View(@"~/Views/AdminHome/Reports/ViewLeadsByCampaign.cshtml");
         }
+        
         public IActionResult ViewCampaignsByExecutive()
         {
             return View(@"~/Views/AdminHome/Reports/ViewCampaignsByExecutive.cshtml");

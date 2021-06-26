@@ -18,7 +18,7 @@
                     
                     const options = { day: 'numeric', month: 'long', year: 'numeric' }
                     
-                    let isOpen = data.isOpen === 1?"Open":"Closed";
+                    let isOpen = data.isOpen === true?"Open":"Closed";
                     
                 let div3Content = '<dt class = "col-sm-2">'
                     + "Campaign ID" + '</dt><dd class = "col-sm-10" >'
@@ -50,7 +50,7 @@
     </dl>
 </div>
 <form>
-    <input type="button" value="Delete campaign" id="deleteBtn" class="btn btn-danger" />
+    <input type="button" value="Close campaign" id="deleteBtn" class="btn btn-danger" />
 </form>
 <script>
     $("#deleteBtn").click(function () {
@@ -75,3 +75,6 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     Campaign Closed!
 </div>
+<script>
+        
+</script>

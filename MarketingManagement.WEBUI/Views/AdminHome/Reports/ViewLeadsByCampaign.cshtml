@@ -1,5 +1,95 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model MarketingManagement.WEBUI.Models.CampaignDetails
+
 @{
+    ViewData["Title"] = "CampaignID";
+    Layout = "~/Views/AdminHome/_Layout.cshtml";
 }
+<script>
+$(document).ready(function () {
+sessionStorage.removeItem("campaignId")
+$("#campaignSearch").submit(function (e) {
+    e.preventDefault();
+    $("#leadsTableBody").empty()
+    let campaignId = $('#CampaignId').val()
+    $.ajax({
+                    type: "GET",
+                    url: "http://localhost:25733/api/Admin/Reports/LeadsByCampaign/" + campaignId,
+                    dataType: 'json',
+                    success: function (response) {
+                        $.each(response, function (i, item) {
+                            document.getElementById("leadsList").style.display = "block";
+                            console.log(response);                
+                            const dateApproached = new Date(Date.parse(item.dateApproached));
+                            
+                            const options = { day: 'numeric', month: 'long', year: 'numeric' }
+                            
+                            let row = '<tr id="tabledata"><td class="campaignID">'
+                                + item.campaignID + '</td><td>'
+                                + item.leadID + '</td><td>'
+                                + item.consumerName + '</td><td>'
+                                + item.emailAddress + '</td><td>'
+                                + item.phoneNo + '</td><td>'
+                                + item.prefferedMoC + '</td><td>'
+                                + dateApproached.toLocaleDateString('en-IN', options) + '</td><td>'
+                                + item.productID + '</td><td>'
+                                + item.status + '</td></tr>'
+                            $('#leadsTable').append(row);
+                        });
+                    },
+                    error: function () {
+                        document.getElementById("leadError").style.display = "block"
+                    }
+                })
+    })
+});
+</script>
+
+<h1>Search for Leads</h1>
+
+<div>
+    <h4>Enter a Campaign ID</h4>
+    <div>
+        <hr />
+        <div class="row" id="campaignSearch">
+            <div class="col-md-4">
+                <form>
+                    <fieldset>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="CampaignId" class="control-label">Campaign ID</label>
+                            <input type="number" asp-for="CampaignId" class="form-control" />
+                            <span asp-validation-for="CampaignId" class="text-danger"></span>
+                            <br/>
+                            <input type="submit" value="Search" class="btn btn-danger" id="searchCamp" />
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<div id="leadsList" style="display: none">
+    <h1>List of Leads by Campaign</h1>
+    <table class="table table-hover" id="leadsTable">
+        <thead>
+        <tr>
+            <th scope="col">Campaign ID</th>
+            <th scope="col">Lead ID</th>
+            <th scope="col">Consumer Name</th>
+            <th scope="col">Email Address</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Preffered Mode of Contact</th>
+            <th scope="col">Date Approached</th>
+            <th scope="col">Product ID</th>
+            <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody id="leadsTableBody"></tbody>
+    </table>
+</div>
+
+<div class="alert alert-dismissible alert-danger" id="leadError" style="display: none">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    No results found!
+</div>

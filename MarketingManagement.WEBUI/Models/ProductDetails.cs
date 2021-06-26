@@ -13,6 +13,7 @@ namespace MarketingManagement.WEBUI.Models
         [MaxLength(300)]
         public string Description { get; init; }
         [Required(ErrorMessage = "Please enter Product Price")]
+        [DataType(DataType.Currency)]
         public decimal UnitPrice { get; init; }
     }
 }
