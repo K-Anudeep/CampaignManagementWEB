@@ -10,9 +10,9 @@ namespace MarketingManagement.API.Models.Repositories
 {
     public class CampaignsRepo : ICampaignsRepo
     {
-        private readonly MarketingMgmtDBContext _context;
+        private readonly MarketingMgmtDbContext _context;
 
-        public CampaignsRepo(MarketingMgmtDBContext context)
+        public CampaignsRepo(MarketingMgmtDbContext context)
         {
             _context = context;
         }

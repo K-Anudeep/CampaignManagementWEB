@@ -1,7 +1,4 @@
-﻿using System;
-using MarketingManagement.API.Models.Repositories;
-using MarketingManagement.API.Models.Entities;
-using System.Text.RegularExpressions;
+﻿using MarketingManagement.API.Models.Repositories;
 using MarketingManagement.API.DataContext;
 
 namespace MarketingManagement.API.Models.Validations
@@ -12,7 +9,7 @@ namespace MarketingManagement.API.Models.Validations
         LeadsRepo leadsRepo;
         ProductRepo productRepo;
 
-        public DataChecks(MarketingMgmtDBContext context)
+        public DataChecks(MarketingMgmtDbContext context)
         {
             campaignsRepo = new CampaignsRepo(context);
             leadsRepo = new LeadsRepo(context);
@@ -47,9 +44,9 @@ namespace MarketingManagement.API.Models.Validations
         ////    }
         ////}
 
-        public bool CheckLeadStatus(int leadID)
+        public bool CheckLeadStatus(int leadId)
         {
-            return leadsRepo.LeadStatusCheck(leadID);
+            return leadsRepo.LeadStatusCheck(leadId);
         }
 
         //public bool SalesLead(int leadID)
@@ -73,17 +70,10 @@ namespace MarketingManagement.API.Models.Validations
         //    }
         //}
 
-        public bool CheckProduct(int productID)
+        public bool CheckProduct(int productId)
         {
-            Products check = productRepo.OneProduct(productID);
-            if (check != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            var check = productRepo.OneProduct(productId);
+            return check != null;
         }
 
         //public bool AdminCheck(int userID)

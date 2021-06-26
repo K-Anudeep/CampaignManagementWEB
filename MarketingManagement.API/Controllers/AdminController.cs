@@ -6,8 +6,6 @@ using MarketingManagement.API.DataContext;
 using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.Services;
 using MarketingManagement.API.Models.Validations;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Authorization;
 
 namespace MarketingManagement.API.Controllers
 {
@@ -15,15 +13,15 @@ namespace MarketingManagement.API.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
-        private readonly MarketingMgmtDBContext _context;
+        private readonly MarketingMgmtDbContext _context;
         private readonly AdminServices _admin;
-        private readonly AccessCheck accessCheck;
+        private readonly AccessCheck _accessCheck;
 
-        public AdminController(MarketingMgmtDBContext context)
+        public AdminController(MarketingMgmtDbContext context)
         {
             _context = context;
             _admin = new AdminServices(context);
-            accessCheck = new AccessCheck(context);
+            _accessCheck = new AccessCheck(context);
         }
 
         //LOGOUT
@@ -75,8 +73,7 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
-                //Check if Discontinued or not
-                var isDiscontinued = _admin.DiscontinueUser(userId);
+                _admin.DiscontinueUser(userId);
                 return Ok();
             }
             catch (Exception ex)
@@ -240,7 +237,7 @@ namespace MarketingManagement.API.Controllers
                         throw new Exception("User assigned to this Campaign does not exist!");
                     }
 
-                    var isAdmin = accessCheck.AdminCheck(campaigns.AssignedTo);
+                    var isAdmin = _accessCheck.AdminCheck(campaigns.AssignedTo);
                     //Check if user is Admin
                     if(isAdmin.IsAdmin == 1)
                     {
@@ -303,7 +300,7 @@ namespace MarketingManagement.API.Controllers
                 var campaign = _context.Campaigns.Find(campaignId);
                 campaign.IsOpen = false;
                 //Update Campaign
-                var isClosed = _admin.CloseCampagin(campaign);
+                _admin.CloseCampagin(campaign);
                 return Ok();
             }
             catch (Exception ex)

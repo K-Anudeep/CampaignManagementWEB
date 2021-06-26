@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MarketingManagement.API.Migrations
 {
-    [DbContext(typeof(MarketingMgmtDBContext))]
+    [DbContext(typeof(MarketingMgmtDbContext))]
     [Migration("20210621104201_DBAttempt1")]
     partial class DBAttempt1
     {

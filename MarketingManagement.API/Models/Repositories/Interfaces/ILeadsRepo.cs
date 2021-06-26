@@ -11,10 +11,10 @@ namespace MarketingManagement.API.Models.Repositories.Interfaces
 
         IEnumerable<Leads> ViewLeadsByCampaign(int userId);
 
-        Leads GetALead(int leadID);
+        Leads GetALead(int leadId);
 
-        void FollowLead(int leadID, string newStatus);
+        void FollowLead(int leadId, string newStatus);
 
-        bool LeadStatusCheck(int leadID);
+        bool LeadStatusCheck(int leadId);
     }
 }

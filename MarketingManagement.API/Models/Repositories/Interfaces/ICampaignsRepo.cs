@@ -11,11 +11,11 @@ namespace MarketingManagement.API.Models.Repositories.Interfaces
 
         IEnumerable<Campaigns> ViewCampaignsByAssigned(int userId);
 
-        bool CloseCampaign(int cId);
+        bool CloseCampaign(int campaignId);
 
-        bool CampaignStatusCheck(int cId);
+        bool CampaignStatusCheck(int campaignId);
 
-        Campaigns OneCampaign(int cId);
+        Campaigns OneCampaign(int campaignId);
 
         IEnumerable<Campaigns> ViewAllCampaigns();
     }

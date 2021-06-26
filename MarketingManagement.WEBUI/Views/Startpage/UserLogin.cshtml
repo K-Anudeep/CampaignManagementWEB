@@ -6,7 +6,7 @@
 <script>
     $(document).ready(function () {
         $("#loginbtn").click(function () {
-            var credentials = {
+            let credentials = {
                 "loginID": $('#UserId').val(),
                 "password": $('#Password').val()
             };
@@ -16,10 +16,10 @@
                 data: JSON.stringify( credentials ),
                 contentType: "application/json",    
                 success: function (response) {
-                    if (response == "Admin") {
+                    if (response === "Admin") {
                         window.location = "http://localhost:17131/AdminHome/Index"
                     }
-                    else if (response == "Executive") {
+                    else if (response === "Executive") {
                         window.location = "http://localhost:17131/ExecutiveHome/Index"
                     }
                 },

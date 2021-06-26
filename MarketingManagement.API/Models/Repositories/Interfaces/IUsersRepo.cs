@@ -9,8 +9,8 @@ namespace MarketingManagement.API.Models.Repositories.Interfaces
 
         IEnumerable<Users> DisplayUsers();
 
-        Users OneUser(int uId);
+        Users OneUser(int userId);
 
-        bool DiscontinueUser(int uId);
+        bool DiscontinueUser(int userId);
     }
 }

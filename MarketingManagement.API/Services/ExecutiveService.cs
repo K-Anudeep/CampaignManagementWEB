@@ -14,7 +14,7 @@ namespace MarketingManagement.API.Services
         private readonly GenericRepo<Leads> _genericLeadsRepo;
         private readonly GenericRepo<Campaigns> _genericCampaignRepo;
 
-        public ExecutiveService(MarketingMgmtDBContext context)
+        public ExecutiveService(MarketingMgmtDbContext context)
         {
             //Generic Repo for Campaigns
             _genericCampaignRepo = new GenericRepo<Campaigns>(context);

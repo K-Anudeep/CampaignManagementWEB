@@ -28,7 +28,7 @@ namespace MarketingManagement.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MarketingManagement.API", Version = "v1" });
             });
-            services.AddDbContext<MarketingMgmtDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MarketMgmtDB")));
+            services.AddDbContext<MarketingMgmtDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MarketMgmtDB")));
             services.AddDistributedMemoryCache();
             services.AddCors(
              c => {
