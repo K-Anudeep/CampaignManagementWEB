@@ -7,7 +7,8 @@
 <script>
     $(document).ready(function () {
 
-        $("#createbtn").click(function () {
+        $("#userForm").submit(function (e) {
+            e.preventDefault();
             let credentials = {
                 "FullName": $('#FullName').val(),
                 "LoginID": $('#LoginID').val(),
@@ -37,7 +38,7 @@
 
 <h4>Enter the following Details</h4>
 <hr />
-<div class="row">
+<div class="row" id="userForm">
     <div class="col-md-4">
         <form>
             <fieldset>
@@ -80,10 +81,10 @@
                 <br />
                 <p>Type of User</p>
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="IsAdmin" id="btnradio1" autocomplete="off" value="1">
-                    <label class="btn btn-outline-primary" for="btnradio1">Administrator</label>
-                    <input type="radio" class="btn-check" name="IsAdmin" id="btnradio2" autocomplete="off" value="0">
-                    <label class="btn btn-outline-primary" for="btnradio2">Marketing Executive</label>
+                    <input type="radio" class="btn-check" name="IsAdmin" id="btnRadio1" autocomplete="off" value="1">
+                    <label class="btn btn-outline-primary" for="btnRadio1">Administrator</label>
+                    <input type="radio" class="btn-check" name="IsAdmin" id="btnRadio2" autocomplete="off" value="0">
+                    <label class="btn btn-outline-primary" for="btnRadio2">Marketing Executive</label>
                 </div>
                 <br />
                 <br />
@@ -96,7 +97,7 @@
                   Enter all the Detials!
                 </div>
                 <div class="form-group">
-                    <input type="button" value="Create" class="btn btn-primary" id="createbtn" />
+                    <input type="submit" value="Create" class="btn btn-primary" id="createBtn" />
                 </div>
             </fieldset>
         </form>

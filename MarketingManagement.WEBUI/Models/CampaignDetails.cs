@@ -20,8 +20,6 @@ namespace MarketingManagement.WEBUI.Models
 
         [Required(ErrorMessage ="Please enter the start date")]
         public DateTime StartedOn { get; init; }
-
-        [Required(ErrorMessage ="Please Enter Completed Date")]
         public DateTime? CompletedOn { get; init; }
     }
 }

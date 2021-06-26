@@ -241,7 +241,7 @@ namespace MarketingManagement.API.Controllers
                     //Check if user is Admin
                     if(isAdmin.IsAdmin == 1)
                     {
-                        throw new Exception("Admins cannot be assinged to campaigns");
+                        throw new Exception("Admins cannot be assigned to campaigns");
                     }
 
                     campaigns.CompletedOn = campaigns.StartedOn.AddDays(7);
@@ -259,7 +259,8 @@ namespace MarketingManagement.API.Controllers
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                var message = ex.Message;
+                return BadRequest(message);
             }
         }
 
@@ -305,7 +306,7 @@ namespace MarketingManagement.API.Controllers
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -348,7 +349,7 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
-                var campaigns = _admin.ViewCampaingByExecutive();
+                var campaigns = _admin.ViewCampaignByExecutive();
                 return Ok(campaigns);
             }
             catch (Exception ex)

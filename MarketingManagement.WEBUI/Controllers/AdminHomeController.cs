@@ -30,59 +30,59 @@ namespace MarketingManagement.WEBUI.Controllers
         //Manage Users through here
         public IActionResult AddUsers()
         {
-            return View();
+            return View(@"~/Views/AdminHome/Users/AddUsers.cshtml");
         }
 
         //View All, One User or Discontinue User
         public IActionResult AllUsers()
         {
-            return View();
+            return View(@"~/Views/AdminHome/Users/AllUsers.cshtml");
         }
 
         public IActionResult OneUser()
         {
-            return View();
+            return View(@"~/Views/AdminHome/Users/OneUser.cshtml");
         }
 
         //CAMPAIGNS
 
         public IActionResult AddCampaigns()
         {
-            return View();
+            return View(@"~/Views/AdminHome/Campaigns/AddCampaigns.cshtml");
         }
-        public IActionResult CloseCampaign(int campaignId)
+        public IActionResult OneCampaign ()
         {
-            return View();
+            return View(@"~/Views/AdminHome/Campaigns/OneCampaign.cshtml");
         }
-         
-        public IActionResult OneCampaign (int campaignId)
+
+        public IActionResult CampaignDetails()
         {
-            return View();
+            return View(@"~/Views/AdminHome/Campaigns/CampaignDetails.cshtml");
         }
         
         //PRODUCTS
         
         public IActionResult AddProduct()
         {
-            return View();
+            return View(@"~/Views/AdminHome/Products/AddProduct.cshtml");
         }
         public IActionResult AllProducts()
         {
-            return View();
+            return View(@"~/Views/AdminHome/Products/AllProducts.cshtml");
         }
         public IActionResult OneProduct()
         {
-            return View();
+            return View(@"~/Views/AdminHome/Products/OneProduct.cshtml");
         }
         
         //REPORTS
         public IActionResult ViewLeadsByCampaign()
         {
-            return View();
+            return View(@"~/Views/AdminHome/Reports/ViewLeadsByCampaign.cshtml");
         }
-        public IActionResult ViewLeadsByExecutive()
+        public IActionResult ViewCampaignsByExecutive()
         {
-            return View();
+            return View(@"~/Views/AdminHome/Reports/ViewCampaignsByExecutive.cshtml");
         }
 
         public IActionResult Logout()

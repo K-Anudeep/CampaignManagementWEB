@@ -7,7 +7,8 @@
 <script>
     $(document).ready(function () {
 
-        $("#createBtn").click(function () {
+        $("#productForm").submit(function (e) {
+            e.preventDefault();
             let productDetails = {
                 "ProductName": $('#ProductName').val(),
                 "Description": $('#Description').val(),
@@ -33,7 +34,7 @@
 
 <h4>Enter the following Details</h4>
 <hr />
-<div class="row">
+<div class="row" id="productForm">
     <div class="col-md-4">
         <form>
             <fieldset>
@@ -66,7 +67,7 @@
                   Enter all the details!
                 </div>
                 <div class="form-group">
-                    <input type="button" value="Create" class="btn btn-primary" id="createBtn" />
+                    <input type="submit" value="Create" class="btn btn-primary" id="createBtn" />
                 </div>
             </fieldset>
         </form>

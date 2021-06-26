@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MarketingManagement.API.DataContext;
 using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.Models.Repositories;
@@ -57,6 +56,7 @@ namespace MarketingManagement.API.Services
         //CAMPAIGNS
         public bool AddCampaign(Campaigns campaigns)
         {
+            campaigns.IsOpen = true;
             genericCampaignRepo.AddRecord(campaigns);
             return true;
         }
@@ -104,7 +104,7 @@ namespace MarketingManagement.API.Services
             return _leadsRepo.ViewLeadsByCampaign(campaignId);
         }
 
-        public IEnumerable<Campaigns> ViewCampaingByExecutive()
+        public IEnumerable<Campaigns> ViewCampaignByExecutive()
         {
             return _campaignsRepo.ViewCampaignsByExec();
         }

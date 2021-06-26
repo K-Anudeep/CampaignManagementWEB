@@ -30,6 +30,7 @@
           <option value="http://tiles.apache.org/" />
           <option value="http://ajax.microsoft.com" />
           <option value="http://ajax.aspnetcdn.com" />
+          <option value="http://locahost" />
         </list>
       </option>
     </inspection_tool>

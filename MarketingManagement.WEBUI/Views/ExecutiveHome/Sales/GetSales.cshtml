@@ -1,0 +1,33 @@
+﻿@model IEnumerable<MarketingManagement.WEBUI.Models.SalesDetails>
+
+@{
+    ViewData["Title"] = "ViewSales";
+    Layout = "~/Views/ExecutiveHome/_Layout.cshtml";
+}
+
+<h1>View Sales</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeadID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShippingAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillingAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedON)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentMode)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+</table>

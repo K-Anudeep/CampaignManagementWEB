@@ -4,28 +4,31 @@
     ViewData["Title"] = "AddCampaigns";
     Layout = "~/Views/AdminHome/_Layout.cshtml";
 }
+
 <script>
     $(document).ready(function () {
 
-        $("#createbtn").click(function () {
-            var credentials = {
+        $("#campaignForm").submit(function (e) {
+            e.preventDefault();
+            let data = {
                 "Name": $('#Name').val(),
                 "Venue": $('#Venue').val(),
                 "AssignedTo": $('#AssignedTo').val(),
                 "StartedOn": $('#StartedOn').val(),
-                "CompletedOn": $('#CompletedOn').val(),
-                
+                "CompletedOn": $('#CompletedOn').val()                
             };
             $.ajax({
                 type: "POST",
                 url: "http://localhost:25733/api/Admin/Campaign/Add",
-                data: JSON.stringify(credentials),
+                data: JSON.stringify(data),
                 contentType: "application/json",
-                success: function (response) {
-                    alert("Success")
+                success: function () {
+                    document.getElementById("campDivSuccess").style.display = 'block'
                 },
-                error: function () {
-                    alert('Error')
+                error: function (response) {
+                    document.getElementById("campDivFail").style.display = 'block'
+                    let fail = '<p>'+ response.responseText +'</p>'
+                    $('#campDivFail').append(fail);
                 }
             })
         })
@@ -36,7 +39,7 @@
 
 <h4>Enter the following details</h4>
 <hr />
-<div class="row">
+<div class="row" id="campaignForm">
     <div class="col-md-4">
         <form>
             <fieldset>
@@ -46,34 +49,41 @@
                     <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
+                <br />
                 <div class="form-group">
                     <label asp-for="Venue" class="control-label">Venue</label>
                     <input asp-for="Venue" class="form-control" />
                     <span asp-validation-for="Venue" class="text-danger"></span>
                 </div>
+                <br />
                 <div class="form-group">
                     <label asp-for="AssignedTo" class="control-label">Assigned To</label>
-                    <input asp-for="AssignedTo" class="form-control" />
+                    <input type="number" asp-for="AssignedTo" class="form-control" />
                     <span asp-validation-for="AssignedTo" class="text-danger"></span>
                 </div>
+                <br />
                 <div class="form-group">
                     <label asp-for="StartedOn" class="control-label">Started On</label>
                     <input asp-for="StartedOn" class="form-control" />
                     <span asp-validation-for="StartedOn" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="CompletedOn" class="control-label">Completed On</label>
-                    <input asp-for="CompletedOn" class="form-control" />
-                    <span asp-validation-for="CompletedOn" class="text-danger"></span>
+                <br />
+                <br />
+                <div class="alert alert-dismissible alert-success" id="campDivSuccess" style="display: none">
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                  Campaign Created!
+                </div>
+                <div class="alert alert-dismissible alert-danger" id="campDivFail" style="display: none">
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <input type="submit" value="Create" class="btn btn-primary" id="createBtn" />
                 </div>
             </fieldset>
         </form>
     </div>
 </div>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

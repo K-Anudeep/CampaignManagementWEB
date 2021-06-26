@@ -5,7 +5,8 @@
 }
 <script>
     $(document).ready(function () {
-        $("#loginbtn").click(function () {
+        $("#loginForm").submit(function (e) {
+            e.preventDefault();
             let credentials = {
                 "loginID": $('#UserId').val(),
                 "password": $('#Password').val()
@@ -38,7 +39,7 @@
 
 <h4>Enter Credentials</h4>
 <hr />
-<div class="row">
+<div class="row" id="loginForm">
     <div class="col-md-4">
         <form>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -55,7 +56,7 @@
             </div>
             <div class="form-group">
                 <br />
-                <input type="button" value="Login" class="btn btn-primary" id="loginbtn" />
+                <input type="submit" value="Login" class="btn btn-primary" id="loginBtn" />
             </div>
             <br />
             <div class="alert alert-success" id="loginDivSuccess" style="display: none">
@@ -67,3 +68,6 @@
         </form>
     </div>
 </div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

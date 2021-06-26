@@ -14,7 +14,7 @@
                 $.each(response, function (i, item) {
                     console.log(response);
                     const date = new Date(Date.parse(item.dateOfJoin));
-                    const options = { day: 'numeric', month: 'numeric', year: 'numeric' }
+                    const options = { day: 'numeric', month: 'long', year: 'numeric' }
                     
                     let disc = item.discontinued === 1?"Discontinued":"On Job";
                     let userType = item.isAdmin === 1?"Administrator":"Marketing Executive";
@@ -35,16 +35,19 @@
     });
 </script>
 
-<h1>List of Users</h1>
-
+<h1>List of Campaigns by Executive</h1>
+<div class="alert alert-dismissible alert-info">
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  <strong>Click</strong> any User to view it!
+</div>
 <table class="table table-hover" id="userTable">
     <thead>
         <tr>
-            <th scope="col">userID</th>
-            <th scope="col">fullName</th>
-            <th scope="col">Login ID</th>
-            <th scope="col">Password</th>
-            <th scope="col">Joining Date</th>
+            <th scope="col">Campaign ID</th>
+            <th scope="col">Campaign Name</th>
+            <th scope="col">Venue</th>
+            <th scope="col">Executive ID Assigned</th>
+            <th scope="col"> </th>
             <th scope="col">Address</th>
             <th scope="col">Discontinued</th>
             <th scope="col">Type of User</th>
