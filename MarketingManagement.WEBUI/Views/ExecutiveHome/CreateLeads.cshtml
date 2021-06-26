@@ -1,0 +1,72 @@
+﻿@model MarketingManagement.WEBUI.Models.LeadsDetails
+
+@{
+    ViewData["Title"] = "CreateLeads";
+    Layout = "~/Views/ExecutiveHome/_Layout.cshtml";
+}
+
+
+<h1>CreateLeads</h1>
+
+<h4>Leads Details</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateLeads">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LeadID" class="control-label"></label>
+                <input asp-for="LeadID" class="form-control" />
+                <span asp-validation-for="LeadID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CampaignID" class="control-label"></label>
+                <input asp-for="CampaignID" class="form-control" />
+                <span asp-validation-for="CampaignID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ConsumerName" class="control-label"></label>
+                <input asp-for="ConsumerName" class="form-control" />
+                <span asp-validation-for="ConsumerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmailAddress" class="control-label"></label>
+                <input asp-for="EmailAddress" class="form-control" />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNo" class="control-label"></label>
+                <input asp-for="PhoneNo" class="form-control" />
+                <span asp-validation-for="PhoneNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PreferredMoC" class="control-label"></label>
+                <input asp-for="PreferredMoC" class="form-control" />
+                <span asp-validation-for="PreferredMoC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateApproached" class="control-label"></label>
+                <input asp-for="DateApproached" class="form-control" />
+                <span asp-validation-for="DateApproached" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductID" class="control-label"></label>
+                <input asp-for="ProductID" class="form-control" />
+                <span asp-validation-for="ProductID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

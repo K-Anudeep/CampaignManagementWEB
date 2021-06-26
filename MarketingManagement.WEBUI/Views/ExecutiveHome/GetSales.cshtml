@@ -1,0 +1,66 @@
+﻿@model IEnumerable<MarketingManagement.WEBUI.Models.SalesDetails>
+
+@{
+    ViewData["Title"] = "ViewSales";
+    Layout = "~/Views/ExecutiveHome/_Layout.cshtml";
+}
+
+<h1>View Sales</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeadID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShippingAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BillingAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedON)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentMode)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeadID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShippingAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BillingAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedON)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentMode)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
