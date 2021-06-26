@@ -9,8 +9,8 @@ namespace MarketingManagement.API.Models.Repositories.Interfaces
 
         List<Products> DisplayProducts();
 
-        Products OneProduct(int pId);
+        Products OneProduct(int productId);
 
-        bool DeleteProduct(int pId);
+        bool DeleteProduct(int productId);
     }
 }

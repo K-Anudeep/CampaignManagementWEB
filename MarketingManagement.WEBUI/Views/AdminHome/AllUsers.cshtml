@@ -15,18 +15,10 @@
                     console.log(response);
                     const date = new Date(Date.parse(item.dateOfJoin));
                     const options = { day: 'numeric', month: 'numeric', year: 'numeric' }
-                    if (item.discontinued == 1) {
-                        var disc = "Discontinued"
-                    }
-                    else {
-                        var disc = "On Job"
-                    }
-                    if (item.isAdmin == 1) {
-                        var userType = "Administrator"
-                    }
-                    else {
-                        var userType = "Marketing Executive"
-                    }
+                    
+                    let disc = item.discontinued === 1?"Discontinued":"On Job";
+                    let userType = item.isAdmin === 1?"Administrator":"Marketing Executive";
+                    
                     let row = '<tr id="tabledata"><td class="userID">'
                         + item.userID + '</td><td>'
                         + item.fullName + '</td><td>'
@@ -61,7 +53,7 @@
 </table>
 <script>
     $('#userTable').on("click", "tr", function () {
-        var userID = $(this).children('td.userID').text();
+        let userID = $(this).children('td.userID').text();
         sessionStorage.setItem("userId",userID) ;
         window.location = "http://localhost:17131/AdminHome/OneUser"
     })

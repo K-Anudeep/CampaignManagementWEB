@@ -8,7 +8,7 @@
     $(document).ready(function () {
 
         $("#createbtn").click(function () {
-            var credentials = {
+            let credentials = {
                 "FullName": $('#FullName').val(),
                 "LoginID": $('#LoginID').val(),
                 "Password": $('#Password').val(),
@@ -22,7 +22,7 @@
                 url: "http://localhost:25733/api/Admin/User/Add",
                 data: JSON.stringify(credentials),
                 contentType: "application/json",
-                success: function (response) {
+                success: function () {
                     alert("Success")
                 },
                 error: function () {
@@ -49,9 +49,9 @@
                 </div>
                 <br />
                 <div class="form-group">
-                    <label asp-for="LoginID" class="control-label">Login ID</label>
-                    <input asp-for="LoginID" class="form-control" />
-                    <span asp-validation-for="LoginID" class="text-danger"></span>
+                    <label asp-for="LoginId" class="control-label">Login ID</label>
+                    <input asp-for="LoginId" class="form-control" />
+                    <span asp-validation-for="LoginId" class="text-danger"></span>
                 </div>
                 <br />
                 <div class="form-group">
@@ -80,9 +80,9 @@
                 <br />
                 <p>Type of User</p>
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="IsAdmin" id="btnradio1" autocomplete="off" checked="" value="1">
+                    <input type="radio" class="btn-check" name="IsAdmin" id="btnradio1" autocomplete="off" value="1">
                     <label class="btn btn-outline-primary" for="btnradio1">Administrator</label>
-                    <input type="radio" class="btn-check" name="IsAdmin" id="btnradio2" autocomplete="off" checked="" value="0">
+                    <input type="radio" class="btn-check" name="IsAdmin" id="btnradio2" autocomplete="off" value="0">
                     <label class="btn btn-outline-primary" for="btnradio2">Marketing Executive</label>
                 </div>
                 <br />

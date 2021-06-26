@@ -4,15 +4,14 @@ using MarketingManagement.API.Models.Repositories.Interfaces;
 using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.DataContext;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
 
 namespace MarketingManagement.API.Models.Repositories
 {
     public class LeadsRepo : ILeadsRepo
     {
-        private readonly MarketingMgmtDBContext _context;
+        private readonly MarketingMgmtDbContext _context;
 
-        public LeadsRepo(MarketingMgmtDBContext context)
+        public LeadsRepo(MarketingMgmtDbContext context)
         {
             _context = context;
         }
@@ -23,19 +22,19 @@ namespace MarketingManagement.API.Models.Repositories
             _context.SaveChanges();
         }
 
-        public void FollowLead(int leadID, string newStatus)
+        public void FollowLead(int leadId, string newStatus)
         {
             throw new NotImplementedException();
         }
 
-        public Leads GetALead(int leadID)
+        public Leads GetALead(int leadId)
         {
-            return _context.Leads.Find(leadID);
+            return _context.Leads.Find(leadId);
         }
 
-        public bool LeadStatusCheck(int leadID)
+        public bool LeadStatusCheck(int leadId)
         {
-            var statusCheck = _context.Leads.Find(leadID);
+            var statusCheck = _context.Leads.Find(leadId);
             if (statusCheck.Status == "Won")
                 return true;
             else

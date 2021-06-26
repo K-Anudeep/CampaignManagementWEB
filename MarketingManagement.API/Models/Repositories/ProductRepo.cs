@@ -8,9 +8,9 @@ namespace MarketingManagement.API.Models.Repositories
 {
     public class ProductRepo : IProductsRepo
     {
-        private readonly MarketingMgmtDBContext _context;
+        private readonly MarketingMgmtDbContext _context;
 
-        public ProductRepo(MarketingMgmtDBContext context)
+        public ProductRepo(MarketingMgmtDbContext context)
         {
             _context = context;
         }

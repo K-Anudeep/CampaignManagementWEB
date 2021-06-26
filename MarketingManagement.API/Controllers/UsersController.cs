@@ -11,7 +11,7 @@ namespace MarketingManagement.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly AccessCheck _accessCheck;
-        public UsersController(MarketingMgmtDBContext context)
+        public UsersController(MarketingMgmtDbContext context)
         {
             _accessCheck = new AccessCheck(context);
         }
@@ -33,24 +33,21 @@ namespace MarketingManagement.API.Controllers
                     if (validation != null)
                     {
                         //Check for Admin or Executive
-                        Users Check = _accessCheck.AdminCheck(validation.UserID);
-                        if (Check.IsAdmin == 1)
+                        var check = _accessCheck.AdminCheck(validation.UserID);
+                        switch (check.IsAdmin)
                         {
-                            HttpContext.Session.SetInt32("UserId", validation.UserID);
-                            HttpContext.Session.SetString("FullName", validation.FullName);
-                            HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
-                            return Content("Admin");
-                        }
-                        else if (Check.IsAdmin == 0)
-                        {
-                            HttpContext.Session.SetInt32("UserId", validation.UserID);
-                            HttpContext.Session.SetString("FullName", validation.FullName);
-                            HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
-                            return Content("Executive");
-                        }
-                        else
-                        {
-                            return BadRequest("Empty or Wrong Creds");
+                            case 1:
+                                HttpContext.Session.SetInt32("UserId", validation.UserID);
+                                HttpContext.Session.SetString("FullName", validation.FullName);
+                                HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
+                                return Content("Admin");
+                            case 0:
+                                HttpContext.Session.SetInt32("UserId", validation.UserID);
+                                HttpContext.Session.SetString("FullName", validation.FullName);
+                                HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
+                                return Content("Executive");
+                            default:
+                                return BadRequest("Empty or Wrong Credentials");
                         }
                     }
                     else
@@ -60,12 +57,12 @@ namespace MarketingManagement.API.Controllers
                 }
                 else
                 {
-                    throw new System.Exception();
+                    throw new System.Exception("Check your Credentials and try again!");
                 }
             }
             catch (System.Exception ex)
             {
-                return NoContent();
+                return BadRequest(ex.Message);
             }
         }
     }

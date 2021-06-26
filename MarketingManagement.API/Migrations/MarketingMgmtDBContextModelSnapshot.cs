@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MarketingManagement.API.Migrations
 {
-    [DbContext(typeof(MarketingMgmtDBContext))]
+    [DbContext(typeof(MarketingMgmtDbContext))]
     partial class MarketingMgmtDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

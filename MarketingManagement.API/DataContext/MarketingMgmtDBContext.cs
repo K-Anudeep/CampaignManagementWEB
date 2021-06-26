@@ -3,9 +3,9 @@ using MarketingManagement.API.Models.Entities;
 
 namespace MarketingManagement.API.DataContext
 {
-    public class MarketingMgmtDBContext : DbContext
+    public class MarketingMgmtDbContext : DbContext
     {
-        public MarketingMgmtDBContext(DbContextOptions<MarketingMgmtDBContext> options) : base(options)
+        public MarketingMgmtDbContext(DbContextOptions<MarketingMgmtDbContext> options) : base(options)
         {
         }
 

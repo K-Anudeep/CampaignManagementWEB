@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MarketingManagement.API.DataContext;
 using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.Services;
@@ -16,10 +15,10 @@ namespace MarketingManagement.API.Controllers
     [ApiController]
     public class ExecutiveController : ControllerBase
     {
-        private readonly MarketingMgmtDBContext _context;
+        private readonly MarketingMgmtDbContext _context;
         private readonly ExecutiveService _executive;
         private readonly DataChecks _dataChecks;
-        public ExecutiveController(MarketingMgmtDBContext context)
+        public ExecutiveController(MarketingMgmtDbContext context)
         {
             _context = context;
             _executive = new ExecutiveService(context);

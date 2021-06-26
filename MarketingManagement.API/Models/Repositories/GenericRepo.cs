@@ -7,10 +7,10 @@ namespace MarketingManagement.API.Models.Repositories
 {
     public class GenericRepo<T> : IGenericRepo<T> where T: class
     {
-        private readonly MarketingMgmtDBContext _context;
+        private readonly MarketingMgmtDbContext _context;
         private readonly DbSet<T> _dbset;
 
-        public GenericRepo(MarketingMgmtDBContext context)
+        public GenericRepo(MarketingMgmtDbContext context)
         {
             _context = context;
             _dbset = context.Set<T>();
