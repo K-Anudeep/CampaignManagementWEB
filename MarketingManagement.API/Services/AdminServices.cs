@@ -75,6 +75,10 @@ namespace MarketingManagement.API.Services
         //PRODUCTS
         public bool AddProducts(Products products)
         {
+            if (string.IsNullOrWhiteSpace(products.Description))
+            {
+                products.Description = "None";
+            }
             genericProductRepo.AddRecord(products);
             return true;
         }

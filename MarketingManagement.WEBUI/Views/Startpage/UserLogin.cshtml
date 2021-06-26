@@ -16,15 +16,18 @@
                 data: JSON.stringify( credentials ),
                 contentType: "application/json",    
                 success: function (response) {
+                    document.getElementById("loginDivSuccess").style.display = 'block'
+                    setTimeout(function (){                        
                     if (response === "Admin") {
                         window.location = "http://localhost:17131/AdminHome/Index"
                     }
                     else if (response === "Executive") {
                         window.location = "http://localhost:17131/ExecutiveHome/Index"
                     }
+                    }, 2000)
                 },
                 error: function () {
-                    document.getElementById("loginDiv").style.display = 'block'
+                    document.getElementById("loginDivFail").style.display = 'block'
                 }
             })
         })
@@ -55,7 +58,10 @@
                 <input type="button" value="Login" class="btn btn-primary" id="loginbtn" />
             </div>
             <br />
-            <div class="alert alert-danger" id="loginDiv" style="display: none">
+            <div class="alert alert-success" id="loginDivSuccess" style="display: none">
+                            Login Success: Redirecting you...
+                        </div>
+            <div class="alert alert-danger" id="loginDivFail" style="display: none">
                 Login Failed: Check your credentials and try again!
             </div>
         </form>

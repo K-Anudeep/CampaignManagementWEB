@@ -59,15 +59,14 @@ namespace MarketingManagement.WEBUI.Controllers
         {
             return View();
         }
+        
+        //PRODUCTS
+        
         public IActionResult AddProduct()
         {
             return View();
         }
-        public IActionResult DeleteProduct()
-        {
-            return View();
-        }
-        public IActionResult ViewProduct()
+        public IActionResult AllProducts()
         {
             return View();
         }
@@ -75,6 +74,8 @@ namespace MarketingManagement.WEBUI.Controllers
         {
             return View();
         }
+        
+        //REPORTS
         public IActionResult ViewLeadsByCampaign()
         {
             return View();
