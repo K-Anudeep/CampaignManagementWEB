@@ -1,9 +1,38 @@
 ﻿@model MarketingManagement.WEBUI.Models.LeadsDetails
 
-@{
-    ViewData["Title"] = "CreateLeads";
-    Layout = "~/Views/ExecutiveHome/_Layout.cshtml";
-}
+@{ ViewData["Title"] = "CreateLeads";
+                Layout = "~/Views/ExecutiveHome/_Layout.cshtml"; }
+<script>
+    $(document).ready(function () {
+
+        $("#createbtn").click(function () {
+            var credentials = {
+                "LeadId": $('#LeadId').val(),
+                "CampaignId": $('#CampaignId').val(),
+                "ConsumerName": $('#ConsumerName').val(),
+                "EmailAddress": $('#EmailAddress').val(),
+                "PhoneNo": $('#PhoneNo').val(),
+                "DateApproached": $('#DateApproached').val(),
+                "PreferredMoC": $('#PreferredMoC').val(),
+                "Status": $('#Status').val(),
+                "ProductId": $('#ProductId').val(),
+
+            };
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:25733/api/Executive/Leads/Add",
+                data: JSON.stringify(credentials),
+                contentType: "application/json",
+                success: function (response) {
+                    alert("Success")
+                },
+                error: function () {
+                    alert('Error')
+                }
+            })
+        })
+    })
+</script>
 
 
 <h1>CreateLeads</h1>
@@ -15,14 +44,14 @@
         <form asp-action="CreateLeads">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="LeadID" class="control-label"></label>
-                <input asp-for="LeadID" class="form-control" />
-                <span asp-validation-for="LeadID" class="text-danger"></span>
+                <label asp-for="LeadId" class="control-label"></label>
+                <input asp-for="LeadId" class="form-control" />
+                <span asp-validation-for="LeadId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CampaignID" class="control-label"></label>
-                <input asp-for="CampaignID" class="form-control" />
-                <span asp-validation-for="CampaignID" class="text-danger"></span>
+                <label asp-for="CampaignId" class="control-label"></label>
+                <input asp-for="CampaignId" class="form-control" />
+                <span asp-validation-for="CampaignId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ConsumerName" class="control-label"></label>
@@ -50,9 +79,9 @@
                 <span asp-validation-for="DateApproached" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProductID" class="control-label"></label>
-                <input asp-for="ProductID" class="form-control" />
-                <span asp-validation-for="ProductID" class="text-danger"></span>
+                <label asp-for="ProductId" class="control-label"></label>
+                <input asp-for="ProductId" class="form-control" />
+                <span asp-validation-for="ProductId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
@@ -69,4 +98,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-

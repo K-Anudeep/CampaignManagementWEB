@@ -18,7 +18,7 @@ namespace MarketingManagement.API.Services
         public AdminServices(MarketingMgmtDbContext context)
         {
             //Users
-            userRepo = new UserRepo(context);
+           
             genericUserRepo = new GenericRepo<Users>(context);
 
             //Generic Repo for Products

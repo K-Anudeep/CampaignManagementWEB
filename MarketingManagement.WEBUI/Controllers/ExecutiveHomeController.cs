@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System;
 
 namespace MarketingManagement.WEBUI.Controllers
 {
@@ -27,7 +28,7 @@ namespace MarketingManagement.WEBUI.Controllers
         {
             return View();
         }
-        public IActionResult GetLeadsByMe()
+        public IActionResult GetLeadsByMe( int UserId)
         {
             return View();
         }
