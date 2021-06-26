@@ -1,13 +1,51 @@
 ﻿@model MarketingManagement.WEBUI.Models.LeadsDetails
 
-@{
-    ViewData["Title"] = "FollowLeads";
-    Layout = "~/Views/ExecutiveHome/_Layout.cshtml";
-}
+@{ ViewData["Title"] = "FollowLeads";
+                Layout = "~/Views/ExecutiveHome/_Layout.cshtml"; }
+<script>$(document).ready(function () {
+
+        $("#createbtn").click(function () {
+            var credentials = {
+                "LeadId": $('#LeadId').val(),
+                "Status": $('#Status').val(),
+            };
+            $.ajax({
+                type: "PUT",
+                url: "http://localhost:25733/api/Executive/Leads/FollowLead",
+                data: JSON.stringify(credentials),
+                contentType: "application/json",
+                success: function (response) {
+                    alert("Success")
+                },
+                error: function () {
+                    alert('Error')
+                }
+            })
+        })
+    })</script>
 
 <h1>Follow Lead</h1>
 
-
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="FollowLead">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LeadId" class="control-label"></label>
+                <input asp-for="LeadId" class="form-control" />
+                <span asp-validation-for="LeadId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="FollowLead" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
 <div>
 
     <a asp-action="Index">Back to List</a>

@@ -1,9 +1,38 @@
 ﻿@model MarketingManagement.WEBUI.Models.LeadsDetails
 
-@{
-    ViewData["Title"] = "CreateLeads";
-    Layout = "~/Views/ExecutiveHome/_Layout.cshtml";
-}
+@{ ViewData["Title"] = "CreateLeads";
+                Layout = "~/Views/ExecutiveHome/_Layout.cshtml"; }
+<script>
+    $(document).ready(function () {
+
+        $("#createbtn").click(function () {
+            var credentials = {
+                "LeadId": $('#LeadId').val(),
+                "CampaignId": $('#CampaignId').val(),
+                "ConsumerName": $('#ConsumerName').val(),
+                "EmailAddress": $('#EmailAddress').val(),
+                "PhoneNo": $('#PhoneNo').val(),
+                "DateApproached": $('#DateApproached').val(),
+                "PreferredMoC": $('#PreferredMoC').val(),
+                "Status": $('#Status').val(),
+                "ProductId": $('#ProductId').val(),
+
+            };
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:25733/api/Executive/Leads/Add",
+                data: JSON.stringify(credentials),
+                contentType: "application/json",
+                success: function (response) {
+                    alert("Success")
+                },
+                error: function () {
+                    alert('Error')
+                }
+            })
+        })
+    })
+</script>
 
 
 <h1>CreateLeads</h1>
@@ -69,4 +98,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
