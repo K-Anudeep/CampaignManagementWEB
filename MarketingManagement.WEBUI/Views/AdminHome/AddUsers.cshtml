@@ -23,10 +23,10 @@
                 data: JSON.stringify(credentials),
                 contentType: "application/json",
                 success: function () {
-                    alert("Success")
+                    document.getElementById("loginDivSuccess").style.display = 'block'
                 },
                 error: function () {
-                    document.getElementById("loginDiv").style.display = 'block'
+                    document.getElementById("loginDivFail").style.display = 'block'
                 }
             })
         })
@@ -87,8 +87,13 @@
                 </div>
                 <br />
                 <br />
-                <div class="alert alert-danger" id="loginDiv" style="display: none">
-                    Fill the details above!
+                <div class="alert alert-dismissible alert-success" id="loginDivSuccess" style="display: none">
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                  User Created!
+                </div>
+                <div class="alert alert-dismissible alert-danger" id="loginDivFail" style="display: none">
+                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                  Enter all the Detials!
                 </div>
                 <div class="form-group">
                     <input type="button" value="Create" class="btn btn-primary" id="createbtn" />
