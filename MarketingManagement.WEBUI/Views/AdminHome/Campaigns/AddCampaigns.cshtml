@@ -38,7 +38,7 @@
 <h1>Create a new campaign</h1>
 
 <h4>Enter the following details</h4>
-<hr />
+<hr/>
 <div class="row" id="campaignForm">
     <div class="col-md-4">
         <form>
@@ -46,38 +46,38 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Name" class="control-label">Name</label>
-                    <input asp-for="Name" class="form-control" />
+                    <input asp-for="Name" class="form-control"/>
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-                <br />
+                <br/>
                 <div class="form-group">
                     <label asp-for="Venue" class="control-label">Venue</label>
-                    <input asp-for="Venue" class="form-control" />
+                    <input asp-for="Venue" class="form-control"/>
                     <span asp-validation-for="Venue" class="text-danger"></span>
                 </div>
-                <br />
+                <br/>
                 <div class="form-group">
                     <label asp-for="AssignedTo" class="control-label">Assigned To</label>
-                    <input type="number" asp-for="AssignedTo" class="form-control" />
+                    <input type="number" asp-for="AssignedTo" class="form-control"/>
                     <span asp-validation-for="AssignedTo" class="text-danger"></span>
                 </div>
-                <br />
+                <br/>
                 <div class="form-group">
                     <label asp-for="StartedOn" class="control-label">Started On</label>
-                    <input asp-for="StartedOn" class="form-control" />
+                    <input asp-for="StartedOn" class="form-control"/>
                     <span asp-validation-for="StartedOn" class="text-danger"></span>
                 </div>
-                <br />
-                <br />
+                <br/>
+                <br/>
                 <div class="alert alert-dismissible alert-success" id="campDivSuccess" style="display: none">
-                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                  Campaign Created!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    Campaign Created!
                 </div>
                 <div class="alert alert-dismissible alert-danger" id="campDivFail" style="display: none">
-                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" id="createBtn" />
+                    <input type="submit" value="Create" class="btn btn-primary" id="createBtn"/>
                 </div>
             </fieldset>
         </form>
@@ -85,5 +85,5 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

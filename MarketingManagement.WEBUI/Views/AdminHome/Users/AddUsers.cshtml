@@ -37,7 +37,7 @@
 <h1>Create a new User</h1>
 
 <h4>Enter the following Details</h4>
-<hr />
+<hr/>
 <div class="row" id="userForm">
     <div class="col-md-4">
         <form>
@@ -45,40 +45,40 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="FullName" class="control-label">Full Name</label>
-                    <input asp-for="FullName" class="form-control" />
+                    <input asp-for="FullName" class="form-control"/>
                     <span asp-validation-for="FullName" class="text-danger"></span>
                 </div>
-                <br />
+                <br/>
                 <div class="form-group">
                     <label asp-for="LoginId" class="control-label">Login ID</label>
-                    <input asp-for="LoginId" class="form-control" />
+                    <input asp-for="LoginId" class="form-control"/>
                     <span asp-validation-for="LoginId" class="text-danger"></span>
                 </div>
-                <br />
+                <br/>
                 <div class="form-group">
                     <label asp-for="Password" class="control-label"></label>
-                    <input asp-for="Password" class="form-control" />
+                    <input asp-for="Password" class="form-control"/>
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
-                <br />
+                <br/>
                 <div class="form-group">
                     <label asp-for="ConfirmPassword" class="control-label">Confirm your Password</label>
-                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <input asp-for="ConfirmPassword" class="form-control"/>
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
-                <br />
+                <br/>
                 <div class="form-group">
                     <label asp-for="DateOfJoin" class="control-label">Date of Joining</label>
-                    <input asp-for="DateOfJoin" class="form-control" />
+                    <input asp-for="DateOfJoin" class="form-control"/>
                     <span asp-validation-for="DateOfJoin" class="text-danger"></span>
                 </div>
-                <br />
+                <br/>
                 <div class="form-group">
                     <label asp-for="Address" class="control-label"></label>
                     <textarea asp-for="Address" class="form-control" rows="3"></textarea>
                     <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
-                <br />
+                <br/>
                 <p>Type of User</p>
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                     <input type="radio" class="btn-check" name="IsAdmin" id="btnRadio1" autocomplete="off" value="1">
@@ -86,18 +86,18 @@
                     <input type="radio" class="btn-check" name="IsAdmin" id="btnRadio2" autocomplete="off" value="0">
                     <label class="btn btn-outline-primary" for="btnRadio2">Marketing Executive</label>
                 </div>
-                <br />
-                <br />
+                <br/>
+                <br/>
                 <div class="alert alert-dismissible alert-success" id="loginDivSuccess" style="display: none">
-                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                  User Created!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    User Created!
                 </div>
                 <div class="alert alert-dismissible alert-danger" id="loginDivFail" style="display: none">
-                  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                  Enter all the Detials!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    Enter all the Detials!
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" id="createBtn" />
+                    <input type="submit" value="Create" class="btn btn-primary" id="createBtn"/>
                 </div>
             </fieldset>
         </form>
@@ -105,5 +105,5 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
