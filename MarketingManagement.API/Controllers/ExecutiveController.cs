@@ -170,10 +170,10 @@ namespace MarketingManagement.API.Controllers
 
         //GET: api/Executive/Campaigns/AssignedToMe
         [Route("Campaigns/AssignedToMe")]
-        [HttpGet]
-        public ActionResult<IEnumerable<Campaigns>> GetCampaignAsgnToMe()
+        [HttpPost]
+        public ActionResult<IEnumerable<Campaigns>> GetCampaignAsgnToMe(Users user)
         {
-            var currentUser = Convert.ToInt32(HttpContext.Session.GetInt32("UserId"));
+            var currentUser = user.UserID;
             var campaigns = _executive.ViewCampaignsAssigned(currentUser);
             return Ok(campaigns);
         }

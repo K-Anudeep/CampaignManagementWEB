@@ -18,7 +18,7 @@
                 contentType: "application/json",    
                 success: function (data) {
                     document.getElementById("loginDivSuccess").style.display = 'block'
-                    sessionStorage.setItem("userSessionId", data.userId)
+                    sessionStorage.setItem("userSessionId", data.userID)
                     sessionStorage.setItem("userSessionName", data.fullName)
                     setTimeout(function (){                        
                     if (data.isAdmin === 1) {

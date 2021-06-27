@@ -1,87 +1,55 @@
-﻿@model IEnumerable<MarketingManagement.WEBUI.Models.CampaignDetails>
+﻿@{
+    ViewData["Title"] = "CampaignAssignedToMe";
+}
 
-@{ ViewData["Title"] = "GetCampaignAsgnToMe";
-                Layout = "~/Views/ExecutiveHome/_Layout.cshtml"; }
-<script>$(document).ready(function () {
-
-        $("#createbtn").click(function () {
-            var credentials = {
-                "CampaignId": $('#CampaignId').val(),
-                "Name": $('#Name').val(),
-                "Venue": $('#Venue').val(),
-                "AssignedTo": $('#AssignedTo').val(),
-                "StartedOn": $('#StartedOn').val(),
-                "CompletedOn": $('#CompletedOn').val(),
-
-            };
-            $.ajax({
-                type: "GET",
-                url: "http://localhost:25733/api/Executive/Campaigns/AssignedToMe",
-                data: JSON.stringify(credentials),
-                contentType: "application/json",
-                success: function (response) {
-                    alert("Success")
-                },
-                error: function () {
-                    alert('Error')
+<script>
+    $(document).ready(function () {
+            let user = {
+                "userID": parseInt(sessionStorage.getItem("userSessionId"))
+                }
+            console.log(user)
+            $(document).ready(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:25733/api/Executive/Campaigns/AssignedToMe",
+                    data: JSON.stringify(user),
+                    contentType: 'application/json',                    
+                    success: function (response) {
+                        $.each(response, function (i, data) {            
+                            const startedOn = new Date(Date.parse(data.startedOn));
+                            const endedOn = new Date(Date.parse(data.completedOn));
+                            
+                            const options = { day: 'numeric', month: 'long', year: 'numeric' }
+                            
+                            let isOpen = data.isOpen === true?"Open":"Closed";
+                    
+                    let row = '<tr id="tabledata"><td class="campaignID">'
+                        + data.campaignID + '</td><td>'
+                        + data.name + '</td><td>'
+                        + data.venue + '</td><td>'
+                        + data.assignedTo + '</td><td>'
+                        + startedOn.toLocaleDateString('en-IN', options) + '</td><td>'
+                        + endedOn.toLocaleDateString('en-IN', options) + '</td><td>'
+                        + isOpen + '</td></tr>'
+                    $('#campaignTable').append(row);
+                    })
                 }
             })
         })
-    })</script>
+    });
+</script>
 
-
-<h1>Get Campaign Assign To Me</h1>
-<table class="table">
+<h1>List of Campaigns Assigned To You</h1>
+<table class="table table-hover" id="campaignTable">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CampaignId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Venue)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AssignedTo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CompletedOn)
-            </th>
-            <th></th>
+            <th scope="col">Campaign ID</th>
+            <th scope="col">Campaign Name</th>
+            <th scope="col">Venue</th>
+            <th scope="col">Executive ID Assigned</th>
+            <th scope="col">Started On </th>
+            <th scope="col">Completed On</th>
+            <th scope="col">Running Status</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.CampaignId)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Venue)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.AssignedTo)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.StartedOn)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.CompletedOn)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Details", "", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Delete", "", new { /* id=item.PrimaryKey */ })
-    </td>
-</tr>}
-    </tbody>
 </table>

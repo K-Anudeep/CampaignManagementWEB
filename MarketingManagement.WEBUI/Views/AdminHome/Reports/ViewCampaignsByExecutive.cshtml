@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "AllUsers";
+    ViewData["Title"] = "ViewCampaignByExecutive";
     Layout = "~/Views/AdminHome/_Layout.cshtml";
 }
 
@@ -10,8 +10,7 @@
             url: "http://localhost:25733/api/Admin/Reports/CampaignByExecutive",
             dataType: 'json',
             success: function (response) {
-                $.each(response, function (i, item) {
-                    console.log(response);                
+                $.each(response, function (i, item) {            
                     const startedOn = new Date(Date.parse(item.startedOn));
                     const endedOn = new Date(Date.parse(item.completedOn));
                     
