@@ -31,8 +31,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
-
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary" id="navbar">
             <div class="container">
                 <a class="navbar-brand text-white" asp-controller="ExecutiveHome" asp-action="Index">Marketing MS</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -40,7 +39,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="navbar-collapse collapse" id="navbarColor02">
+                <div class="navbar-collapse collapse">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="ExecutiveHome" asp-action="Index">Home</a>
@@ -64,7 +63,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Campaigns</a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="ExecutiveHome" asp-action="">Your Campaigns</a>
+                                <a class="dropdown-item" asp-controller="ExecutiveHome" asp-action="GetCampaignAsgnToMe">Your Campaigns</a>
                             </div>
                         </li>
                     </ul>
@@ -83,23 +82,19 @@
     </header>
 
 
-    <div class="container-fluid">
+    <div class="container">
         <main role="main" class="pb-3">
+            <br>
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted" id="footer">
         <div class="container">
             &copy; 2021 - MarketingManagementSystem - <a asp-area="" asp-controller="ExecutiveHome" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>
-
-    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
