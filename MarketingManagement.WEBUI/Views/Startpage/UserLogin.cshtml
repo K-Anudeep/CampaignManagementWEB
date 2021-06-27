@@ -16,13 +16,15 @@
                 url: "http://localhost:25733/api/Users/Login",
                 data: JSON.stringify( credentials ),
                 contentType: "application/json",    
-                success: function (response) {
+                success: function (data) {
                     document.getElementById("loginDivSuccess").style.display = 'block'
+                    sessionStorage.setItem("userSessionId", data.userId)
+                    sessionStorage.setItem("userSessionName", data.fullName)
                     setTimeout(function (){                        
-                    if (response === "Admin") {
+                    if (data.isAdmin === 1) {
                         window.location = "http://localhost:17131/AdminHome/Index"
                     }
-                    else if (response === "Executive") {
+                    else if (data.isAdmin === 0) {
                         window.location = "http://localhost:17131/ExecutiveHome/Index"
                     }
                     }, 2000)

@@ -40,14 +40,14 @@ namespace MarketingManagement.API.Controllers
                                 HttpContext.Session.SetInt32("UserId", validation.UserID);
                                 HttpContext.Session.SetString("FullName", validation.FullName);
                                 HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
-                                return Content("Admin");
+                                return Ok(validation);
                             case 0:
                                 HttpContext.Session.SetInt32("UserId", validation.UserID);
                                 HttpContext.Session.SetString("FullName", validation.FullName);
                                 HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
-                                return Content("Executive");
+                                return Ok(validation);
                             default:
-                                return BadRequest("Empty or Wrong Credentials");
+                                return BadRequest("User Data error: Check your credentials or contact admin");
                         }
                     }
                     else

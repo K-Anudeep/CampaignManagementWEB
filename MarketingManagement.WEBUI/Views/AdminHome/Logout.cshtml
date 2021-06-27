@@ -14,6 +14,8 @@
                 type: "POST",
                 url: "http://localhost:25733/api/Admin/Logout",
                 success: function () {
+                    sessionStorage.removeItem("userSessionId")
+                    sessionStorage.removeItem("userSessionName")
                     window.location = "http://localhost:17131/Startpage/UserLogin"
                 },
                 error: function () {

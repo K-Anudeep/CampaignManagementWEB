@@ -1,8 +1,13 @@
 ﻿@{
     ViewData["Title"] = "Administrator Home Page";
 }
-@using Microsoft.AspNetCore.Http;
-<div class="text-center">
-    <h1 class="display-4">Welcome, @Context.Session.GetString("FullName")!</h1>
-    <p>Hello Admin, Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<script>
+$(document).ready(function() {
+  let welcome = '<h1 class="display-4">' + 'Welcome, ' + sessionStorage.getItem("userSessionName") + '</h1>'
+  $("#welcome").append(welcome);
+})
+</script>
+
+<div class="text-center" id="welcome">
+    <p>Administrator Panel.</p>
 </div>
