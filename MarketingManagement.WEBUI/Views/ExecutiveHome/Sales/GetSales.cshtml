@@ -13,7 +13,7 @@
             success: function (response) {
                 $.each(response, function (i, item) {
                     console.log(response);
-                    const date = new Date(Date.parse(item.createdOn));
+                    const date = new Date(Date.parse(item.createdON));
                     const options = { day: 'numeric', month: 'long', year: 'numeric' }
 
                     let row = '<tr id="tabledata"><td class="orderID">'
