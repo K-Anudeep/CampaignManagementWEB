@@ -126,7 +126,7 @@ namespace MarketingManagement.API.Controllers
             {
                 //Checks if Lead ID exists
                 if (!LeadsExists(sales.LeadID))
-                    throw new Exception("Campaign ID given does not exist!");
+                    throw new Exception("Lead ID given does not exist!");
                 //Checks if Lead Status is Won
                 if (!_dataChecks.CheckLeadStatus(sales.LeadID))
                     throw new Exception("Sale Orders can only be created for Leads that have 'Won'");
@@ -137,7 +137,7 @@ namespace MarketingManagement.API.Controllers
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
