@@ -7,15 +7,14 @@
 <script>
     $(document).ready(function () {
 
-        $("#saleForm").submit(function (e) {
+        $("#salesForm").submit(function (e) {
             e.preventDefault()
             let saleDetails = {
-                "OrderId": $('#OrderId').val(),
-                "LeadId": $('#LeadId').val(),
-                "ShippingAddress": $('#ShippingAddress').val(),
-                "BillingAddress": $('#BillingAddress').val(),
-                "CreatedOn": $('#CreatedOn').val(),
-                "PaymentMode": $("input[name='MoP']:checked").val()
+                "leadID": $('#LeadID').val(),
+                "shippingAddress": $('#ShippingAddress').val(),
+                "billingAddress": $('#BillingAddress').val(),
+                "createdON": $('#CreatedOn').val(),
+                "paymentMode": $("input[name='MoP']:checked").val()
             };
             console.log(saleDetails)
             $.ajax({
@@ -24,7 +23,7 @@
                 data: JSON.stringify(saleDetails),
                 contentType: "application/json",
                 success: function () {
-                    document.getElementById("leadDivSuccess").style.display = 'block'
+                    document.getElementById("saleDivSuccess").style.display = 'block'
                 },
                 error: function (response) {
                     document.getElementById("saleDivFail").style.display = 'block'
@@ -41,15 +40,10 @@
 
 <h4>Enter Sales Details</h4>
 <hr />
-<div class="row" id="leadForm">
+<div class="row" id="salesForm">
     <div class="col-md-4">
         <form asp-action="CreateLeads">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="OrderID" class="control-label"></label>
-                <input asp-for="OrderID" class="form-control" />
-                <span asp-validation-for="OrderID" class="text-danger"></span>
-            </div>
             <br />
             <div class="form-group">
                 <label asp-for="LeadID" class="control-label"></label>
@@ -59,13 +53,13 @@
             <br />
             <div class="form-group">
                 <label asp-for="ShippingAddress" class="control-label"></label>
-                <input asp-for="ShippingAddress" class="form-control" />
+                <textarea type="" asp-for="ShippingAddress" class="form-control" rows="3"></textarea>
                 <span asp-validation-for="ShippingAddress" class="text-danger"></span>
             </div>
             <br />
             <div class="form-group">
                 <label asp-for="BillingAddress" class="control-label"></label>
-                <input asp-for="BillingAddress" class="form-control" />
+                <textarea asp-for="BillingAddress" class="form-control" rows="3"></textarea>
                 <span asp-validation-for="BillingAddress" class="text-danger"></span>
             </div>
             <br />
@@ -85,15 +79,15 @@
                         </div>
             <br />
             <br />
-            <div class="alert alert-dismissible alert-success" id="leadDivSuccess" style="display: none">
+            <div class="alert alert-dismissible alert-success" id="saleDivSuccess" style="display: none">
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 Sale Created!
             </div>
-            <div class="alert alert-dismissible alert-danger" id="leadDivFail" style="display: none">
+            <div class="alert alert-dismissible alert-danger" id="saleDivFail" style="display: none">
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" id="leadCreateBtn" class="btn btn-primary" />
+                <input type="submit" value="Create" id="salesCreateBtn" class="btn btn-primary" />
             </div>
         </form>
     </div>
