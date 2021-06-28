@@ -29,6 +29,11 @@ namespace MarketingManagement.WEBUI.Controllers
             return View(@"~/Views/ExecutiveHome/Leads/GetLeadsByMe.cshtml");
         }
 
+        public IActionResult LeadDetails()
+        {
+            return View(@"~/Views/ExecutiveHome/Leads/LeadDetails.cshtml");
+        }
+
         //Sales
         public IActionResult CreateSales()
         {

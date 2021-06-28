@@ -88,11 +88,11 @@ namespace MarketingManagement.API.Controllers
 
         // GET: api/Executive/Leads/GetLeadsByMe
         [Route("Leads/GetLeadsByMe")]
-        [HttpGet]
-        public ActionResult<IEnumerable<Leads>> GetLeadsByMe()
+        [HttpPost]
+        public ActionResult<IEnumerable<Leads>> GetLeadsByMe(int userId)
         {
-            var currentUser = Convert.ToInt32(HttpContext.Session.GetInt32("UserId"));
-            var leads = _executive.ViewLeads(currentUser);
+            //var currentUser = Convert.ToInt32(HttpContext.Session.GetInt32("UserId"));
+            var leads = _executive.ViewLeads(userId);
             return Ok(leads);
         }
 
