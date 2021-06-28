@@ -24,10 +24,6 @@ namespace MarketingManagement.WEBUI.Controllers
         {
             return View(@"~/Views/ExecutiveHome/Leads/CreateLeads.cshtml");
         }
-        public IActionResult FollowLead()
-        {
-            return View(@"~/Views/ExecutiveHome/Leads/FollowLead.cshtml");
-        }
         public IActionResult GetLeadsByMe()
         {
             return View(@"~/Views/ExecutiveHome/Leads/GetLeadsByMe.cshtml");
