@@ -6,6 +6,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using MarketingManagement.API.DataContext;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using MarketingManagement.API.Controllers;
+using MarketingManagement.API.Helpers;
+using MarketingManagement.API.Models.Entities;
+using Microsoft.IdentityModel.Logging;
 
 namespace MarketingManagement.API
 {
@@ -24,11 +31,21 @@ namespace MarketingManagement.API
 
             services.AddControllers();
             services.AddSession();
+            IdentityModelEventSource.ShowPII = true;
+            // configure strongly typed settings objects
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+            
+            // configure jwt authentication
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MarketingManagement.API", Version = "v1" });
             });
-            services.AddDbContext<MarketingMgmtDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MarketMgmtDB")));
+            services.AddDbContext<MarketingMgmtDbContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("MarketMgmtDB")));
             services.AddDistributedMemoryCache();
             services.AddCors(
              c => {
@@ -38,6 +55,26 @@ namespace MarketingManagement.API
                  );
              }
              );
+            services.AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+                
+                // configure DI for application services
+                            services.AddScoped<Users>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +93,7 @@ namespace MarketingManagement.API
 
             app.UseCors("AllowOrigin");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
