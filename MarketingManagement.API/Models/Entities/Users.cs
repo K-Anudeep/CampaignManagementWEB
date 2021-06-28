@@ -25,5 +25,8 @@ namespace MarketingManagement.API.Models.Entities
         public string Address { get; set; }
         public byte Discontinued { get; set; }
         public byte IsAdmin { get; set; }
+        
+        [NotMapped]
+        public string Token { get; set; }
     }
 }
