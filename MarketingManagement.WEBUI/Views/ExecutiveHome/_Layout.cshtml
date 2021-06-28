@@ -44,8 +44,7 @@
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Leads</a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" asp-controller="ExecutiveHome" asp-action="CreateLeads">Create Leads</a>
-                                <a class="dropdown-item" asp-controller="ExecutiveHome" asp-action="FollowLead">Follow Leads</a>
-                                <a class="dropdown-item" asp-controller="ExecutiveHome" asp-action="GetLeadsByMe">Get Leads By Me</a>
+                                <a class="dropdown-item" asp-controller="ExecutiveHome" asp-action="GetLeadsByMe">Your Leads</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -55,11 +54,8 @@
                                 <a class="dropdown-item" asp-controller="ExecutiveHome" asp-action="GetSales">View Sales</a>
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Campaigns</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="ExecutiveHome" asp-action="GetCampaignAsgnToMe">Your Campaigns</a>
-                            </div>
+                        <li class="nav-item">
+                                <a class="nav-link" asp-controller="ExecutiveHome" asp-action="GetCampaignAsgnToMe">Your Campaigns</a>
                         </li>
                     </ul>
                 </div>
@@ -77,7 +73,7 @@
     </header>
 
 
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             <br>
             @RenderBody()

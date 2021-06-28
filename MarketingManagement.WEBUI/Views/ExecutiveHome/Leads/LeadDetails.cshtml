@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "LeadDetails";
+}
+
+<h1>Lead Details</h1>
+<script>
+    let leadId = sessionStorage.getItem("leadId")
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:25733/api/Executive/Leads/GetOneLead?" + $.param({id: leadId}),
+            contentType: "application/json",
+            data: "json",
+            success: function (data) {
+                const dateApproached = new Date(Date.parse(data.dateApproached));
+                const options = { day: 'numeric', month: 'long', year: 'numeric' }
+                
+                $('#userDetails').html('');
+                let div3Content = '<dt class = "col-sm-2">'
+                    + "Lead ID" + '</dt><dd class = "col-sm-10" >'
+                    + data.leadID + '</dd><dt class = "col-sm-2">'
+                    + "Campaign ID" + '</dt><dd class = "col-sm-10" >'
+                    + data.campaignID + '</dd><dt class = "col-sm-2">'
+                    + "Consumer Name" + '</dt><dd class = "col-sm-10" >'
+                    + data.consumerName + '</dd><dt class = "col-sm-2">'
+                    + "Email Address" + '</dt><dd class = "col-sm-10" >'
+                    + data.emailAddress + '</dd><dt class = "col-sm-2">'
+                    + "Phone No." + '</dt><dd class = "col-sm-10" >'
+                    + data.phoneNo + '</dd><dt class = "col-sm-2">'
+                    + "Preferred Mode of Contact" + '</dt><dd class = "col-sm-10" >'
+                    + data.preferredMoC + '</dd><dt class = "col-sm-2">'
+                    + "Date of Approach" + '</dt><dd class = "col-sm-10" >'
+                    + dateApproached.toLocaleDateString('en-IN', options) + '</dd><dt class = "col-sm-2">'
+                    + "Product ID" + '</dt><dd class = "col-sm-10" >'
+                    + data.productID + '</dd><dt class = "col-sm-2">'
+                    + "Status" + '</dt><dd class = "col-sm-10" >'
+                    + data.status + '</dd></dt>'
+                                    
+                    // if Name is property of your Person object
+                $("#leadDetails").append(div3Content);
+            },
+            error: function () {
+                alert('Error')
+            }
+        })
+    })
+</script>
+<div>
+    <hr />
+    <dl class="row" id="leadDetails">
+    </dl>
+</div>
+<form>
+    <p>Follow up with your Lead!</p>
+    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="Follow" id="btnRadio1" autocomplete="off" value="Won">
+        <label class="btn btn-outline-primary" for="btnRadio1">Won</label>
+        <input type="radio" class="btn-check" name="Follow" id="btnRadio2" autocomplete="off" value="Lost">
+        <label class="btn btn-outline-primary" for="btnRadio2">Lost</label>
+    </div>
+    <br/>
+    <br/>
+    <input type="button" value="Update Lead" id="discBtn" class="btn btn-danger"/>
+</form>
+<script>
+    $("#discBtn").click(function () {
+        let followUp = $("input[name='Follow']:checked").val()
+        $.ajax({
+            type: "PUT",
+            url: "http://localhost:25733/api/Executive/Leads/FollowLead/" + leadId + "/" 
+                            + followUp,
+            contentType: "application/json",
+            success: function () {
+                alert("Done")
+                location.reload();
+            },
+            error: function () {
+                alert('Error')
+            }
+        })
+    })
+</script>
