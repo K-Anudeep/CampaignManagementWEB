@@ -1,0 +1,75 @@
+﻿@model LoginCredentials
+@{
+    ViewData["Title"] = "UserLogin";
+    Layout = "~/Views/Shared/LoginLayout.cshtml";
+}
+<script>
+    $(document).ready(function () {
+        $("#loginForm").submit(function (e) {
+            e.preventDefault();
+            let credentials = {
+                "loginID": $('#UserId').val(),
+                "password": $('#Password').val()
+            };
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:25733/api/Users/Login",
+                data: JSON.stringify( credentials ),
+                contentType: "application/json",    
+                success: function (data) {
+                    document.getElementById("loginDivSuccess").style.display = 'block'
+                    sessionStorage.setItem("userSessionId", data.userID)
+                    sessionStorage.setItem("userSessionName", data.fullName)
+                    setTimeout(function (){                        
+                    if (data.isAdmin === 1) {
+                        window.location = "http://localhost:17131/AdminHome/Index"
+                    }
+                    else if (data.isAdmin === 0) {
+                        window.location = "http://localhost:17131/ExecutiveHome/Index"
+                    }
+                    }, 2000)
+                },
+                error: function () {
+                    document.getElementById("loginDivFail").style.display = 'block'
+                }
+            })
+        })
+    })
+</script>
+
+<h1>Welcome!</h1>
+
+<h4>Enter Credentials</h4>
+<hr />
+<div class="row" id="loginForm">
+    <div class="col-md-4">
+        <form>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group form-floating">
+                <input asp-for="UserId" class="form-control" id="UserId" placeholder="User ID" />
+                <label asp-for="UserId" class="control-label" for="UserId">User ID</label>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group form-floating">
+                <input asp-for="Password" class="form-control" id="Password" placeholder="Password" />
+                <label asp-for="Password" class="control-label" for="Password">Password</label>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <br />
+                <input type="submit" value="Login" class="btn btn-primary" id="loginBtn" />
+            </div>
+            <br />
+            <div class="alert alert-success" id="loginDivSuccess" style="display: none">
+                            Login Success: Redirecting you...
+                        </div>
+            <div class="alert alert-danger" id="loginDivFail" style="display: none">
+                Login Failed: Check your credentials and try again!
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

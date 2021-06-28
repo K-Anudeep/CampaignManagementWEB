@@ -5,21 +5,21 @@ namespace MarketingManagement.API.Services
 {
     public interface IExecutiveService
     {
+        //SALES
         bool AddSales(Sales sales);
 
-        List<Sales> ViewSales();
+        IEnumerable<Sales> ViewSales();
+
+        //LEADS
 
         bool AddLeads(Leads leads);
 
-        bool CheckLead(int leadID);
+        bool FollowLead(Leads leads);
 
-        bool CampaignStatusCheck(int cID);
+        IEnumerable<Leads> ViewLeads(int userId);
 
-        bool FollowLead(int lID, string newStatus);
+        //CAMPAIGNS
 
-        List<Leads> ViewLeads();
-
-        List<Campaigns> ViewCampaignsAssigned();
-
+        IEnumerable<Campaigns> ViewCampaignsAssigned(int campaignId);
     }
 }

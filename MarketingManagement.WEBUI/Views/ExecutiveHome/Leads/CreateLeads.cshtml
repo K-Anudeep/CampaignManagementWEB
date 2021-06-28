@@ -1,0 +1,110 @@
+﻿@model MarketingManagement.WEBUI.Models.LeadsDetails
+
+@{
+    ViewData["Title"] = "Create Leads";
+    Layout = "~/Views/ExecutiveHome/_Layout.cshtml";
+}
+<script>
+    $(document).ready(function () {
+
+        $("#leadForm").submit(function (e) {
+            e.preventDefault()
+            let leadDetails = {
+                "CampaignId": $('#CampaignId').val(),
+                "ConsumerName": $('#ConsumerName').val(),
+                "EmailAddress": $('#EmailAddress').val(),
+                "PhoneNo": $('#PhoneNo').val(),
+                "DateApproached": $('#DateApproached').val(),
+                "PreferredMoC": $("input[name='MoC']:checked").val(),
+                "ProductId": $('#ProductId').val()
+            };
+            console.log(leadDetails)
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:25733/api/Executive/Leads/Add",
+                data: JSON.stringify(leadDetails),
+                contentType: "application/json",
+                success: function () {
+                    document.getElementById("leadDivSuccess").style.display = 'block'
+                },
+                error: function (response) {
+                    document.getElementById("leadDivFail").style.display = 'block'
+                        let fail = '<p>'+ response.responseText +'</p>'
+                        $('#leadDivFail').append(fail);
+                }
+            })
+        })
+    })
+</script>
+
+
+<h1>Create Leads</h1>
+
+<h4>Enter Leads Details</h4>
+<hr/>
+<div class="row" id="leadForm">
+    <div class="col-md-4">
+        <form asp-action="CreateLeads">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CampaignId" class="control-label"></label>
+                <input asp-for="CampaignId" class="form-control"/>
+                <span asp-validation-for="CampaignId" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="ConsumerName" class="control-label"></label>
+                <input asp-for="ConsumerName" class="form-control"/>
+                <span asp-validation-for="ConsumerName" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="EmailAddress" class="control-label"></label>
+                <input asp-for="EmailAddress" class="form-control"/>
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="PhoneNo" class="control-label"></label>
+                <input asp-for="PhoneNo" class="form-control"/>
+                <span asp-validation-for="PhoneNo" class="text-danger"></span>
+            </div>
+            <br/>
+            <p>Type of User</p>
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="MoC" id="btnRadio1" autocomplete="off" value="Email">
+                <label class="btn btn-outline-primary" for="btnRadio1">Email</label>
+                <input type="radio" class="btn-check" name="MoC" id="btnRadio2" autocomplete="off" value="Phone">
+                <label class="btn btn-outline-primary" for="btnRadio2">Phone</label>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="DateApproached" class="control-label"></label>
+                <input asp-for="DateApproached" class="form-control"/>
+                <span asp-validation-for="DateApproached" class="text-danger"></span>
+            </div>
+            <br/>
+            <div class="form-group">
+                <label asp-for="ProductId" class="control-label"></label>
+                <input asp-for="ProductId" class="form-control"/>
+                <span asp-validation-for="ProductId" class="text-danger"></span>
+            </div>
+            <br/>
+            <br/>
+            <div class="alert alert-dismissible alert-success" id="leadDivSuccess" style="display: none">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                Lead Created!
+            </div>
+            <div class="alert alert-dismissible alert-danger" id="leadDivFail" style="display: none">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" id="leadCreateBtn" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

@@ -28,8 +28,16 @@ namespace MarketingManagement.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MarketingManagement.API", Version = "v1" });
             });
-            services.AddDbContext<MarketingMgmtDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MarketMgmtDB")));
+            services.AddDbContext<MarketingMgmtDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MarketMgmtDB")));
             services.AddDistributedMemoryCache();
+            services.AddCors(
+             c => {
+                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin()
+                 .AllowAnyMethod()
+                 .AllowAnyHeader()
+                 );
+             }
+             );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +53,8 @@ namespace MarketingManagement.API
             app.UseRouting();
 
             app.UseSession();
+
+            app.UseCors("AllowOrigin");
 
             app.UseAuthorization();
 

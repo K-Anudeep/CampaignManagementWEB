@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MarketingManagement.API.DataContext;
 using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.Models.Repositories;
 
@@ -7,48 +8,61 @@ namespace MarketingManagement.API.Services
 {
     public class ExecutiveService : IExecutiveService
     {
-        LeadsRepo leadsRepo = null;
-        CampaignsRepo campaignsRepo = null;
-        SalesRepo salesRepo = null;
+        private readonly LeadsRepo _leadsRepo;
+        private readonly CampaignsRepo _campaignsRepo;
+        private readonly GenericRepo<Sales> _genericSalesRepo;
+        private readonly GenericRepo<Leads> _genericLeadsRepo;
+        private readonly GenericRepo<Campaigns> _genericCampaignRepo;
+
+        public ExecutiveService(MarketingMgmtDbContext context)
+        {
+            //Generic Repo for Campaigns
+            _genericCampaignRepo = new GenericRepo<Campaigns>(context);
+            //Generic Repo for Leads
+            _genericLeadsRepo = new GenericRepo<Leads>(context);
+            _leadsRepo = new LeadsRepo(context);
+            //Direct Campaign Repo
+            _campaignsRepo = new CampaignsRepo(context);
+            _genericSalesRepo = new GenericRepo<Sales>(context);
+        }
+
+        //LEADS
 
         public bool AddLeads(Leads leads)
         {
-            throw new NotImplementedException();
+            _genericLeadsRepo.AddRecord(leads);
+            return true;
         }
+
+        public bool FollowLead(Leads leads)
+        {
+            _genericLeadsRepo.UpdateRecord(leads);
+            return true;
+        }
+
+        public IEnumerable<Leads> ViewLeads(int userId)
+        {
+            return _leadsRepo.ViewLeadsToExec(userId);
+        }
+
+        //SALES
 
         public bool AddSales(Sales sales)
         {
-            throw new NotImplementedException();
+            _genericSalesRepo.AddRecord(sales);
+            return true;
         }
 
-        public bool CampaignStatusCheck(int cID)
+        public IEnumerable<Sales> ViewSales()
         {
-            throw new NotImplementedException();
+            return _genericSalesRepo.GetAllRecords();
         }
 
-        public bool CheckLead(int leadID)
-        {
-            throw new NotImplementedException();
-        }
+        //CAMPAIGNS
 
-        public bool FollowLead(int lID, string newStatus)
+        public IEnumerable<Campaigns> ViewCampaignsAssigned(int userId)
         {
-            throw new NotImplementedException();
-        }
-
-        public List<Campaigns> ViewCampaignsAssigned()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Leads> ViewLeads()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Sales> ViewSales()
-        {
-            throw new NotImplementedException();
+            return _campaignsRepo.ViewCampaignsByAssigned(userId);
         }
     }
 }

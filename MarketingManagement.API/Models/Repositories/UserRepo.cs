@@ -2,7 +2,6 @@
 using MarketingManagement.API.Models.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using MarketingManagement.API.DataContext;
 using System;
 
@@ -10,9 +9,9 @@ namespace MarketingManagement.API.Models.Repositories
 {
     public class UserRepo : IUsersRepo
     {
-        private readonly MarketingMgmtDBContext _context;
+        private readonly MarketingMgmtDbContext _context;
 
-        public UserRepo(MarketingMgmtDBContext context)
+        public UserRepo(MarketingMgmtDbContext context)
         {
             _context = context;
         }
@@ -35,14 +34,14 @@ namespace MarketingManagement.API.Models.Repositories
             }
             else
             {
-                throw new Exception("Failed to Add User");
+                throw new Exception("User does not exist");
             }
         }
 
         public IEnumerable<Users> DisplayUsers()
         {
             //Gets List of All Users
-            return _context.Users.ToList();
+            return _context.Users;
         }
 
         public Users OneUser(int uId)

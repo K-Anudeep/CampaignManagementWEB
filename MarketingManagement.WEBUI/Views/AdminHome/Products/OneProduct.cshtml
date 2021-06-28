@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "OneProduct";
+    Layout = "~/Views/AdminHome/_Layout.cshtml";
+}
+
+<h1>Product Details</h1>
+<script>
+    let product = parseInt(sessionStorage.getItem("productID"))
+    console.log(product)
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:25733/api/Admin/Products/OneProduct/" + product,
+            success: function (data) {
+                $('#productDetails').html('');
+                let div3Content = '<dt class = "col-sm-2">'
+                    + "Product ID" + '</dt><dd class = "col-sm-10" >'
+                    + data.productID + '</dd><dt class = "col-sm-2">'
+                    + "Product Name" + '</dt><dd class = "col-sm-10" >'
+                    + data.productName + '</dd><dt class = "col-sm-2">'
+                    + "Unit Price" + '</dt><dd class = "col-sm-10" >'
+                    + data.unitPrice + '</dd><dt class = "col-sm-2">'
+                    + "Description" + '</dt><dd class = "col-sm-10" >'
+                    + data.description + '</dd><dt class = "col-sm-2">'
+                $("#productDetails").append(div3Content);
+            },
+            error: function () {
+                alert('Error')
+            }
+        })
+    })
+</script>
+<div>
+    <hr />
+    <dl class="row" id="productDetails">
+    </dl>
+</div>
+<form>
+    <input type="button" value="Delete product" id="deleteBtn" class="btn btn-danger" />
+</form>
+<script>
+    $("#deleteBtn").click(function () {
+        $.ajax({
+            type: "DELETE",
+            url: "http://localhost:25733/api/Admin/Products/Delete/" + product,
+            contentType: "application/json",
+            success: function () {
+                document.getElementById("productDelSuccess").style.display = "block"
+                setTimeout( function () {
+                window.location = "http://localhost:17131/AdminHome/AllProducts";
+                }, 2000)
+            },
+            error: function () {
+                alert('Error')
+            }
+        })
+    })
+</script>
+<br/>
+<div class="alert alert-dismissible alert-success" id="productDelSuccess" style="display: none">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    Product Deleted! Returning you to records...
+</div>

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MarketingManagement.API.DataContext;
 using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.Models.Validations;
-using MarketingManagement.API.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace MarketingManagement.API.Controllers
 {
@@ -14,7 +11,7 @@ namespace MarketingManagement.API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly AccessCheck _accessCheck;
-        public UsersController(MarketingMgmtDBContext context)
+        public UsersController(MarketingMgmtDbContext context)
         {
             _accessCheck = new AccessCheck(context);
         }
@@ -22,26 +19,50 @@ namespace MarketingManagement.API.Controllers
         //POST: api/Users/Login
         [HttpPost]
         [Route("Login")]
-        public IActionResult UserValidation(string loginId, string password)
+        public IActionResult UserValidation(Users users)
         {
-            // Validate a User with their given Credentials
-            var validation = _accessCheck.Validation(loginId, password);
-            if(validation != null)
+            try
             {
-                //Check for Admin or Executive
-                Users Check = _accessCheck.AdminCheck(loginId);
-                if(Check.IsAdmin == 1)
+                if (ModelState.IsValid)
                 {
-                    return Content("Admin");
+                    var loginId = users.LoginID;
+                    var password = users.Password;
+
+                    // Validate a User with their given Credentials
+                    var validation = _accessCheck.Validation(loginId, password);
+                    if (validation != null)
+                    {
+                        //Check for Admin or Executive
+                        var check = _accessCheck.AdminCheck(validation.UserID);
+                        switch (check.IsAdmin)
+                        {
+                            case 1:
+                                HttpContext.Session.SetInt32("UserId", validation.UserID);
+                                HttpContext.Session.SetString("FullName", validation.FullName);
+                                HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
+                                return Ok(validation);
+                            case 0:
+                                HttpContext.Session.SetInt32("UserId", validation.UserID);
+                                HttpContext.Session.SetString("FullName", validation.FullName);
+                                HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
+                                return Ok(validation);
+                            default:
+                                return BadRequest("User Data error: Check your credentials or contact admin");
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest("Empty or Wrong Credentials");
+                    }
                 }
                 else
                 {
-                    return Content("Executive");
+                    throw new System.Exception("Check your Credentials and try again!");
                 }
             }
-            else
+            catch (System.Exception ex)
             {
-                return NotFound();
+                return BadRequest(ex.Message);
             }
         }
     }

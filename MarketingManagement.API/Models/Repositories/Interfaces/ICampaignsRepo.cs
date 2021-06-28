@@ -7,16 +7,16 @@ namespace MarketingManagement.API.Models.Repositories.Interfaces
     {
         bool AddCampaign(Campaigns campaign);
 
-        List<Campaigns> ViewCampaignsByExec();
+        IEnumerable<Campaigns> ViewCampaignsByExec();
 
-        List<Campaigns> ViewCampaignsByAssigned();
+        IEnumerable<Campaigns> ViewCampaignsByAssigned(int userId);
 
-        bool CloseCampaign(int cId);
+        bool CloseCampaign(int campaignId);
 
-        bool CampaignStatusCheck(int cId);
+        bool CampaignStatusCheck(int campaignId);
 
-        Campaigns OneCampaign(int cId);
+        Campaigns OneCampaign(int campaignId);
 
-        List<Campaigns> ViewAllCampaigns();
+        IEnumerable<Campaigns> ViewAllCampaigns();
     }
 }

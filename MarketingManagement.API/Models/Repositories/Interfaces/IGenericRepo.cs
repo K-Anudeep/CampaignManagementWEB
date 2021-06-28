@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MarketingManagement.API.Models.Repositories.Interfaces
 {
     interface IGenericRepo<T> where T: class
     {
-        T AddRecord(T records);
+        void AddRecord(T records);
 
         T GetRecord(object value);
 
         IEnumerable<T> GetAllRecords();
 
-        T UpdateRecord(object value);
+        void DeleteRecord(object value);
+
+        bool UpdateRecord(T value);
     }
 }

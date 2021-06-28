@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MarketingManagement.API.DataContext;
 using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.Models.Repositories;
@@ -7,16 +6,28 @@ using MarketingManagement.API.Models.Repositories;
 namespace MarketingManagement.API.Services
 {
     public class AdminServices : IAdminServices
-    {
-        private readonly ProductRepo _productRepo;
-        private readonly CampaignsRepo _campaignRepo;
+    {        
         private readonly UserRepo userRepo;
+        private readonly LeadsRepo _leadsRepo;
+        private readonly CampaignsRepo _campaignsRepo;
+        private readonly GenericRepo<Users> genericUserRepo;
+        private readonly GenericRepo<Products> genericProductRepo;
+        private readonly GenericRepo<Campaigns> genericCampaignRepo;
 
-        public AdminServices(MarketingMgmtDBContext context)
+        public AdminServices(MarketingMgmtDbContext context)
         {
+            //Users
             userRepo = new UserRepo(context);
-            _productRepo = new ProductRepo();
-            _campaignRepo = new CampaignsRepo();
+            genericUserRepo = new GenericRepo<Users>(context);
+
+            //Generic Repo for Products
+            genericProductRepo = new GenericRepo<Products>(context);
+            //Generic Repo for Campaigns
+            genericCampaignRepo = new GenericRepo<Campaigns>(context);
+
+            _leadsRepo = new LeadsRepo(context);
+            //Direct Campaign Repo
+            _campaignsRepo = new CampaignsRepo(context);
         }
 
         //USERS
@@ -39,55 +50,63 @@ namespace MarketingManagement.API.Services
 
         public IEnumerable<Users> DisplayUsers()
         {
-            return userRepo.DisplayUsers();
+            return genericUserRepo.GetAllRecords();
         }
 
         //CAMPAIGNS
         public bool AddCampaign(Campaigns campaigns)
         {
-            throw new NotImplementedException();
+            campaigns.IsOpen = true;
+            genericCampaignRepo.AddRecord(campaigns);
+            return true;
         }
 
         public Campaigns OneCampaign(int campaignId)
         {
-            throw new NotImplementedException();
+            return genericCampaignRepo.GetRecord(campaignId);
         }
 
-        public bool CloseCampagin(int campaignId)
+        public bool CloseCampagin(Campaigns campaign)
         {
-            throw new NotImplementedException();
+            genericCampaignRepo.UpdateRecord(campaign);
+            return true;
         }
 
         //PRODUCTS
         public bool AddProducts(Products products)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(products.Description))
+            {
+                products.Description = "None";
+            }
+            genericProductRepo.AddRecord(products);
+            return true;
         }
 
-        public bool DeleteProduct(int productId)
+        public void DeleteProduct(int productId)
         {
-            throw new NotImplementedException();
+            genericProductRepo.DeleteRecord(productId);
         }
 
-        public List<Products> ViewProducts()
+        public IEnumerable<Products> GetAllProducts()
         {
-            throw new NotImplementedException();
+            return genericProductRepo.GetAllRecords();
         }
 
         public Products OneProduct(int productId)
         {
-            throw new NotImplementedException();
+            return genericProductRepo.GetRecord(productId);
         }
 
         //REPORTS
-        public List<Leads> ViewLeadByCampaign(int campaignId)
+        public IEnumerable<Leads> ViewLeadByCampaign(int campaignId)
         {
-            throw new NotImplementedException();
+            return _leadsRepo.ViewLeadsByCampaign(campaignId);
         }
 
-        public List<Campaigns> ViewCampaingByExecutive(int executiveId)
+        public IEnumerable<Campaigns> ViewCampaignByExecutive()
         {
-            throw new NotImplementedException();
+            return _campaignsRepo.ViewCampaignsByExec();
         }
     }
 }

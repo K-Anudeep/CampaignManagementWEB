@@ -24,6 +24,7 @@ namespace MarketingManagement.WEBUI
         {
             services.AddControllersWithViews();
             services.AddLogging();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +40,8 @@ namespace MarketingManagement.WEBUI
             }
             app.UseStaticFiles();
 
+            app.UseSession();
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -47,7 +50,7 @@ namespace MarketingManagement.WEBUI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Startpage}/{action=UserLogin}/{id?}");
             });
         }
     }

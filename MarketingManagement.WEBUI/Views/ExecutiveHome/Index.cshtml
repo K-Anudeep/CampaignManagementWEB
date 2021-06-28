@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Executive Home Page";
+}
+<script>
+$(document).ready(function() {
+  let welcome = '<h1 class="display-4">' + 'Welcome, ' + sessionStorage.getItem("userSessionName") + '</h1>'
+  $("#welcome").append(welcome);
+})
+</script>
+
+<div class="text-center" id="welcome">
+    <p>Markteting Executive Panel.</p>
+</div>

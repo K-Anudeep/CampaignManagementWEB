@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketingManagement.API", "MarketingManagement.API\MarketingManagement.API.csproj", "{9A800065-FF13-4469-9DF5-DCCAE5DACE5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketingManagement.API", "MarketingManagement.API\MarketingManagement.API.csproj", "{9A800065-FF13-4469-9DF5-DCCAE5DACE5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketingManagement.WEBUI", "MarketingManagement.WEBUI\MarketingManagement.WEBUI.csproj", "{899F800E-9224-416B-96C6-3652E25C7D87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarketingManagement.WEBUI", "MarketingManagement.WEBUI\MarketingManagement.WEBUI.csproj", "{899F800E-9224-416B-96C6-3652E25C7D87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketing Unit Test", "Marketing Unit Test\Marketing Unit Test.csproj", "{E2EB49A4-88E2-452A-8786-3223D245CC49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marketing Unit Test", "Marketing Unit Test\Marketing Unit Test.csproj", "{E2EB49A4-88E2-452A-8786-3223D245CC49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

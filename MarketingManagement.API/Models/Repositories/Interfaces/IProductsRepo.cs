@@ -5,12 +5,12 @@ namespace MarketingManagement.API.Models.Repositories.Interfaces
 {
     public interface IProductsRepo
     {
-        bool AddProducts(Products products);
+        void AddProducts(Products products);
 
         List<Products> DisplayProducts();
 
-        Products OneProduct(int pId);
+        Products OneProduct(int productId);
 
-        bool DeleteProduct(int pId);
+        bool DeleteProduct(int productId);
     }
 }

@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "OneUser";
+    Layout = "~/Views/AdminHome/_Layout.cshtml";
+}
+
+<h1>User Details</h1>
+<script>
+    let user = parseInt(sessionStorage.getItem("userId"))
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:25733/api/Admin/User/GetOneUser/" + user,
+            data: "json",
+            success: function (data) {
+                const date = new Date(Date.parse(data.dateOfJoin));
+                const options = { day: 'numeric', month: 'numeric', year: 'numeric' }
+                
+                let disc = data.discontinued === 1?"Discontinued":"On Job";
+                let userType = data.isAdmin === 1?"Administrator":"Marketing Executive";
+                
+                $('#userDetails').html('');
+                let div3Content = '<dt class = "col-sm-2">'
+                    + "User ID" + '</dt><dd class = "col-sm-10" >'
+                    + data.userID + '</dd><dt class = "col-sm-2">'
+                    + "Full Name" + '</dt><dd class = "col-sm-10" >'
+                    + data.fullName + '</dd><dt class = "col-sm-2">'
+                    + "Login ID" + '</dt><dd class = "col-sm-10" >'
+                    + data.loginID + '</dd><dt class = "col-sm-2">'
+                    + "Password" + '</dt><dd class = "col-sm-10" >'
+                    + data.password + '</dd><dt class = "col-sm-2">'
+                    + "Date of Joining" + '</dt><dd class = "col-sm-10" >'
+                    + date.toLocaleDateString('en-IN', options) + '</dd><dt class = "col-sm-2">'
+                    + "Address" + '</dt><dd class = "col-sm-10" >'
+                    + data.address + '</dd><dt class = "col-sm-2">'
+                    + "Type of User" + '</dt><dd class = "col-sm-10" >'
+                    + userType + '</dd><dt class = "col-sm-2">'
+                    + "Working Status" + '</dt><dd class = "col-sm-10" >'
+                    + disc + '</dd><dt class = "col-sm-2">'
+                                    
+                    // if Name is property of your Person object
+                $("#userDetails").append(div3Content);
+            },
+            error: function () {
+                alert('Error')
+            }
+        })
+    })
+</script>
+<div>
+    <hr />
+    <dl class="row" id="userDetails">
+    </dl>
+</div>
+<form>
+    <input type="button" value="Discontinue User" id="discBtn" class="btn btn-danger" />
+</form>
+<script>
+    $("#discBtn").click(function () {
+        $.ajax({
+            type: "PUT",
+            url: "http://localhost:25733/api/Admin/User/DiscontinueUser/" + user,
+            contentType: "application/json",
+            success: function () {
+                alert("Done")
+                location.reload();
+            },
+            error: function () {
+                alert('Error')
+            }
+        })
+    })
+</script>

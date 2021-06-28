@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace DatabaseLayer.DBException
@@ -31,6 +27,14 @@ namespace DatabaseLayer.DBException
         }
 
         public ExceptionLogging(string message) : base(message)
+        {
+        }
+
+        public ExceptionLogging() : base()
+        {
+        }
+
+        public ExceptionLogging(string message, Exception innerException) : base(message, innerException)
         {
         }
     }

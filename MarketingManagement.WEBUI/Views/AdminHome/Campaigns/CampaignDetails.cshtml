@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "CampaignDetails";
+    Layout = "~/Views/AdminHome/_Layout.cshtml";
+}
+
+<h1>campaign Details</h1>
+<script>
+    let campaign = parseInt(sessionStorage.getItem("campaignId"))
+    console.log(campaign)
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:25733/api/Admin/Campaign/Onecampaign/" + campaign,
+            success: function (data) {
+                $('#campaignDetails').html('');                
+                    const startedOn = new Date(Date.parse(data.startedOn));
+                    const endedOn = new Date(Date.parse(data.completedOn));
+                    
+                    const options = { day: 'numeric', month: 'long', year: 'numeric' }
+                    
+                    let isOpen = data.isOpen === true?"Open":"Closed";
+                    
+                let div3Content = '<dt class = "col-sm-2">'
+                    + "Campaign ID" + '</dt><dd class = "col-sm-10" >'
+                    + data.campaignID + '</dd><dt class = "col-sm-2">'
+                    + "Campaign Name" + '</dt><dd class = "col-sm-10" >'
+                    + data.name + '</dd><dt class = "col-sm-2">'
+                    + "Venue" + '</dt><dd class = "col-sm-10" >'
+                    + data.venue + '</dd><dt class = "col-sm-2">'
+                    + "Executive ID Assigned" + '</dt><dd class = "col-sm-10" >'
+                    + data.assignedTo + '</dd><dt class = "col-sm-2">'
+                    + "Started On" + '</dt><dd class = "col-sm-10" >'
+                    + startedOn.toLocaleDateString('en-IN', options) + '</dd><dt class = "col-sm-2">'
+                    + "Completed On" + '</dt><dd class = "col-sm-10" >'
+                    + endedOn.toLocaleDateString('en-IN', options) + '</dd><dt class = "col-sm-2">'
+                    + "Running Status" + '</dt><dd class = "col-sm-10" >'
+                    + isOpen + '</dd><dt class = "col-sm-2">'
+                    
+                $("#campaignDetails").append(div3Content);
+            },
+            error: function () {
+                alert('Error')
+            }
+        })
+    })
+</script>
+<div>
+    <hr />
+    <dl class="row" id="campaignDetails">
+    </dl>
+</div>
+<form>
+    <input type="button" value="Close campaign" id="deleteBtn" class="btn btn-danger" />
+</form>
+<script>
+    $("#deleteBtn").click(function () {
+        $.ajax({
+            type: "PUT",
+            url: "http://localhost:25733/api/Admin/Campaign/Close/" + campaign,
+            contentType: "application/json",
+            success: function () {
+                document.getElementById("campaignDelSuccess").style.display = "block"
+                setTimeout( function () {
+                location.reload();
+                }, 2000)
+            },
+            error: function () {
+                alert('Error')
+            }
+        })
+    })
+</script>
+<br/>
+<div class="alert alert-dismissible alert-success" id="campaignDelSuccess" style="display: none">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    Campaign Closed!
+</div>
+<script>
+        
+</script>

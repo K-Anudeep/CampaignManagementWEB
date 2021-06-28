@@ -1,0 +1,73 @@
+﻿@model MarketingManagement.WEBUI.Models.SalesDetails
+
+@{ ViewData["Title"] = "CreateSales";
+                Layout = "~/Views/ExecutiveHome/_Layout.cshtml"; }
+<script>$(document).ready(function () {
+
+        $("#createbtn").click(function () {
+            var credentials = {
+                "LeadId": $('#LeadId').val(),
+                "ShippingAddress": $('#ShippingAddress').val(),
+                "BillingAddress": $('#BillingAddress').val(),
+                "CreatedON": $('#CreatedON').val(),
+                "PaymentMode": $('#PaymentMode').val(),
+            };
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:25733/api/Executive/Sales/Add",
+                data: JSON.stringify(credentials),
+                contentType: "application/json",
+                success: function (response) {
+                    alert("Success")
+                },
+                error: function () {
+                    alert('Error')
+                }
+            })
+        })
+    })</script>
+
+
+<h1>Create Sales</h1>
+
+<h4>Sales Details</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateSales">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="LeadID" class="control-label"></label>
+                <input asp-for="LeadID" class="form-control" />
+                <span asp-validation-for="LeadID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShippingAddress" class="control-label"></label>
+                <input asp-for="ShippingAddress" class="form-control" />
+                <span asp-validation-for="ShippingAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BillingAddress" class="control-label"></label>
+                <input asp-for="BillingAddress" class="form-control" />
+                <span asp-validation-for="BillingAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedON" class="control-label"></label>
+                <input asp-for="CreatedON" class="form-control" />
+                <span asp-validation-for="CreatedON" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaymentMode" class="control-label"></label>
+                <input asp-for="PaymentMode" class="form-control" />
+                <span asp-validation-for="PaymentMode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
