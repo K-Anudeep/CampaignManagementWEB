@@ -16,7 +16,7 @@
                     const date = new Date(Date.parse(item.createdOn));
                     const options = { day: 'numeric', month: 'long', year: 'numeric' }
 
-                    let row = '<tr id="tabledata"><td class="orderID"'
+                    let row = '<tr id="tabledata"><td class="orderID">'
                         + item.orderID + '</td><td>'
                         + item.leadID + '</td><td>'
                         + item.shippingAddress + '</td><td>'
@@ -41,7 +41,6 @@
             <th scope="col">Billing Address</th>
             <th scope="col">Created On</th>
             <th scope="col">Payment Mode</th>
-
         </tr>
     </thead>
 </table>

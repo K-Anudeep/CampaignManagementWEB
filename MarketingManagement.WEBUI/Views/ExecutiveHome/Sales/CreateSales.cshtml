@@ -15,7 +15,7 @@
                 "ShippingAddress": $('#ShippingAddress').val(),
                 "BillingAddress": $('#BillingAddress').val(),
                 "CreatedOn": $('#CreatedOn').val(),
-                "PaymentMode": $('#PaymentMode').val()
+                "PaymentMode": $("input[name='MoP']:checked").val()
             };
             console.log(saleDetails)
             $.ajax({
@@ -76,11 +76,13 @@
                 <span asp-validation-for="CreatedON" class="text-danger"></span>
             </div>
             <br />
-            <div class="form-group">
-                <label asp-for="PaymentMode" class="control-label"></label>
-                <input asp-for="PaymentMode" class="form-control" />
-                <span asp-validation-for="PaymentMode" class="text-danger"></span>
-            </div>
+            <p>Preferred Mode of Payment</p>
+                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check" name="MoP" id="btnRadio1" autocomplete="off" value="Credit Card">
+                            <label class="btn btn-outline-primary" for="btnRadio1">Credit Card</label>
+                            <input type="radio" class="btn-check" name="MoP" id="btnRadio2" autocomplete="off" value="CoD">
+                            <label class="btn btn-outline-primary" for="btnRadio2">Cash on Delivery</label>
+                        </div>
             <br />
             <br />
             <div class="alert alert-dismissible alert-success" id="leadDivSuccess" style="display: none">
