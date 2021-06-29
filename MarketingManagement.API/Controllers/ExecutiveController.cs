@@ -7,6 +7,7 @@ using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.Models.Validations;
 using MarketingManagement.API.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MarketingManagement.API.Controllers
@@ -19,6 +20,7 @@ namespace MarketingManagement.API.Controllers
         private readonly MarketingMgmtDbContext _context;
         private readonly DataChecks _dataChecks;
         private readonly ExecutiveService _executive;
+        Session session = null;
 
         public ExecutiveController(MarketingMgmtDbContext context)
         {
@@ -45,10 +47,14 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
+                session = new Session();   
                 //Checks if Campaign ID exists
                 if (!_dataChecks.CheckCampaign(leads.CampaignID))
                     throw new Exception("Campaign ID given does not exist!");
-                //Check if Camapaign is Open or Close
+                //Checks if Campaign is assigned to session
+                if (!_dataChecks.CheckSelfCampaign(leads.CampaignID, session.UserSessionId))
+                    throw new Exception("Given Campaign is not assigned to this user.");
+                //Check if Campaign is Open or Close
                 if (!_dataChecks.CampaignStatusCheck(leads.CampaignID))
                     throw new Exception("Given Campaign is Closed! Cannot create new Lead.");
                 //Checks if Product ID exists

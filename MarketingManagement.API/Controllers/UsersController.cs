@@ -19,6 +19,7 @@ namespace MarketingManagement.API.Controllers
     {
         private readonly AccessCheck _accessCheck;
         private readonly AppSettings _appSettings;
+        Session session = null;
 
         public UsersController(MarketingMgmtDbContext context, IOptions<AppSettings> appSettings)
         {
@@ -73,42 +74,35 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
+                session = new Session();
+                if (!ModelState.IsValid) throw new Exception("Check your Credentials and try again!");
+                var loginId = users.LoginID;
+                var password = users.Password;
+
+                // Validate a User with their given Credentials
+                var validation = _accessCheck.Validation(loginId, password);
+                if (validation == null) return BadRequest("Empty or Wrong Credentials");
+                //Check for Admin or Executive
+                var check = _accessCheck.AdminCheck(validation.UserID);
+                switch (check.IsAdmin)
                 {
-                    var loginId = users.LoginID;
-                    var password = users.Password;
-
-                    // Validate a User with their given Credentials
-                    var validation = _accessCheck.Validation(loginId, password);
-                    if (validation != null)
-                    {
-                        //Check for Admin or Executive
-                        var check = _accessCheck.AdminCheck(validation.UserID);
-                        switch (check.IsAdmin)
-                        {
-                            case 1:
-                                var adminToken = GenerateJwt(validation);
-                                HttpContext.Session.SetString("Token", adminToken);
-                                HttpContext.Session.SetInt32("UserId", validation.UserID);
-                                HttpContext.Session.SetString("FullName", validation.FullName);
-                                HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
-                                return Ok(validation);
-                            case 0:
-                                var execToken = GenerateJwt(validation);
-                                HttpContext.Session.SetString("Token", execToken);
-                                HttpContext.Session.SetInt32("UserId", validation.UserID);
-                                HttpContext.Session.SetString("FullName", validation.FullName);
-                                HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
-                                return Ok(validation);
-                            default:
-                                return BadRequest("User Data error: Check your credentials or contact admin");
-                        }
-                    }
-
-                    return BadRequest("Empty or Wrong Credentials");
+                    case 1:
+                        var adminToken = GenerateJwt(validation);
+                        HttpContext.Session.SetString("Token", adminToken);
+                        session.UserSessionId = validation.UserID;
+                        HttpContext.Session.SetString("FullName", validation.FullName);
+                        HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
+                        return Ok(validation);
+                    case 0:
+                        var execToken = GenerateJwt(validation);
+                        HttpContext.Session.SetString("Token", execToken);
+                        session.UserSessionId = validation.UserID;
+                        HttpContext.Session.SetString("FullName", validation.FullName);
+                        HttpContext.Session.SetInt32("IsAdmin", validation.IsAdmin);
+                        return Ok(validation);
+                    default:
+                        return BadRequest("User Data error: Check your credentials or contact admin");
                 }
-
-                throw new Exception("Check your Credentials and try again!");
             }
             catch (Exception ex)
             {

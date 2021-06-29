@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using MarketingManagement.API.DataContext;
 using MarketingManagement.API.Helpers;
@@ -5,6 +6,7 @@ using MarketingManagement.API.Models.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +30,17 @@ namespace MarketingManagement.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSession();
+            services.AddSession(options => {   
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.IsEssential = true;
+            });
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+            
             IdentityModelEventSource.ShowPII = true;
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
