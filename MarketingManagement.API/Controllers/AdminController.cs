@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using MarketingManagement.API.DataContext;
@@ -276,7 +277,7 @@ namespace MarketingManagement.API.Controllers
                 var campaign = _context.Campaigns.Find(campaignId);
                 campaign.IsOpen = false;
                 //Update Campaign
-                _admin.CloseCampagin(campaign);
+                _admin.CloseCampaign(campaign);
                 return Ok();
             }
             catch (Exception ex)
@@ -318,7 +319,7 @@ namespace MarketingManagement.API.Controllers
         //GET: api/Admin/Reports/CampaignByExecutive
         [Route("Reports/CampaignByExecutive")]
         [HttpGet]
-        public ActionResult<IEnumerable<Campaigns>> CampaignByExecutive()
+        public ActionResult<IEnumerable> CampaignByExecutive()
         {
             try
             {

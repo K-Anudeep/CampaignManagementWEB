@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using MarketingManagement.API.Models.Entities;
 
 namespace MarketingManagement.API.Models.Repositories.Interfaces
@@ -7,7 +8,7 @@ namespace MarketingManagement.API.Models.Repositories.Interfaces
     {
         bool AddCampaign(Campaigns campaign);
 
-        IEnumerable<Campaigns> ViewCampaignsByExec();
+        IEnumerable ViewCampaignsByExec();
 
         IEnumerable<Campaigns> ViewCampaignsByAssigned(int userId);
 
