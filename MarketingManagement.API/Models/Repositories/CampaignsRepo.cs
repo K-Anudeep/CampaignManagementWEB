@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -60,14 +61,29 @@ namespace MarketingManagement.API.Models.Repositories
         }
 
         //Used by Admin to view campaigns ordered by Executives
-        public IEnumerable<Campaigns> ViewCampaignsByExec()
+        public IEnumerable ViewCampaignsByExec()
         {
-            //SELECT c.AssignedTo ,c.CampaignID, c.Name, c.Venue,c.StartedOn, c.CompletedOn, c.IsOpen,COUNT(C.Name)as Leads 
-            //FROM Campaign AS c RIGHT JOIN Leads AS l ON l.CampaignID = c.CampaignID group by c.AssignedTo, c.CampaignID, c.Name,c.Venue,c.StartedOn, c.CompletedOn, c.IsOpen
-            //ORDER BY c.AssignedTo
-            return _context.Campaigns.FromSqlRaw("SELECT c.AssignedTo ,c.CampaignID, c.Name, c.Venue,c.StartedOn, c.CompletedOn, c.IsOpen,COUNT(C.Name)as Leads " +
-                "FROM Campaign AS c RIGHT JOIN Leads AS l ON l.CampaignID = c.CampaignID group by c.AssignedTo, c.CampaignID, c.Name, c.Venue, c.StartedOn, c.CompletedOn, c.IsOpen " +
-                "ORDER BY c.AssignedTo");
+            //return _context.Campaigns.FromSqlRaw("SELECT c.AssignedTo ,c.CampaignID, c.Name, c.Venue,c.StartedOn, c.CompletedOn, c.IsOpen,COUNT(C.Name)as Leads " +
+            //    "FROM Campaign AS c RIGHT JOIN Leads AS l ON l.CampaignID = c.CampaignID group by c.AssignedTo, c.CampaignID, c.Name, c.Venue, c.StartedOn, c.CompletedOn, c.IsOpen " +
+            //   "ORDER BY c.AssignedTo");
+            var query =
+                from l in _context.Leads
+                let c = l.CampaignsReference
+                group c by new { c.AssignedTo, c.CampaignID, c.Name, c.Venue, c.StartedOn, c.CompletedOn, c.IsOpen } into g
+                select new 
+                {
+                    g.Key.AssignedTo,
+                    g.Key.CampaignID, 
+                    g.Key.Name, 
+                    g.Key.Venue,
+                    g.Key.StartedOn, 
+                    g.Key.CompletedOn, 
+                    g.Key.IsOpen,
+                    Leads = g.Sum(x => x.Name != null ? 1 : 0)
+                };
+
+            var list  = query.OrderBy(x => x.AssignedTo);
+            return list;
         }
     }
 }

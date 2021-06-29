@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using MarketingManagement.API.Models.Entities;
 
 namespace MarketingManagement.API.Services
@@ -18,7 +19,7 @@ namespace MarketingManagement.API.Services
 
         bool AddCampaign(Campaigns campaigns);
 
-        bool CloseCampagin(Campaigns campaigns);
+        bool CloseCampaign(Campaigns campaigns);
 
         Campaigns OneCampaign(int campaignId);
 
@@ -36,7 +37,7 @@ namespace MarketingManagement.API.Services
 
         IEnumerable<Leads> ViewLeadByCampaign(int campaignId);
 
-        IEnumerable<Campaigns> ViewCampaignByExecutive();
+        IEnumerable ViewCampaignByExecutive();
 
     }
 }

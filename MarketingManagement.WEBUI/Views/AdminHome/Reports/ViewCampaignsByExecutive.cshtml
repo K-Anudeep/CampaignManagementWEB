@@ -18,14 +18,15 @@
                     
                     let isOpen = item.isOpen === true?"Open":"Closed";
                     
-                    let row = '<tr id="tabledata"><td class="campaignID">'
+                    let row = '<tr><td class="campaignID">'
+                        + item.assignedTo + '</td><td>'
                         + item.campaignID + '</td><td>'
                         + item.name + '</td><td>'
                         + item.venue + '</td><td>'
-                        + item.assignedTo + '</td><td>'
                         + startedOn.toLocaleDateString('en-IN', options) + '</td><td>'
                         + endedOn.toLocaleDateString('en-IN', options) + '</td><td>'
-                        + isOpen + '</td></tr>'
+                        + isOpen + '</td><td>'
+                        + item.leads + '</td></tr>'
                     $('#campaignTable').append(row);
                 });
             }
@@ -38,16 +39,21 @@
   <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
   <strong>Click</strong> any Campaign to view it!
 </div>
+<div class="alert alert-dismissible alert-warning">
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  Only Campaigns with a minimum of 1 Lead is displayed.
+</div>
 <table class="table table-hover" id="campaignTable">
     <thead>
         <tr>
+            <th scope="col">Executive ID Assigned</th>
             <th scope="col">Campaign ID</th>
             <th scope="col">Campaign Name</th>
             <th scope="col">Venue</th>
-            <th scope="col">Executive ID Assigned</th>
             <th scope="col">Started On </th>
             <th scope="col">Completed On</th>
             <th scope="col">Running Status</th>
+            <th scope="col">Leads Obtained</th>
         </tr>
     </thead>
 </table>
