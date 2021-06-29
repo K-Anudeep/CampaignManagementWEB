@@ -41,8 +41,12 @@
                     
                 $("#campaignDetails").append(div3Content);
             },
-            error: function (response) {
+            error: function (response) {                
+                document.getElementById("deleteBtn").style.display = "none"
                 alert(response.statusText)
+                document.getElementById("campaignSearchFail").style.display = "block"
+                let row = '<p>' + response.responseText + '</p>'
+                $("#campaignSearchFail").append(row)
             }
         })
     })
@@ -52,8 +56,11 @@
     <dl class="row" id="campaignDetails">
     </dl>
 </div>
+<div class="alert alert-dismissible alert-danger" id="campaignSearchFail" style="display: none">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>  
 <form>
-    <input type="button" value="Close campaign" id="deleteBtn" class="btn btn-danger"/>
+    <input type="button" value="Close campaign" id="deleteBtn" class="btn btn-danger" style="display:block;"/>
 </form>
 <script>
     $("#deleteBtn").click(function () {

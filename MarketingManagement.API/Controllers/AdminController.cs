@@ -19,12 +19,15 @@ namespace MarketingManagement.API.Controllers
         private readonly AccessCheck _accessCheck;
         private readonly AdminServices _admin;
         private readonly MarketingMgmtDbContext _context;
+        private readonly DataChecks _dataChecks;
+        private Session session;
 
         public AdminController(MarketingMgmtDbContext context)
         {
             _context = context;
             _admin = new AdminServices(context);
             _accessCheck = new AccessCheck(context);
+            _dataChecks = new DataChecks(context);
         }
 
         //LOGOUT
@@ -73,7 +76,7 @@ namespace MarketingManagement.API.Controllers
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -89,7 +92,7 @@ namespace MarketingManagement.API.Controllers
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -140,7 +143,7 @@ namespace MarketingManagement.API.Controllers
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -158,7 +161,7 @@ namespace MarketingManagement.API.Controllers
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -174,7 +177,7 @@ namespace MarketingManagement.API.Controllers
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -190,7 +193,7 @@ namespace MarketingManagement.API.Controllers
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -214,26 +217,22 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    if (CampaignNameExists(campaigns.Name))
-                        throw new Exception("A campaign with that name already exists!");
-                    if (!UsersIdExists(campaigns.AssignedTo))
-                        throw new Exception("User assigned to this Campaign does not exist!");
+                if (!ModelState.IsValid) throw new Exception("Model State is not valid");
+                if (CampaignNameExists(campaigns.Name))
+                    throw new Exception("A campaign with that name already exists!");
+                if (!UsersIdExists(campaigns.AssignedTo))
+                    throw new Exception("User assigned to this Campaign does not exist!");
 
-                    var isAdmin = _accessCheck.AdminCheck(campaigns.AssignedTo);
-                    //Check if user is Admin
-                    if (isAdmin.IsAdmin == 1) throw new Exception("Admins cannot be assigned to campaigns");
+                var isAdmin = _accessCheck.AdminCheck(campaigns.AssignedTo);
+                //Check if user is Admin
+                if (isAdmin.IsAdmin == 1) throw new Exception("Admins cannot be assigned to campaigns");
 
-                    campaigns.CompletedOn = campaigns.StartedOn.AddDays(7);
+                campaigns.CompletedOn = campaigns.StartedOn.AddDays(7);
 
-                    //Send User details to Repo for insertion to DB
-                    if (_admin.AddCampaign(campaigns))
-                        return CreatedAtAction("OneCampaign", new {campaignId = campaigns.CampaignID}, campaigns);
-                    throw new Exception("Could not add campaign");
-                }
-
-                throw new Exception("Model State is not valid");
+                //Send User details to Repo for insertion to DB
+                if (_admin.AddCampaign(campaigns))
+                    return CreatedAtAction("OneCampaign", new {campaignId = campaigns.CampaignID}, campaigns);
+                throw new Exception("Could not add campaign");
             }
             catch (Exception ex)
             {
@@ -256,7 +255,7 @@ namespace MarketingManagement.API.Controllers
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -301,14 +300,16 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
+                //Check for Campaign
                 if (!CampaignIdExists(campaignId)) throw new Exception("Campaign ID provided does not exist!");
 
                 var leads = _admin.ViewLeadByCampaign(campaignId);
+                if (leads == null) throw new Exception("No results found!");
                 return Ok(leads);
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -324,7 +325,7 @@ namespace MarketingManagement.API.Controllers
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
     }

@@ -87,7 +87,7 @@ namespace MarketingManagement.API.Controllers
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                return BadRequest(ex.Message);
             }
 
             return Content($"Lead {leadId} Updated with {leadStatus}");

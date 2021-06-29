@@ -39,8 +39,10 @@ $("#campaignSearch").submit(function (e) {
                             $('#leadsTable').append(row);
                         });
                     },
-                    error: function () {
+                    error: function (response) {
                         document.getElementById("leadError").style.display = "block"
+                        let row = '<p>' + response.responseText + '</p>'
+                        $("#leadError").append(row)
                     }
                 })
     })
