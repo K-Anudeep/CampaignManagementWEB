@@ -2,6 +2,7 @@
 using Xunit;
 using MarketingManagement.API.Models.Repositories.Interfaces;
 using MarketingManagement.API.Models.Entities;
+using MarketingManagement.API.Models.Repositories;
 using System.Collections.Generic;
 using Moq;
 using System.Linq;

@@ -1,6 +1,7 @@
 using System;
 using Xunit;
 using MarketingManagement.API.Models.Repositories.Interfaces;
+using MarketingManagement.API.Models.Repositories;
 using MarketingManagement.API.Models.Entities;
 using System.Collections.Generic;
 using Moq;
