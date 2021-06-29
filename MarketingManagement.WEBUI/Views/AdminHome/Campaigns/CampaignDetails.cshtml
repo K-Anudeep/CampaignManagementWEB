@@ -42,7 +42,7 @@
                 $("#campaignDetails").append(div3Content);
             },
             error: function (response) {
-                alert(response.responseText)
+                alert(response.statusText)
             }
         })
     })
@@ -80,4 +80,4 @@
 <div class="alert alert-dismissible alert-success" id="campaignDelSuccess" style="display: none">
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     Campaign Closed!
-</div>
+</div>  
