@@ -13,6 +13,8 @@ namespace MarketingManagement.API.Models.Repositories.Interfaces
 
         bool CloseCampaign(int campaignId);
 
+        bool SelfCampaignCheck(int campaignId, int userId);
+
         bool CampaignStatusCheck(int campaignId);
 
         Campaigns OneCampaign(int campaignId);

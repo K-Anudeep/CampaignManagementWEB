@@ -24,6 +24,13 @@ namespace MarketingManagement.API.Models.Repositories
             return true;
         }
 
+        public bool SelfCampaignCheck(int campaignId, int userId)
+        {
+            var selfCheck = _context.Campaigns.SingleOrDefault(c => 
+                                            c.CampaignID == campaignId && c.AssignedTo == userId);
+            return selfCheck != null;
+        }
+
         public bool CampaignStatusCheck(int campaignId)
         {
             var statusCheck = _context.Campaigns.Find(campaignId);
@@ -51,7 +58,7 @@ namespace MarketingManagement.API.Models.Repositories
             return _context.Campaigns.Where(v => v.AssignedTo == userId);
         }
 
-        //Used by Admin to view a specific Exec's campaigns
+        //Used by Admin to view campaigns ordered by Executives
         public IEnumerable<Campaigns> ViewCampaignsByExec()
         {
             //SELECT c.AssignedTo ,c.CampaignID, c.Name, c.Venue,c.StartedOn, c.CompletedOn, c.IsOpen,COUNT(C.Name)as Leads 
