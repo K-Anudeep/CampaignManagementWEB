@@ -1,14 +1,17 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "AllUsers";
     Layout = "~/Views/AdminHome/_Layout.cshtml";
 }
 
 <script>
     $(document).ready(function () {
+        let token = sessionStorage.getItem("JWT")
         $.ajax({
             type: "POST",
             url: "http://localhost:25733/api/Admin/User/GetAll",
+            headers: {
+                Authorization: 'Bearer ' + token
+            },
             dataType: 'json',
             success: function (response) {
                 $.each(response, function (i, item) {
@@ -30,6 +33,9 @@
                         + userType + '</td></tr>'
                     $('#userTable').append(row);
                 });
+            },
+            error: function(response) {
+              alert(response.responseText)
             }
         })
     });
@@ -37,21 +43,21 @@
 
 <h1>List of Users</h1>
 <div class="alert alert-dismissible alert-info">
-  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-  <strong>Click</strong> any User to view it!
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Click</strong> any User to view it!
 </div>
 <table class="table table-hover" id="userTable">
     <thead>
-        <tr>
-            <th scope="col">User ID</th>
-            <th scope="col">Full Name</th>
-            <th scope="col">Login ID</th>
-            <th scope="col">Password</th>
-            <th scope="col">Joining Date</th>
-            <th scope="col">Address</th>
-            <th scope="col">Discontinued</th>
-            <th scope="col">Type of User</th>
-        </tr>
+    <tr>
+        <th scope="col">User ID</th>
+        <th scope="col">Full Name</th>
+        <th scope="col">Login ID</th>
+        <th scope="col">Password</th>
+        <th scope="col">Joining Date</th>
+        <th scope="col">Address</th>
+        <th scope="col">Discontinued</th>
+        <th scope="col">Type of User</th>
+    </tr>
     </thead>
 </table>
 <script>

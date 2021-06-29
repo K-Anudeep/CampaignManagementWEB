@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using MarketingManagement.API.Models.Repositories.Interfaces;
-using MarketingManagement.API.Models.Entities;
-using MarketingManagement.API.DataContext;
 using System.Linq;
+using MarketingManagement.API.DataContext;
+using MarketingManagement.API.Models.Entities;
+using MarketingManagement.API.Models.Repositories.Interfaces;
 
 namespace MarketingManagement.API.Models.Repositories
 {
@@ -37,8 +37,7 @@ namespace MarketingManagement.API.Models.Repositories
             var statusCheck = _context.Leads.Find(leadId);
             if (statusCheck.Status == "Won")
                 return true;
-            else
-                return false;
+            return false;
         }
 
         public IEnumerable<Leads> ViewLeadsByCampaign(int campaignId)
@@ -47,8 +46,8 @@ namespace MarketingManagement.API.Models.Repositories
 
             //Gets Leads that are assigend to the specified Campaign
             return from l in leads
-                   where l.CampaignID == campaignId
-                   select l;
+                where l.CampaignID == campaignId
+                select l;
         }
 
         public IEnumerable<Leads> ViewLeadsToExec(int userId)
@@ -57,7 +56,7 @@ namespace MarketingManagement.API.Models.Repositories
 
             // Gets Leads that are assigned to current session user. 
             return _context.Leads.Where(l => l.CampaignID == l.CampaignsReference.CampaignID
-                                                && l.CampaignsReference.AssignedTo == userId);
+                                             && l.CampaignsReference.AssignedTo == userId);
         }
     }
 }

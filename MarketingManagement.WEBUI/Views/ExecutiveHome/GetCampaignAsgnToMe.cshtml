@@ -12,6 +12,9 @@
                 $.ajax({
                     type: "POST",
                     url: "http://localhost:25733/api/Executive/Campaigns/AssignedToMe",
+                    headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
                     data: JSON.stringify(user),
                     contentType: 'application/json',                    
                     success: function (response) {

@@ -2,7 +2,7 @@
 
 namespace MarketingManagement.API.Models.Repositories.Interfaces
 {
-    interface IGenericRepo<T> where T: class
+    internal interface IGenericRepo<T> where T : class
     {
         void AddRecord(T records);
 

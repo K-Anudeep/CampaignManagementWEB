@@ -5,7 +5,7 @@
 <h1>Good Bye!</h1>
 
 <h4></h4>
-<hr />
+<hr/>
 <div class="text-center">
     <h2>Logging you out...</h2>
     <script type="text/javascript">
@@ -13,13 +13,17 @@
             $.ajax({
                 type: "POST",
                 url: "http://localhost:25733/api/Admin/Logout",
+                headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
                 success: function () {
                     sessionStorage.removeItem("userSessionId")
                     sessionStorage.removeItem("userSessionName")
+                    sessionStorage.removeItem("JWT")
                     window.location = "http://localhost:17131/Startpage/UserLogin"
                 },
-                error: function () {
-                    alert("Login Failed");
+                error: function (response) {
+                    alert(response.responseText);
                 }
             })
         }, 2000);

@@ -1,18 +1,17 @@
+using System.Text;
+using MarketingManagement.API.DataContext;
+using MarketingManagement.API.Helpers;
+using MarketingManagement.API.Models.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using Microsoft.EntityFrameworkCore;
-using MarketingManagement.API.DataContext;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using MarketingManagement.API.Controllers;
-using MarketingManagement.API.Helpers;
-using MarketingManagement.API.Models.Entities;
 using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace MarketingManagement.API
 {
@@ -28,33 +27,33 @@ namespace MarketingManagement.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSession();
             IdentityModelEventSource.ShowPII = true;
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
-            
+
             // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
-            
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MarketingManagement.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "MarketingManagement.API", Version = "v1"});
             });
-            services.AddDbContext<MarketingMgmtDbContext>(options => 
+            services.AddDbContext<MarketingMgmtDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("MarketMgmtDB")));
             services.AddDistributedMemoryCache();
             services.AddCors(
-             c => {
-                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin()
-                 .AllowAnyMethod()
-                 .AllowAnyHeader()
-                 );
-             }
-             );
+                c =>
+                {
+                    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                    );
+                }
+            );
             services.AddAuthentication(x =>
                 {
                     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -72,9 +71,9 @@ namespace MarketingManagement.API
                         ValidateAudience = false
                     };
                 });
-                
-                // configure DI for application services
-                            services.AddScoped<Users>();
+
+            // configure DI for application services
+            services.AddScoped<Users>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,10 +95,7 @@ namespace MarketingManagement.API
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

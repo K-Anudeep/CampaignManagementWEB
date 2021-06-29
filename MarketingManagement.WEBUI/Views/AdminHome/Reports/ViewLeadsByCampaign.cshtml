@@ -14,6 +14,9 @@ $("#campaignSearch").submit(function (e) {
     $.ajax({
                     type: "GET",
                     url: "http://localhost:25733/api/Admin/Reports/LeadsByCampaign/" + campaignId,
+                headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
                     dataType: 'json',
                     success: function (response) {
                         $.each(response, function (i, item) {
@@ -49,7 +52,7 @@ $("#campaignSearch").submit(function (e) {
 <div>
     <h4>Enter a Campaign ID</h4>
     <div>
-        <hr />
+        <hr/>
         <div class="row" id="campaignSearch">
             <div class="col-md-4">
                 <form>
@@ -57,10 +60,10 @@ $("#campaignSearch").submit(function (e) {
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
                             <label asp-for="CampaignId" class="control-label">Campaign ID</label>
-                            <input type="number" asp-for="CampaignId" class="form-control" />
+                            <input type="number" asp-for="CampaignId" class="form-control"/>
                             <span asp-validation-for="CampaignId" class="text-danger"></span>
                             <br/>
-                            <input type="submit" value="Search" class="btn btn-danger" id="searchCamp" />
+                            <input type="submit" value="Search" class="btn btn-danger" id="searchCamp"/>
                         </div>
                     </fieldset>
                 </form>
@@ -68,7 +71,7 @@ $("#campaignSearch").submit(function (e) {
         </div>
     </div>
 </div>
-<hr />
+<hr/>
 <div id="leadsList" style="display: none">
     <h1>List of Leads by Campaign</h1>
     <table class="table table-hover" id="leadsTable">

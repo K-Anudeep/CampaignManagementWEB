@@ -21,6 +21,9 @@
             $.ajax({
                 type: "POST",
                 url: "http://localhost:25733/api/Admin/User/Add",
+                headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
                 data: JSON.stringify(credentials),
                 contentType: "application/json",
                 success: function () {

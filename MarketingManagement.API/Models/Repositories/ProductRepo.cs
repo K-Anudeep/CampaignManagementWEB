@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
+using MarketingManagement.API.DataContext;
 using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.Models.Repositories.Interfaces;
-using MarketingManagement.API.DataContext;
-using System.Linq;
 
 namespace MarketingManagement.API.Models.Repositories
 {
@@ -16,13 +16,13 @@ namespace MarketingManagement.API.Models.Repositories
         }
 
         public void AddProducts(Products products)
-        {          
+        {
             _context.Products.Add(products);
             _context.SaveChanges();
         }
 
         public bool DeleteProduct(int productId)
-        {            
+        {
             _context.Remove(productId);
             _context.SaveChanges();
             return true;

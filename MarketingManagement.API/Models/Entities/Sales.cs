@@ -7,17 +7,14 @@ namespace MarketingManagement.API.Models.Entities
     [Table("Sales")]
     public class Sales
     {
-        [Key]
-        public int OrderID { get; set; }
+        [Key] public int OrderID { get; set; }
 
-        [ForeignKey("LeadsReference")]
-        public int LeadID { get; set; }
+        [ForeignKey("LeadsReference")] public int LeadID { get; set; }
 
-        [MaxLength(200)]
-        public string ShippingAddress { get; set; }
+        [MaxLength(200)] public string ShippingAddress { get; set; }
 
-        [MaxLength(200)]
-        public string BillingAddress { get; set; }
+        [MaxLength(200)] public string BillingAddress { get; set; }
+
         public DateTime CreatedON { get; set; }
         public string PaymentMode { get; set; }
 

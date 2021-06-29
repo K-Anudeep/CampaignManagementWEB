@@ -10,6 +10,9 @@
         $.ajax({
             type: "GET",
             url: "http://localhost:25733/api/Admin/User/GetOneUser/" + user,
+                headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
             data: "json",
             success: function (data) {
                 const date = new Date(Date.parse(data.dateOfJoin));
@@ -40,19 +43,19 @@
                     // if Name is property of your Person object
                 $("#userDetails").append(div3Content);
             },
-            error: function () {
-                alert('Error')
+            error: function (response) {
+                alert(response.responseText)
             }
         })
     })
 </script>
 <div>
-    <hr />
+    <hr/>
     <dl class="row" id="userDetails">
     </dl>
 </div>
 <form>
-    <input type="button" value="Discontinue User" id="discBtn" class="btn btn-danger" />
+    <input type="button" value="Discontinue User" id="discBtn" class="btn btn-danger"/>
 </form>
 <script>
     $("#discBtn").click(function () {

@@ -8,6 +8,9 @@
         $.ajax({
             type: "GET",
             url: "http://localhost:25733/api/Admin/Reports/CampaignByExecutive",
+                headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
             dataType: 'json',
             success: function (response) {
                 $.each(response, function (i, item) {            

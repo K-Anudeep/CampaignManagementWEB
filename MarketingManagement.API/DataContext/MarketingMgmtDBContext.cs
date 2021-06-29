@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MarketingManagement.API.Models.Entities;
+﻿using MarketingManagement.API.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace MarketingManagement.API.DataContext
 {

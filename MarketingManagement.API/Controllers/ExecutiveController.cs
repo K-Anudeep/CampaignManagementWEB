@@ -2,22 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using MarketingManagement.API.DataContext;
 using MarketingManagement.API.Models.Entities;
-using MarketingManagement.API.Services;
 using MarketingManagement.API.Models.Validations;
+using MarketingManagement.API.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MarketingManagement.API.Controllers
 {
+    [Authorize(Roles = "Executive")]
     [Route("api/[controller]")]
     [ApiController]
     public class ExecutiveController : ControllerBase
     {
         private readonly MarketingMgmtDbContext _context;
-        private readonly ExecutiveService _executive;
         private readonly DataChecks _dataChecks;
+        private readonly ExecutiveService _executive;
+
         public ExecutiveController(MarketingMgmtDbContext context)
         {
             _context = context;
@@ -37,7 +39,9 @@ namespace MarketingManagement.API.Controllers
         // POST: api/Executive/Leads/Add
         [Route("Leads/Add")]
         [HttpPost]
-        public ActionResult<Leads> CreateLeads([Bind("CampaignID, ConsumerName, EmailAddress, PhoneNo, PreferredMoC, DateApproached, ProductID")] Leads leads)
+        public ActionResult<Leads> CreateLeads(
+            [Bind("CampaignID, ConsumerName, EmailAddress, PhoneNo, PreferredMoC, DateApproached, ProductID")]
+            Leads leads)
         {
             try
             {
@@ -55,9 +59,9 @@ namespace MarketingManagement.API.Controllers
 
                 _executive.AddLeads(leads);
 
-                return CreatedAtAction("GetOneLead", new { id = leads.LeadID }, leads);
+                return CreatedAtAction("GetOneLead", new {id = leads.LeadID}, leads);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -67,10 +71,7 @@ namespace MarketingManagement.API.Controllers
         [HttpPut("Leads/FollowLead/{leadId}/{leadStatus}")]
         public IActionResult FollowLead(int leadId, string leadStatus)
         {
-            if (!LeadsExists(leadId))
-            {
-                throw new Exception("Given Lead ID does not exist!");
-            }
+            if (!LeadsExists(leadId)) throw new Exception("Given Lead ID does not exist!");
 
             try
             {
@@ -103,10 +104,7 @@ namespace MarketingManagement.API.Controllers
         {
             var leads = await _context.Leads.FindAsync(id);
 
-            if (leads == null)
-            {
-                return NotFound();
-            }
+            if (leads == null) return NotFound();
 
             return leads;
         }
@@ -120,7 +118,8 @@ namespace MarketingManagement.API.Controllers
         // POST: api/Executive/Sales/Add
         [Route("Sales/Add")]
         [HttpPost]
-        public ActionResult<Sales> CreateSales([Bind("LeadID, ShippingAddress, BillingAddress, CreatedON, PaymentMode")] Sales sales)
+        public ActionResult<Sales> CreateSales([Bind("LeadID, ShippingAddress, BillingAddress, CreatedON, PaymentMode")]
+            Sales sales)
         {
             try
             {
@@ -133,7 +132,7 @@ namespace MarketingManagement.API.Controllers
 
                 _executive.AddSales(sales);
 
-                return CreatedAtAction("GetOneSale", new { orderId = sales.OrderID }, sales);
+                return CreatedAtAction("GetOneSale", new {orderId = sales.OrderID}, sales);
             }
             catch (Exception ex)
             {
@@ -158,10 +157,7 @@ namespace MarketingManagement.API.Controllers
         {
             var leads = await _context.Leads.FindAsync(orderId);
 
-            if (leads == null)
-            {
-                return NotFound();
-            }
+            if (leads == null) return NotFound();
 
             return leads;
         }

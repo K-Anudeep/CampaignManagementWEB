@@ -1,9 +1,9 @@
-﻿using MarketingManagement.API.Models.Entities;
-using MarketingManagement.API.Models.Repositories.Interfaces;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using MarketingManagement.API.DataContext;
-using System;
+using MarketingManagement.API.Models.Entities;
+using MarketingManagement.API.Models.Repositories.Interfaces;
 
 namespace MarketingManagement.API.Models.Repositories
 {
@@ -26,16 +26,14 @@ namespace MarketingManagement.API.Models.Repositories
         public bool DiscontinueUser(int uId)
         {
             var user = _context.Users.SingleOrDefault(u => u.UserID == uId);
-            if(user != null)
+            if (user != null)
             {
                 user.Discontinued = 1;
                 _context.SaveChanges();
                 return true;
             }
-            else
-            {
-                throw new Exception("User does not exist");
-            }
+
+            throw new Exception("User does not exist");
         }
 
         public IEnumerable<Users> DisplayUsers()
