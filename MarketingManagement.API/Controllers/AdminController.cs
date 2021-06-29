@@ -47,16 +47,12 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    if (UsersExists(user.LoginID)) throw new Exception("Login ID already exists!");
+                if (!ModelState.IsValid) throw new Exception("Model State is not valid");
+                if (UsersExists(user.LoginID)) throw new Exception("Login ID already exists!");
 
-                    //Send User details to Repo for insertion to DB
-                    _admin.AddUser(user);
-                    return CreatedAtAction("GetOneUser", new {userId = user.UserID}, user);
-                }
-
-                throw new Exception("Model State is not valid");
+                //Send User details to Repo for insertion to DB
+                _admin.AddUser(user);
+                return CreatedAtAction("GetOneUser", new {userId = user.UserID}, user);
             }
             catch (Exception ex)
             {
@@ -246,7 +242,7 @@ namespace MarketingManagement.API.Controllers
             }
         }
 
-        //GET: api/Admin/Campaign/OneCampaign/{camapaignId}
+        //GET: api/Admin/Campaign/OneCampaign/{campaignId}
         [Route("Campaign/OneCampaign/{campaignId}")]
         [HttpGet]
         public ActionResult<Campaigns> OneCampaign(int campaignId)
