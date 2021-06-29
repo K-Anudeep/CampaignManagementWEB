@@ -1,12 +1,11 @@
-using System;
-using Xunit;
-using MarketingManagement.API.Models.Repositories.Interfaces;
-using MarketingManagement.API.Models.Repositories;
-using MarketingManagement.API.Models.Entities;
 using System.Collections.Generic;
-using Moq;
 using System.Linq;
-namespace MarketingManagement.API
+using MarketingManagement.API.Models.Entities;
+using MarketingManagement.API.Models.Repositories.Interfaces;
+using Moq;
+using Xunit;
+
+namespace Marketing_Unit_Test
 {
     public class TestProductsRepo
     {
