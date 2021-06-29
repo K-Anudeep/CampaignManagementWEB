@@ -20,7 +20,6 @@ namespace MarketingManagement.API
             var mockRepo = new Mock<IProductsRepo>();
 
             mockRepo.Setup(repo => repo.DisplayProducts()).Returns(products.ToList());
-            ///mockRepo.Setup(repo => repo.GetDonator(It.IsAny<int>())).Returns((int i) => products.SingleOrDefault(x => x.Pid == i));
             mockRepo.Setup(repo => repo.AddProducts(It.IsAny<Products>())).Callback((Products item) =>
             {
                 item = new Products() { ProductID = 118, ProductName = "XYZ CPU", Description = "CPU", UnitPrice = 20000 };

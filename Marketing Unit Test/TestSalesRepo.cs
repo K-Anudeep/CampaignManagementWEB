@@ -16,7 +16,7 @@ namespace MarketingManagement.API
         {
             IList<Sales> sales = new List<Sales>()
             {
-                new Sales() { OrderID = 100,LeadID= 100 ,ShippingAddress="Hyderabad",BillingAddress="Hyderabad",CreatedON = Convert.ToDateTime("23-06-2021"), PaymentMode = "CashonDelivery"},
+                new Sales() { OrderID = 100,LeadID= 100 ,ShippingAddress="Hyderabad",BillingAddress="Hyderabad",CreatedON = Convert.ToDateTime("02-06-2021"), PaymentMode = "CashonDelivery"},
                 new Sales() { OrderID = 109,LeadID= 104 ,ShippingAddress="Vizag",BillingAddress="Vizag",CreatedON = Convert.ToDateTime("03-04-2021"), PaymentMode = "Debit Card" }
             };
             var mockRepo = new Mock<ISalesRepo>();
