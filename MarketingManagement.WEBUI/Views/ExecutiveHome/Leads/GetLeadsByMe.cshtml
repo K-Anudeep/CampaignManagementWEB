@@ -1,4 +1,4 @@
-﻿@model MarketingManagement.WEBUI.Models.CampaignDetails
+﻿@model CampaignDetails
 
 @{
     ViewData["Title"] = "Leads By Me";
@@ -9,6 +9,9 @@ let user = sessionStorage.getItem("userSessionId")
     $.ajax({
                     type: "POST",
                     url: "http://localhost:25733/api/Executive/Leads/GetLeadsByMe?" + $.param({userId: user}),
+                    headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
                     contentType: 'application/json',
                     dataType: 'json',
                     success: function (response) {
@@ -31,8 +34,10 @@ let user = sessionStorage.getItem("userSessionId")
                             $('#leadsTable').append(row);
                         });
                     },
-                    error: function () {
+                    error: function (response) {
                         document.getElementById("leadError").style.display = "block"
+                        let error = '<span>' + response.statusText + '</span>'
+                        $("#leadError").append(error)
                     }
                 })
     });
@@ -40,8 +45,8 @@ let user = sessionStorage.getItem("userSessionId")
 
 <h1>Leads Assigned to you</h1>
 <div class="alert alert-dismissible alert-info">
-  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-  <strong>Click</strong> any Lead to follow up with it!
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Click</strong> any Lead to follow up with it!
 </div>
 <div id="leadsList">
     <table class="table table-hover" id="leadsTable">

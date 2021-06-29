@@ -3,10 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MarketingManagement.WEBUI
 {
@@ -31,13 +27,9 @@ namespace MarketingManagement.WEBUI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
             else
-            {
                 app.UseExceptionHandler("/Home/Error");
-            }
             app.UseStaticFiles();
 
             app.UseSession();
@@ -49,8 +41,8 @@ namespace MarketingManagement.WEBUI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Startpage}/{action=UserLogin}/{id?}");
+                    "default",
+                    "{controller=Startpage}/{action=UserLogin}/{id?}");
             });
         }
     }

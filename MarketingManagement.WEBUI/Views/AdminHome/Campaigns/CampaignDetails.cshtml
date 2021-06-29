@@ -11,6 +11,9 @@
         $.ajax({
             type: "GET",
             url: "http://localhost:25733/api/Admin/Campaign/Onecampaign/" + campaign,
+                headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
             success: function (data) {
                 $('#campaignDetails').html('');                
                     const startedOn = new Date(Date.parse(data.startedOn));
@@ -38,25 +41,28 @@
                     
                 $("#campaignDetails").append(div3Content);
             },
-            error: function () {
-                alert('Error')
+            error: function (response) {
+                alert(response.responseText)
             }
         })
     })
 </script>
 <div>
-    <hr />
+    <hr/>
     <dl class="row" id="campaignDetails">
     </dl>
 </div>
 <form>
-    <input type="button" value="Close campaign" id="deleteBtn" class="btn btn-danger" />
+    <input type="button" value="Close campaign" id="deleteBtn" class="btn btn-danger"/>
 </form>
 <script>
     $("#deleteBtn").click(function () {
         $.ajax({
             type: "PUT",
             url: "http://localhost:25733/api/Admin/Campaign/Close/" + campaign,
+                headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
             contentType: "application/json",
             success: function () {
                 document.getElementById("campaignDelSuccess").style.display = "block"
@@ -64,8 +70,8 @@
                 location.reload();
                 }, 2000)
             },
-            error: function () {
-                alert('Error')
+            error: function (response) {
+                alert(response.statusText)
             }
         })
     })
@@ -75,6 +81,3 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     Campaign Closed!
 </div>
-<script>
-        
-</script>

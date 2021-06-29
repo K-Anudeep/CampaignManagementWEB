@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MarketingManagement.API.DataContext;
 using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.Models.Repositories;
@@ -8,11 +7,11 @@ namespace MarketingManagement.API.Services
 {
     public class ExecutiveService : IExecutiveService
     {
-        private readonly LeadsRepo _leadsRepo;
         private readonly CampaignsRepo _campaignsRepo;
-        private readonly GenericRepo<Sales> _genericSalesRepo;
-        private readonly GenericRepo<Leads> _genericLeadsRepo;
         private readonly GenericRepo<Campaigns> _genericCampaignRepo;
+        private readonly GenericRepo<Leads> _genericLeadsRepo;
+        private readonly GenericRepo<Sales> _genericSalesRepo;
+        private readonly LeadsRepo _leadsRepo;
 
         public ExecutiveService(MarketingMgmtDbContext context)
         {

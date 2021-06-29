@@ -20,6 +20,9 @@
             $.ajax({
                 type: "POST",
                 url: "http://localhost:25733/api/Admin/Campaign/Add",
+                headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
                 data: JSON.stringify(data),
                 contentType: "application/json",
                 success: function () {
@@ -27,7 +30,8 @@
                 },
                 error: function (response) {
                     document.getElementById("campDivFail").style.display = 'block'
-                    let fail = '<p>'+ response.responseText +'</p>'
+                    let fail = '<p>'+ response.responseText +'</p><p>'
+                              + response.statusText +'</p>'
                     $('#campDivFail').append(fail);
                 }
             })

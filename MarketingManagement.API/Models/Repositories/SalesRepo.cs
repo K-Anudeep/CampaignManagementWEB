@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
+using MarketingManagement.API.DataContext;
 using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.Models.Repositories.Interfaces;
-using MarketingManagement.API.DataContext;
-using System.Linq;
 
 namespace MarketingManagement.API.Models.Repositories
 {
@@ -14,12 +14,12 @@ namespace MarketingManagement.API.Models.Repositories
         {
             _context = context;
         }
+
         public bool CreateSales(Sales sales)
         {
             _context.Sales.Add(sales);
             _context.SaveChanges();
             return true;
-
         }
 
         public List<Sales> ViewSales()

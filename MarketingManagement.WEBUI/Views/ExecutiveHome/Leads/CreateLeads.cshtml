@@ -22,6 +22,9 @@
             $.ajax({
                 type: "POST",
                 url: "http://localhost:25733/api/Executive/Leads/Add",
+                headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
                 data: JSON.stringify(leadDetails),
                 contentType: "application/json",
                 success: function () {

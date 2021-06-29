@@ -1,11 +1,11 @@
-﻿using MarketingManagement.API.Models.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
 using MarketingManagement.API.DataContext;
-using System.Collections.Generic;
+using MarketingManagement.API.Models.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MarketingManagement.API.Models.Repositories
 {
-    public class GenericRepo<T> : IGenericRepo<T> where T: class
+    public class GenericRepo<T> : IGenericRepo<T> where T : class
     {
         private readonly MarketingMgmtDbContext _context;
         private readonly DbSet<T> _dbset;

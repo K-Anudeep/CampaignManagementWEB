@@ -6,13 +6,13 @@ using MarketingManagement.API.Models.Repositories;
 namespace MarketingManagement.API.Services
 {
     public class AdminServices : IAdminServices
-    {        
-        private readonly UserRepo userRepo;
-        private readonly LeadsRepo _leadsRepo;
+    {
         private readonly CampaignsRepo _campaignsRepo;
-        private readonly GenericRepo<Users> genericUserRepo;
-        private readonly GenericRepo<Products> genericProductRepo;
+        private readonly LeadsRepo _leadsRepo;
         private readonly GenericRepo<Campaigns> genericCampaignRepo;
+        private readonly GenericRepo<Products> genericProductRepo;
+        private readonly GenericRepo<Users> genericUserRepo;
+        private readonly UserRepo userRepo;
 
         public AdminServices(MarketingMgmtDbContext context)
         {
@@ -33,8 +33,8 @@ namespace MarketingManagement.API.Services
         //USERS
         public bool AddUser(Users users)
         {
-                userRepo.AddUsers(users);
-                return true;
+            userRepo.AddUsers(users);
+            return true;
         }
 
         public bool DiscontinueUser(int userId)
@@ -75,10 +75,7 @@ namespace MarketingManagement.API.Services
         //PRODUCTS
         public bool AddProducts(Products products)
         {
-            if (string.IsNullOrWhiteSpace(products.Description))
-            {
-                products.Description = "None";
-            }
+            if (string.IsNullOrWhiteSpace(products.Description)) products.Description = "None";
             genericProductRepo.AddRecord(products);
             return true;
         }

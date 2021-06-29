@@ -1,4 +1,3 @@
-
 namespace MarketingManagement.WEBUI.Models
 {
     public class ErrorViewModel

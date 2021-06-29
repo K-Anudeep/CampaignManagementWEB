@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using MarketingManagement.API.DataContext;
+using MarketingManagement.API.Helpers;
 using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.Models.Validations;
 using Microsoft.AspNetCore.Http;
-using System;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using MarketingManagement.API.Helpers;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace MarketingManagement.API.Controllers
 {
@@ -19,12 +19,13 @@ namespace MarketingManagement.API.Controllers
     {
         private readonly AccessCheck _accessCheck;
         private readonly AppSettings _appSettings;
-        public UsersController(MarketingMgmtDbContext context,IOptions<AppSettings> appSettings)
+
+        public UsersController(MarketingMgmtDbContext context, IOptions<AppSettings> appSettings)
         {
             _accessCheck = new AccessCheck(context);
             _appSettings = appSettings.Value;
         }
-        
+
         private string GenerateJwt(Users users)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -35,8 +36,8 @@ namespace MarketingManagement.API.Controllers
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
-                        new (ClaimTypes.Name, users.UserID.ToString()),
-                        new (ClaimTypes.Role, "Admin")
+                        new(ClaimTypes.Name, users.UserID.ToString()),
+                        new(ClaimTypes.Role, "Admin")
                     }),
                     Expires = DateTime.UtcNow.AddDays(7),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
@@ -61,6 +62,7 @@ namespace MarketingManagement.API.Controllers
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 users.Token = tokenHandler.WriteToken(token);
             }
+
             return users.Token;
         }
 
@@ -102,15 +104,11 @@ namespace MarketingManagement.API.Controllers
                                 return BadRequest("User Data error: Check your credentials or contact admin");
                         }
                     }
-                    else
-                    {
-                        return BadRequest("Empty or Wrong Credentials");
-                    }
+
+                    return BadRequest("Empty or Wrong Credentials");
                 }
-                else
-                {
-                    throw new Exception("Check your Credentials and try again!");
-                }
+
+                throw new Exception("Check your Credentials and try again!");
             }
             catch (Exception ex)
             {

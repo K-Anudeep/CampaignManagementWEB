@@ -11,6 +11,9 @@
         $.ajax({
             type: "GET",
             url: "http://localhost:25733/api/Admin/Products/OneProduct/" + product,
+                headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
             success: function (data) {
                 $('#productDetails').html('');
                 let div3Content = '<dt class = "col-sm-2">'
@@ -31,18 +34,21 @@
     })
 </script>
 <div>
-    <hr />
+    <hr/>
     <dl class="row" id="productDetails">
     </dl>
 </div>
 <form>
-    <input type="button" value="Delete product" id="deleteBtn" class="btn btn-danger" />
+    <input type="button" value="Delete product" id="deleteBtn" class="btn btn-danger"/>
 </form>
 <script>
     $("#deleteBtn").click(function () {
         $.ajax({
             type: "DELETE",
             url: "http://localhost:25733/api/Admin/Products/Delete/" + product,
+                headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
             contentType: "application/json",
             success: function () {
                 document.getElementById("productDelSuccess").style.display = "block"
@@ -50,8 +56,8 @@
                 window.location = "http://localhost:17131/AdminHome/AllProducts";
                 }, 2000)
             },
-            error: function () {
-                alert('Error')
+            error: function (response) {
+                alert(response.statusText)
             }
         })
     })

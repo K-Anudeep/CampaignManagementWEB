@@ -6,12 +6,15 @@ namespace MarketingManagement.WEBUI.Models
     {
         [Required(ErrorMessage = "Please enter Product ID")]
         public int ProductId { get; init; }
+
         [Required(ErrorMessage = "Please enter Product Name")]
         [MaxLength(20)]
         public string ProductName { get; init; }
+
         [Required(ErrorMessage = "Please enter Product Description")]
         [MaxLength(300)]
         public string Description { get; init; }
+
         [Required(ErrorMessage = "Please enter Product Price")]
         [DataType(DataType.Currency)]
         public decimal UnitPrice { get; init; }

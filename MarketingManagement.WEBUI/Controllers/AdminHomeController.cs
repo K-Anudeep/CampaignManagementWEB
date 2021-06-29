@@ -1,8 +1,9 @@
-﻿using MarketingManagement.WEBUI.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
+using MarketingManagement.WEBUI.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
+
 namespace MarketingManagement.WEBUI.Controllers
 {
     public class AdminHomeController : Controller
@@ -50,7 +51,8 @@ namespace MarketingManagement.WEBUI.Controllers
         {
             return View(@"~/Views/AdminHome/Campaigns/AddCampaigns.cshtml");
         }
-        public IActionResult OneCampaign ()
+
+        public IActionResult OneCampaign()
         {
             return View(@"~/Views/AdminHome/Campaigns/OneCampaign.cshtml");
         }
@@ -59,28 +61,30 @@ namespace MarketingManagement.WEBUI.Controllers
         {
             return View(@"~/Views/AdminHome/Campaigns/CampaignDetails.cshtml");
         }
-        
+
         //PRODUCTS
-        
+
         public IActionResult AddProduct()
         {
             return View(@"~/Views/AdminHome/Products/AddProduct.cshtml");
         }
+
         public IActionResult AllProducts()
         {
             return View(@"~/Views/AdminHome/Products/AllProducts.cshtml");
         }
+
         public IActionResult OneProduct()
         {
             return View(@"~/Views/AdminHome/Products/OneProduct.cshtml");
         }
-        
+
         //REPORTS
         public IActionResult ViewLeadsByCampaign()
         {
             return View(@"~/Views/AdminHome/Reports/ViewLeadsByCampaign.cshtml");
         }
-        
+
         public IActionResult ViewCampaignsByExecutive()
         {
             return View(@"~/Views/AdminHome/Reports/ViewCampaignsByExecutive.cshtml");
@@ -94,7 +98,7 @@ namespace MarketingManagement.WEBUI.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
     }
 }

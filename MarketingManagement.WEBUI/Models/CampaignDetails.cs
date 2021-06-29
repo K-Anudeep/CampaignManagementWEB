@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MarketingManagement.WEBUI.Models
 {
@@ -21,5 +22,7 @@ namespace MarketingManagement.WEBUI.Models
         [Required(ErrorMessage ="Please enter the start date")]
         public DateTime StartedOn { get; init; }
         public DateTime? CompletedOn { get; init; }
+        
+        public int Leads { get; set; }
     }
 }

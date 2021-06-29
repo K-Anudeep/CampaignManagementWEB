@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using MarketingManagement.API.DataContext;
 using MarketingManagement.API.Models.Entities;
-using MarketingManagement.API.Services;
 using MarketingManagement.API.Models.Validations;
+using MarketingManagement.API.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MarketingManagement.API.Controllers
 {
@@ -15,9 +15,9 @@ namespace MarketingManagement.API.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
-        private readonly MarketingMgmtDbContext _context;
-        private readonly AdminServices _admin;
         private readonly AccessCheck _accessCheck;
+        private readonly AdminServices _admin;
+        private readonly MarketingMgmtDbContext _context;
 
         public AdminController(MarketingMgmtDbContext context)
         {
@@ -41,25 +41,21 @@ namespace MarketingManagement.API.Controllers
         //POST: api/Admin/User/Add
         [Route("User/Add")]
         [HttpPost]
-        public ActionResult<Users> AddUsers([Bind("FullName, LoginID, Password, DateOfJoin, Address, IsAdmin")] Users user)
+        public ActionResult<Users> AddUsers([Bind("FullName, LoginID, Password, DateOfJoin, Address, IsAdmin")]
+            Users user)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (UsersExists(user.LoginID))
-                    {
-                        throw new Exception("Login ID already exists!");
-                    }
+                    if (UsersExists(user.LoginID)) throw new Exception("Login ID already exists!");
 
                     //Send User details to Repo for insertion to DB
                     _admin.AddUser(user);
-                    return CreatedAtAction("GetOneUser", new { userId = user.UserID }, user);
+                    return CreatedAtAction("GetOneUser", new {userId = user.UserID}, user);
                 }
-                else
-                {
-                    throw new Exception("Model State is not valid");
-                }
+
+                throw new Exception("Model State is not valid");
             }
             catch (Exception ex)
             {
@@ -107,10 +103,7 @@ namespace MarketingManagement.API.Controllers
             //Calls User repo to get a specific user by Id
             var users = _admin.OneUser(userId);
 
-            if (users == null)
-            {
-                return NotFound();
-            }
+            if (users == null) return NotFound();
 
             return Ok(users);
         }
@@ -119,6 +112,7 @@ namespace MarketingManagement.API.Controllers
         {
             return _context.Users.Any(e => e.LoginID == loginId);
         }
+
         private bool UsersIdExists(int userId)
         {
             return _context.Users.Any(e => e.UserID == userId);
@@ -129,27 +123,23 @@ namespace MarketingManagement.API.Controllers
         //POST: api/Admin/Products/Add
         [Route("Products/Add")]
         [HttpPost]
-        public ActionResult<Products> AddProducts([Bind("ProductName, Description, UnitPrice")] Products products)
+        public ActionResult<Products> AddProducts([Bind("ProductName, Description, UnitPrice")]
+            Products products)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     if (ProductNameExists(products.ProductName))
-                    {
                         throw new Exception("A product with that name already exists!");
-                    }
 
                     //Send User details to Repo for insertion to DB
                     if (_admin.AddProducts(products))
-                        return CreatedAtAction("OneProduct", new { productId = products.ProductID}, products);
-                    else
-                        throw new Exception("Could not add Product");
+                        return CreatedAtAction("OneProduct", new {productId = products.ProductID}, products);
+                    throw new Exception("Could not add Product");
                 }
-                else
-                {
-                    throw new Exception("Model State is not valid");
-                }
+
+                throw new Exception("Model State is not valid");
             }
             catch (Exception ex)
             {
@@ -164,15 +154,12 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
-                if(!ProductIdExists(productId))
-                {
-                    throw new Exception("Product does not exist!"); 
-                }
+                if (!ProductIdExists(productId)) throw new Exception("Product does not exist!");
                 //Delete product with given Product ID
                 _admin.DeleteProduct(productId);
                 return Ok();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Content(ex.Message);
             }
@@ -188,7 +175,7 @@ namespace MarketingManagement.API.Controllers
                 var products = _admin.GetAllProducts();
                 return Ok(products);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Content(ex.Message);
             }
@@ -204,7 +191,7 @@ namespace MarketingManagement.API.Controllers
                 var products = _admin.OneProduct(productId);
                 return Ok(products);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Content(ex.Message);
             }
@@ -214,6 +201,7 @@ namespace MarketingManagement.API.Controllers
         {
             return _context.Products.Any(e => e.ProductName == productName);
         }
+
         private bool ProductIdExists(int productId)
         {
             return _context.Products.Any(e => e.ProductID == productId);
@@ -224,40 +212,31 @@ namespace MarketingManagement.API.Controllers
         //POST: api/Admin/Campaign/Add
         [Route("Campaign/Add")]
         [HttpPost]
-        public ActionResult<Campaigns> AddCampaign([Bind("Name, Venue, AssignedTo, StartedOn, CompletedOn")] Campaigns campaigns)
+        public ActionResult<Campaigns> AddCampaign([Bind("Name, Venue, AssignedTo, StartedOn, CompletedOn")]
+            Campaigns campaigns)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     if (CampaignNameExists(campaigns.Name))
-                    {
                         throw new Exception("A campaign with that name already exists!");
-                    }
-                    if(!UsersIdExists(campaigns.AssignedTo))
-                    {
+                    if (!UsersIdExists(campaigns.AssignedTo))
                         throw new Exception("User assigned to this Campaign does not exist!");
-                    }
 
                     var isAdmin = _accessCheck.AdminCheck(campaigns.AssignedTo);
                     //Check if user is Admin
-                    if(isAdmin.IsAdmin == 1)
-                    {
-                        throw new Exception("Admins cannot be assigned to campaigns");
-                    }
+                    if (isAdmin.IsAdmin == 1) throw new Exception("Admins cannot be assigned to campaigns");
 
                     campaigns.CompletedOn = campaigns.StartedOn.AddDays(7);
 
                     //Send User details to Repo for insertion to DB
                     if (_admin.AddCampaign(campaigns))
-                        return CreatedAtAction("OneCampaign", new { campaignId = campaigns.CampaignID }, campaigns);
-                    else
-                        throw new Exception("Could not add campaign");
+                        return CreatedAtAction("OneCampaign", new {campaignId = campaigns.CampaignID}, campaigns);
+                    throw new Exception("Could not add campaign");
                 }
-                else
-                {
-                    throw new Exception("Model State is not valid");
-                }
+
+                throw new Exception("Model State is not valid");
             }
             catch (Exception ex)
             {
@@ -273,10 +252,7 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
-                if (!CampaignIdExists(campaignId))
-                {
-                    throw new Exception("A campaign with that ID does not exist!");
-                }
+                if (!CampaignIdExists(campaignId)) throw new Exception("A campaign with that ID does not exist!");
 
                 var products = _admin.OneCampaign(campaignId);
                 return Ok(products);
@@ -295,10 +271,7 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
-                if (!CampaignIdExists(campaignId))
-                {
-                    throw new Exception("A campaign with that ID does not exist!");
-                }
+                if (!CampaignIdExists(campaignId)) throw new Exception("A campaign with that ID does not exist!");
 
                 var campaign = _context.Campaigns.Find(campaignId);
                 campaign.IsOpen = false;
@@ -316,6 +289,7 @@ namespace MarketingManagement.API.Controllers
         {
             return _context.Campaigns.Any(e => e.Name == campaignName);
         }
+
         private bool CampaignIdExists(int campaignId)
         {
             return _context.Campaigns.Any(e => e.CampaignID == campaignId);
@@ -330,10 +304,7 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
-                if(!CampaignIdExists(campaignId))
-                {
-                    throw new Exception("Campaign ID provided does not exist!");
-                }
+                if (!CampaignIdExists(campaignId)) throw new Exception("Campaign ID provided does not exist!");
 
                 var leads = _admin.ViewLeadByCampaign(campaignId);
                 return Ok(leads);

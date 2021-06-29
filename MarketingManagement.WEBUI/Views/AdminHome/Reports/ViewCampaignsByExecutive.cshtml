@@ -8,6 +8,9 @@
         $.ajax({
             type: "GET",
             url: "http://localhost:25733/api/Admin/Reports/CampaignByExecutive",
+                headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
             dataType: 'json',
             success: function (response) {
                 $.each(response, function (i, item) {            
@@ -18,7 +21,7 @@
                     
                     let isOpen = item.isOpen === true?"Open":"Closed";
                     
-                    let row = '<tr id="tabledata"><td class="campaignID">'
+                    let row = '<tr><td class="campaignID">'
                         + item.campaignID + '</td><td>'
                         + item.name + '</td><td>'
                         + item.venue + '</td><td>'
@@ -35,20 +38,20 @@
 
 <h1>List of Campaigns by Executive</h1>
 <div class="alert alert-dismissible alert-info">
-  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-  <strong>Click</strong> any Campaign to view it!
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Click</strong> any Campaign to view it!
 </div>
 <table class="table table-hover" id="campaignTable">
     <thead>
-        <tr>
-            <th scope="col">Campaign ID</th>
-            <th scope="col">Campaign Name</th>
-            <th scope="col">Venue</th>
-            <th scope="col">Executive ID Assigned</th>
-            <th scope="col">Started On </th>
-            <th scope="col">Completed On</th>
-            <th scope="col">Running Status</th>
-        </tr>
+    <tr>
+        <th scope="col">Campaign ID</th>
+        <th scope="col">Campaign Name</th>
+        <th scope="col">Venue</th>
+        <th scope="col">Executive ID Assigned</th>
+        <th scope="col">Started On </th>
+        <th scope="col">Completed On</th>
+        <th scope="col">Running Status</th>
+    </tr>
     </thead>
 </table>
 <script>

@@ -9,6 +9,9 @@
         $.ajax({
             type: "GET",
             url: "http://localhost:25733/api/Executive/Leads/GetOneLead?" + $.param({id: leadId}),
+                headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
             contentType: "application/json",
             data: "json",
             success: function (data) {
@@ -46,7 +49,7 @@
     })
 </script>
 <div>
-    <hr />
+    <hr/>
     <dl class="row" id="leadDetails">
     </dl>
 </div>
@@ -69,6 +72,10 @@
             type: "PUT",
             url: "http://localhost:25733/api/Executive/Leads/FollowLead/" + leadId + "/" 
                             + followUp,
+                            
+                headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
             contentType: "application/json",
             success: function () {
                 alert("Done")

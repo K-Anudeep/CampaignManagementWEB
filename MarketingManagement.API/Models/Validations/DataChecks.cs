@@ -1,13 +1,13 @@
-﻿using MarketingManagement.API.Models.Repositories;
-using MarketingManagement.API.DataContext;
+﻿using MarketingManagement.API.DataContext;
+using MarketingManagement.API.Models.Repositories;
 
 namespace MarketingManagement.API.Models.Validations
 {
     public class DataChecks
     {
-        CampaignsRepo campaignsRepo;
-        LeadsRepo leadsRepo;
-        ProductRepo productRepo;
+        private readonly CampaignsRepo campaignsRepo;
+        private readonly LeadsRepo leadsRepo;
+        private readonly ProductRepo productRepo;
 
         public DataChecks(MarketingMgmtDbContext context)
         {
@@ -24,11 +24,8 @@ namespace MarketingManagement.API.Models.Validations
         public bool CheckCampaign(int campaignId)
         {
             if (campaignsRepo.OneCampaign(campaignId) != null)
-            {
                 return true;
-            }
-            else
-                return false;
+            return false;
         }
 
         ////public bool CheckUser(int userID)

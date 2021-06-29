@@ -20,6 +20,7 @@
                     document.getElementById("loginDivSuccess").style.display = 'block'
                     sessionStorage.setItem("userSessionId", data.userID)
                     sessionStorage.setItem("userSessionName", data.fullName)
+                    sessionStorage.setItem("JWT", data.token)
                     setTimeout(function (){                        
                     if (data.isAdmin === 1) {
                         window.location = "http://localhost:17131/AdminHome/Index"
@@ -40,36 +41,37 @@
 <h1>Welcome!</h1>
 
 <h4>Enter Credentials</h4>
-<hr />
+<hr/>
 <div class="row" id="loginForm">
     <div class="col-md-4">
         <form>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group form-floating">
-                <input asp-for="UserId" class="form-control" id="UserId" placeholder="User ID" />
+                <input asp-for="UserId" class="form-control" id="UserId" placeholder="User ID"/>
                 <label asp-for="UserId" class="control-label" for="UserId">User ID</label>
                 <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
-            <br />
+            <br/>
             <div class="form-group form-floating">
-                <input asp-for="Password" class="form-control" id="Password" placeholder="Password" />
+                <input asp-for="Password" class="form-control" id="Password" placeholder="Password"/>
                 <label asp-for="Password" class="control-label" for="Password">Password</label>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <br />
-                <input type="submit" value="Login" class="btn btn-primary" id="loginBtn" />
+                <br/>
+                <input type="submit" value="Login" class="btn btn-primary" id="loginBtn"/>
             </div>
-            <br />
+            <br/>
             <div class="alert alert-success" id="loginDivSuccess" style="display: none">
-                            Login Success: Redirecting you...
-                        </div>
+                Login Success: Redirecting you...
+            </div>
             <div class="alert alert-danger" id="loginDivFail" style="display: none">
                 Login Failed: Check your credentials and try again!
             </div>
         </form>
     </div>
 </div>
+
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

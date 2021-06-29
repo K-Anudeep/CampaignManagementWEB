@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "All Products";
     Layout = "~/Views/AdminHome/_Layout.cshtml";
 }
@@ -9,6 +8,9 @@
         $.ajax({
             type: "GET",
             url: "http://localhost:25733/api/Admin/Products/GetAll",
+                headers: {
+                                Authorization: 'Bearer ' + sessionStorage.getItem("JWT")
+                            },
             dataType: 'json',
             success: function (response) {
                 $.each(response, function (i, item) {
@@ -27,17 +29,17 @@
 
 <h1>List of Products</h1>
 <div class="alert alert-dismissible alert-info">
-  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-  <strong>Click</strong> any product to view it!
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Click</strong> any product to view it!
 </div>
 <table class="table table-hover" id="productTable">
     <thead>
-        <tr>
-            <th scope="col">Product Id</th>
-            <th scope="col">Product Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Unit Price</th>
-        </tr>
+    <tr>
+        <th scope="col">Product Id</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Unit Price</th>
+    </tr>
     </thead>
 </table>
 <script>

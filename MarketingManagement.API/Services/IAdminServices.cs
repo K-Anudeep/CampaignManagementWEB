@@ -37,6 +37,5 @@ namespace MarketingManagement.API.Services
         IEnumerable<Leads> ViewLeadByCampaign(int campaignId);
 
         IEnumerable<Campaigns> ViewCampaignByExecutive();
-
     }
 }

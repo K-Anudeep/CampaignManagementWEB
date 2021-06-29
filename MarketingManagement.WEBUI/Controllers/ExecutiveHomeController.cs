@@ -1,8 +1,7 @@
-﻿using MarketingManagement.WEBUI.Models;
+﻿using System.Diagnostics;
+using MarketingManagement.WEBUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
-using System;
 
 namespace MarketingManagement.WEBUI.Controllers
 {
@@ -19,11 +18,13 @@ namespace MarketingManagement.WEBUI.Controllers
         {
             return View();
         }
+
         //Leads
         public IActionResult CreateLeads()
         {
             return View(@"~/Views/ExecutiveHome/Leads/CreateLeads.cshtml");
         }
+
         public IActionResult GetLeadsByMe()
         {
             return View(@"~/Views/ExecutiveHome/Leads/GetLeadsByMe.cshtml");
@@ -39,15 +40,18 @@ namespace MarketingManagement.WEBUI.Controllers
         {
             return View(@"~/Views/ExecutiveHome/Sales/CreateSales.cshtml");
         }
+
         public IActionResult GetSales()
         {
             return View(@"~/Views/ExecutiveHome/Sales/GetSales.cshtml");
         }
+
         //Campaign
         public IActionResult GetCampaignAsgnToMe()
         {
             return View();
         }
+
         public IActionResult Privacy()
         {
             return View();
@@ -61,7 +65,7 @@ namespace MarketingManagement.WEBUI.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
     }
 }
