@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using MarketingManagement.API.DataContext;
 using MarketingManagement.API.Models.Entities;
 using MarketingManagement.API.Models.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace MarketingManagement.API.Models.Repositories
 {
@@ -85,13 +82,6 @@ namespace MarketingManagement.API.Models.Repositories
 
             var list  = query.OrderBy(x => x.AssignedTo);
             return list;
-            //SELECT c.AssignedTo ,c.CampaignID, c.Name, c.Venue,c.StartedOn, c.CompletedOn, c.IsOpen,COUNT(C.Name)as Leads 
-            //FROM Campaign AS c RIGHT JOIN Leads AS l ON l.CampaignID = c.CampaignID group by c.AssignedTo, c.CampaignID, c.Name,c.Venue,c.StartedOn, c.CompletedOn, c.IsOpen
-            //ORDER BY c.AssignedTo
-            return _context.Campaigns.FromSqlRaw(
-                "SELECT c.AssignedTo ,c.CampaignID, c.Name, c.Venue,c.StartedOn, c.CompletedOn, c.IsOpen,COUNT(C.Name)as Leads " +
-                "FROM Campaign AS c RIGHT JOIN Leads AS l ON l.CampaignID = c.CampaignID group by c.AssignedTo, c.CampaignID, c.Name, c.Venue, c.StartedOn, c.CompletedOn, c.IsOpen " +
-                "ORDER BY c.AssignedTo");
         }
     }
 }
