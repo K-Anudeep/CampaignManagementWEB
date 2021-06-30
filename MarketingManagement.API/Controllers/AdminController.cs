@@ -71,6 +71,7 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
+                //DISCONTINUE USER
                 _admin.DiscontinueUser(userId);
                 return Ok();
             }
@@ -108,11 +109,14 @@ namespace MarketingManagement.API.Controllers
             return Ok(users);
         }
 
+        //INTERNAL ONLY
+
+        //Check if User Login ID Exitsts
         private bool UsersExists(string loginId)
         {
             return _context.Users.Any(e => e.LoginID == loginId);
         }
-
+        //Check to see if User ID exists
         private bool UsersIdExists(int userId)
         {
             return _context.Users.Any(e => e.UserID == userId);
@@ -154,6 +158,7 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
+                //Check for Product ID
                 if (!ProductIdExists(productId)) throw new Exception("Product does not exist!");
                 //Delete product with given Product ID
                 _admin.DeleteProduct(productId);
@@ -172,6 +177,7 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
+                //GET and RETURN products
                 var products = _admin.GetAllProducts();
                 return Ok(products);
             }
@@ -217,9 +223,12 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
+                //Check for Model State
                 if (!ModelState.IsValid) throw new Exception("Model State is not valid");
+                //Check for Campaign Name
                 if (CampaignNameExists(campaigns.Name))
                     throw new Exception("A campaign with that name already exists!");
+                //Check for USER assigned to Campaign
                 if (!UsersIdExists(campaigns.AssignedTo))
                     throw new Exception("User assigned to this Campaign does not exist!");
 
@@ -248,8 +257,9 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
-                if (!CampaignIdExists(campaignId)) throw new Exception("A campaign with that ID does not exist!");
-
+                //Check for Campaign ID
+                if (!CampaignIdExists(campaignId))
+                    throw new Exception("A campaign with that ID does not exist!");
                 var products = _admin.OneCampaign(campaignId);
                 return Ok(products);
             }
@@ -267,6 +277,7 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
+                //CHECK FOR CAMPAIGN ID
                 if (!CampaignIdExists(campaignId)) throw new Exception("A campaign with that ID does not exist!");
 
                 var campaign = _context.Campaigns.Find(campaignId);
@@ -302,7 +313,9 @@ namespace MarketingManagement.API.Controllers
             {
                 //Check for Campaign
                 if (!CampaignIdExists(campaignId)) throw new Exception("Campaign ID provided does not exist!");
-
+                //Check if Lead exists
+                if (!isLeadExists(campaignId))
+                    throw new Exception("Leads for the given campaign do not exist");
                 var leads = _admin.ViewLeadByCampaign(campaignId);
                 if (leads == null) throw new Exception("No results found!");
                 return Ok(leads);
@@ -311,6 +324,12 @@ namespace MarketingManagement.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+        //Check for Leads
+        //INTERNAL
+        private bool isLeadExists(int campaignId)
+        {
+            return _context.Leads.Any(e => e.CampaignID == campaignId);
         }
 
         //GET: api/Admin/Reports/CampaignByExecutive

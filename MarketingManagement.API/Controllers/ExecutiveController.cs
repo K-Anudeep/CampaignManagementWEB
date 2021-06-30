@@ -47,7 +47,7 @@ namespace MarketingManagement.API.Controllers
         {
             try
             {
-                session = new Session();   
+                session = new Session();
                 //Checks if Campaign ID exists
                 if (!_dataChecks.CheckCampaign(leads.CampaignID))
                     throw new Exception("Campaign ID given does not exist!");
